@@ -1,0 +1,63 @@
+@extends('layouts.dashboard')
+@section('content')
+<div id="global">
+  <div class="container-fluid">
+    <div class="panel panel-default">
+
+
+      <div class="panel-body">
+        {{-- <h5 class="panel-heading" id="panelhead">TEA REPORT</h5> --}}
+        <div class="panel-body" id="owner">
+         <div class="image">
+           <img src="{{ URL::to('image/profileimg.png') }}">
+           <p>Daisy Chepkemoi</p>
+           <p><button class="btn-default" ><a href="/editprofile">Edit</a> </button></p>
+
+         </div>
+         <div class="profiledetails">
+           <div class="profileone">
+             <h5 class="panel-heading " id="panelhead">Profile Details</h5>
+             <table class="table table-borderless" id="table">
+
+              <tbody>
+                <tr>
+                  <td  class="first">Name</td>
+                  <td class="detail">Daisy Chepkemoi</td>
+                </tr>
+                <tr>
+                  <td  class="first">National Id</td>
+                  <td class="detail">Mark</td>     
+                </tr>
+                <tr>
+                  <td  class="first">Phone Number</td>
+                  <td class="detail">Mark</td>
+
+                </tr>
+                <tr>
+                  <td scope=" row" class="first">Tea Number</td>
+                  <td class="detail">Mark</td>     
+                </tr>
+                <tr>
+                  <td scope=" row" class="first">Location</td>
+                  <td class="detail">Mark</td>     
+                </tr>
+                <tr>
+                  <td scope="row" class="first">Email</td>
+                  <td scope="row" class="detail">Mark</td>     
+                </tr>
+                <tr>
+                  <td scope="row" class="first">No Of Acres</td>
+                  <td class="detail">20</td>     
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+</div>
+@endsection
