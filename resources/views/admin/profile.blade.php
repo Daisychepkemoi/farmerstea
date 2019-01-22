@@ -10,7 +10,7 @@
         <div class="panel-body" id="owner">
          <div class="image">
            <img src="{{ URL::to('image/profileimg.png') }}">
-           <p>Daisy Chepkemoi</p>
+           <p>{{ $user->f_name}} {{$user->l_name}}</p>
            <p><button class="btn-default" ><a href="/editprofile">Edit</a> </button></p>
 
          </div>
@@ -22,32 +22,32 @@
               <tbody>
                 <tr>
                   <td  class="first">Name</td>
-                  <td class="detail">Daisy Chepkemoi</td>
+                  <td class="detail">{{ $user->f_name}} {{$user->l_name}}</td>
                 </tr>
                 <tr>
                   <td  class="first">National Id</td>
-                  <td class="detail">Mark</td>     
+                  <td class="detail">{{ $user->national_id}}</td>     
                 </tr>
                 <tr>
                   <td  class="first">Phone Number</td>
-                  <td class="detail">Mark</td>
+                  <td class="detail">{{ $user->phone_no}}</td>
 
                 </tr>
                 <tr>
                   <td scope=" row" class="first">Tea Number</td>
-                  <td class="detail">Mark</td>     
+                  <td class="detail">{{ $user->tea_no}}</td>     
                 </tr>
                 <tr>
                   <td scope=" row" class="first">Location</td>
-                  <td class="detail">Mark</td>     
+                  <td class="detail">{{ $tea->location}}</td>     
                 </tr>
                 <tr>
                   <td scope="row" class="first">Email</td>
-                  <td scope="row" class="detail">Mark</td>     
+                  <td scope="row" class="detail">{{ $user->email}}</td>     
                 </tr>
                 <tr>
                   <td scope="row" class="first">No Of Acres</td>
-                  <td class="detail">20</td>     
+                  <td class="detail">{{ $tea->no_acres}}</td>     
                 </tr>
               </tbody>
             </table>

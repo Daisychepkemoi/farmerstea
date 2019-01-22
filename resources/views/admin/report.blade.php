@@ -35,32 +35,32 @@
                       <tbody>
                         <tr>
                           <td class="label">Name</td>
-                          <td class="detail">Daisy Chepkemoi</td>
+                          <td class="detail">{{ $user->f_name}} {{$user->l_name}}</td>
                       </tr>
                       <tr>
                           <td class="label">National Id</td>
-                          <td class="detail">Mark</td>     
+                          <td class="detail">{{ $user->national_id}}</td>     
                       </tr>
                       <tr>
                           <td class="label">Phone Number</td>
-                          <td class="detail">Mark</td>
+                          <td class="detail">{{ $user->phone_no}}</td>
 
                       </tr>
                       <tr>
                           <td class="label">Tea Number</td>
-                          <td class="detail">Mark</td>     
+                          <td class="detail">{{ $tea->tea_no}}</td>     
                       </tr>
                       <tr>
                           <td class="label">Email</td>
-                          <td class="detail">Mark</td>     
+                          <td class="detail">{{ $user->email}}</td>     
                       </tr>
                       <tr>
                           <td class="label">No Of Acres</td>
-                          <td class="detail">20</td>     
+                          <td class="detail">{{ $tea->tea_no}}</td>     
                       </tr>
                       <tr>
                           <td class="label">Date Of Processing</td>
-                          <td class="detail">Mark</td>     
+                          <td class="detail">{{ $tea->created_at}}</td>     
                       </tr>
 
 

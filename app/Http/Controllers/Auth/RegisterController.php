@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\User;
+use App\Tea;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -28,7 +29,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/report';
 
     /**
      * Create a new controller instance.
@@ -48,25 +49,50 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
-        return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:6', 'confirmed'],
+       return Validator::make($data, [
+            'firstname' => 'required|string|max:255',
+            'lastname' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'national_id' => 'required|string|min:6|unique:users',
+            'phone_no' => 'required|string|min:9|unique:users',
+            'password' => 'required|string|min:6|confirmed',
         ]);
     }
 
-    /**
-     * Create a new user instance after a valid registration.
-     *
-     * @param  array  $data
-     * @return \App\User
-     */
+//     /**
+//      * Create a new user instance after a valid registration.
+//      *
+//      * @param  array  $data
+//      * @return \App\User
+//      */
     protected function create(array $data)
     {
-        return User::create([
-            'name' => $data['name'],
+        $user= User::create([
+            'f_name' => $data['firstname'],
+            'l_name' => $data['lastname'],
+            'national_id' => $data['national_id'],
+            'phone_no' => $data['phone_no'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
+        $expected_produce=  911* request('No_Acres');
+        $bonus= $expected_produce * 28.80;
+        $fert=   8 * request('No_Acres');
+         $users= $user->id;
+         $ferta = 6.0;
+        $tea= Tea::create([
+            'no_acres' => request('No_Acres'),
+            'user_id' => $users,
+            'no_of_fert' => $fert,
+            'expected_produce' => $expected_produce,
+            'bonus' => $bonus,
+            'location' =>request('Location'),
+            
+        ]);
+        // $pr= array()
+        return ($user);
+        // dd($user);
+
+       
     }
 }

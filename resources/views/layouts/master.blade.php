@@ -131,7 +131,7 @@
                 <li><a href="#contact" class="page-scroll">Contact</a></li>
                 <li> <a href="{{ route('login') }}">Login</a></li>
                 @if (Route::has('register'))
-                <li><a href="{{ route('register') }}">Register</a></li>
+                <li><a href="{{ route('register')}}">Register</a></li>
                 @endif
             </ul>
         </div>

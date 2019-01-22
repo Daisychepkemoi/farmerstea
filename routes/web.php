@@ -18,6 +18,8 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'UsersController@index')->name('home');
+Route::get('/regista', 'UsersController@regista');
+Route::post('/reg', 'UsersController@store');
 Route::get('/dashboard', 'UsersController@admin')->name('dash');
 Route::get('/report', 'UsersController@report')->name('report');
 Route::get('/events', 'UsersController@events')->name('event');
@@ -25,7 +27,8 @@ Route::get('/eventid', 'UsersController@eventid')->name('eventid');
 Route::get('/notification', 'UsersController@notification');
 Route::get('/notificationid', 'UsersController@notificationid');
 Route::get('/profile', 'UsersController@profile');
-Route::get('/editprofile', 'UsersController@editprofile');
+Route::get('/profile/editt', 'UsersController@editprofile');
+Route::get('/profile/edit/{f_name} {l_name}', 'UsersController@editprofile');
 Route::get('/pdfgenerate', 'UsersController@generate')->name('generate');
 //admin
 // Route::get('/', 'UsersController@index')->name('home');

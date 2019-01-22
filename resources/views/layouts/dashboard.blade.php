@@ -105,7 +105,7 @@
                     <button class="btn btn-success " style="background-image: url({{url('/image/User.ico')}}) ;" data-toggle="dropdown"></button>
                     <ul class="dropdown-menu">
                         <li class="disabled text-center">
-                            <a style="cursor:default;"><strong>John Smith</strong></a>
+                            <a style="cursor:default;"><strong>{{$user->f_name}}</strong></a>
                         </li>
                         <li class="divider"></li>
                         <li>

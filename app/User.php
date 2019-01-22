@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'f_name','l_name' 'email','phone_no','national_id','role','password',
+        'f_name','l_name', 'email','phone_no','national_id','role','password',
     ];
 
     /**
@@ -40,9 +40,9 @@ class User extends Authenticatable
 
         return $this->hasMany(Event::class);
     }
-     public function reports() {
+     public function producedetail() {
 
-        return $this->hasMany(Report::class);
+        return $this->hasMany(ProduceDetail::class);
     }
 
 

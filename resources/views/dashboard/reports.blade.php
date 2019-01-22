@@ -31,40 +31,53 @@
               <h5 class="panel-heading" id="panelhead">TEA REPORT</h5>
               <div class="panel-body" id="owner">
                    <table class="table borderless" id="table">
-
+                      @foreach($tea as $teas)
                       <tbody>
                         <tr>
                           <td class="label">Name</td>
-                          <td class="detail">Daisy Chepkemoi</td>
+                          <td class="detail">{{ $user->f_name}} {{ $user->l_name}}</td>
                       </tr>
                       <tr>
                           <td class="label">National Id</td>
-                          <td class="detail">Mark</td>     
+                          <td class="detail">{{ $user->national_id}}</td>     
                       </tr>
                       <tr>
                           <td class="label">Phone Number</td>
-                          <td class="detail">Mark</td>
+                          <td class="detail">{{ $user->phone_no}}</td>
 
                       </tr>
+                      @if($teas->tea_no == null)
                       <tr>
                           <td class="label">Tea Number</td>
-                          <td class="detail">Mark</td>     
+                          <td class="detail">Not yet allocated</td>     
                       </tr>
+                     
+                    @else
+
+
                       <tr>
+                          <td class="label">Tea Number</td>
+                          <td class="detail">{{$teas->tea_no}}</td>     
+                      </tr>
+                    
+                    @endif
+                      <tr>
+
                           <td class="label">Email</td>
-                          <td class="detail">Mark</td>     
+                          <td class="detail">{{ $user->email}}</td>     
                       </tr>
                       <tr>
                           <td class="label">No Of Acres</td>
-                          <td class="detail">20</td>     
+                          <td class="detail">{{$teas->no_acres}}</td>     
                       </tr>
                       <tr>
                           <td class="label">Date Of Processing</td>
-                          <td class="detail">Mark</td>     
+                          <td class="detail">{{ $teas->created_at}}</td>     
                       </tr>
 
 
                     </tbody>
+                    @endforeach
                 </table>
               </div>
             </div>

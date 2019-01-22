@@ -4,9 +4,18 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use PDF;
+use App\User;
+use App\Tea;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 
 class UsersController extends Controller
 {
+    //i acre=911kg.
+    //1kg=28.80 sh bonus
+    //1492 ksh for 50kg fert bag
+    //8bags per acre.
+    //
     /**
      * Create a new controller instance.
      *
@@ -14,7 +23,7 @@ class UsersController extends Controller
      */
     public function __construct()
     {
-        // $this->middleware('auth');
+        $this->middleware('auth');
     }
 
     /**
@@ -22,6 +31,9 @@ class UsersController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
+
+
+    //
     public function index()
     {
         return view('posts.index');
@@ -33,9 +45,12 @@ class UsersController extends Controller
     }
     public function report()
     {
-        return view('dashboard.reports');
+        $user = auth()->user();
+        $tea= Tea::where('user_id', $user->id)->get();
+        // dd($tea);
+        return view('dashboard.reports', compact('user', 'tea'));
     }
-     public function events()
+    public function events()
     {
         return view('dashboard.events');
     }
@@ -51,37 +66,29 @@ class UsersController extends Controller
     {
         return view('dashboard.notificationid');
     }
-     public function profile()
+    public function profile()
     {
-        return view('dashboard.profile');
+        $user=auth()->user();
+        $tea= Tea::where('user_id', $user->id)->get();
+        // dd($tea);
+        return view('dashboard.profile', compact('user', 'tea'));
     }
-    public function editprofile()
+    public function editprofile(tea $tea)
     {
-        return view('dashboard.editprofile');
+        $user=auth()->user();
+        $tea= Tea::where('user_id', $user->id)->get();
+        return view('dashboard.editprofile', compact('user', 'tea'));
     }
     public function generate()
     {
-        // set_time_limit(0);
-        // if($request->has('download')) {
-        //     // pass view file
-        //     $pdf = PDF::loadView('dashboard.report');
-        //     // download pdf
-        //     return $pdf->download('userlist.pdf');
-        // }
-        // return view('dashboard.report');
-         // $data = Customer::get();
-         // $data = 'Data';
-    // Send data to the view using loadView function of PDF facade
-    $pdf = PDF::loadView('dashboard.rename');
-    // If you want to store the generated pdf to the server then you can use the store function
-    // $pdf->save(storage_path().'_filename.pdf');
-    // Finally, you can download the file using download function
-    return $pdf->download('customers.pdf');
+        $pdf = PDF::loadView('dashboard.rename');
+        // If you want to store the generated pdf to the server then you can use the store function
+        // $pdf->save(storage_path().'_filename.pdf');
+        // Finally, you can download the file using download function
+        return $pdf->download('customers.pdf');
     }
-
-
-// $pdf = PDF::loadView('pdf.test', ['data' => $data]);
-// return $pdf->download('teste.pdf');
-
-
+    public function edit($id)
+    {
+        $users= User::find($id);
+    }
 }

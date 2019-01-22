@@ -10,53 +10,60 @@
         <div class="panel-body" id="owner">
          <div class="image">
            <img src="{{ URL::to('image/profileimg.png') }}">
-           <p>Daisy Chepkemoi</p>
+           <p>{{ $user->f_name}} {{$user->l_name}}</p>
           
 
          </div>
          <div class="profiledetails">
            <div class="profileone">
              <h5 class="panel-heading " id="panelhead">Profile Details</h5>
-             <form method="POST" action="">
+             <form method="POST" action="/profile/edit/{{ $user->f_name}} {{$user->l_name}}">
              	@csrf
              <table class="table table-borderless" id="table">
-
+                @foreach($tea as $teas)
               <tbody>
                 <tr>
                   <td  class="first">Name</td>
                   {{-- <td><button btn-primary><a href="/delete.php">delete</a></button></td> --}}
                   {{-- <td><button btn-danger>edit</button></td> --}}
-                  <td class="detail"><input type="text" name="name" value="Daisy Chepkemoi" required=""></td>
+                  <td class="detail"><input type="text" name="firstname" value="{{ $user->f_name}} {{$user->l_name}}" required=""></td>
                 </tr>
                 <tr>
                   <td  class="first">National Id</td>
-                  <td class="detail" title="Not Editable" >1798565</td>     
+                  <td class="detail" title="Not Editable" ><input type="text" name="national_id" value="{{ $user->national_id}} {{$user->l_name}}" required="" readonly=""></td>     
                 </tr>
                 <tr>
                   <td  class="first">Phone Number</td>
-                  <td class="detail"><input type="number" name="phone_No" value="01223355" required=""></td>
+                  <td class="detail"><input type="number" name="phone_no" value="{{ $user->phone_no}}" required=""></td>
 
                 </tr>
+                  @if($teas->tea_no == null)
                 <tr>
                   <td scope=" row" class="first">Tea Number</td>
-                  <td class="detail" title="Not Editable" >452</td>     
+                  <td class="detail" title="Not Editable" ><input type="text" name="tea_no" value="not yet allocated" required readonly=""></td>     
                 </tr>
+                @else 
+                 <tr>
+                  <td scope=" row" class="first">Tea Number</td>
+                  <td class="detail" title="Not Editable" ><input type="number" name="tea_no" value="{{ $teas->tea_no}}" required="" readonly=""></td>     
+                </tr>
+                @endif
                 <tr>
                   <td scope=" row" class="first">Location</td>
-                  <td class="detail" ><input type="text" name="location" value="Daisy Chepkemoi" required></td>     
+                  <td class="detail" ><input type="text" name="location" value="{{ $teas->location}}" required></td>     
                 </tr>
                 <tr>
                   <td scope="row" class="first">Email</td>
-                  <td scope="row" class="detail" ><input type="email" name="email" value="Daisy Chepkemoi" required=""></td>     
+                  <td scope="row" class="detail" ><input type="email" name="email" value="{{ $user->email}}" required=""></td>     
                 </tr>
                 <tr>
                   <td scope="row" class="first">No Of Acres</td>
-                  <td class="detail" title="Not Editable">20</td>
+                  <td class="detail" title="Not Editable"><input type="number" name="no_acres" value="{{ $teas->no_acres}}" required="" readonly=""></td>
                 </tr>
-
+                  @endforeach
               </tbody>
             </table>
-            <p><button class="btn-success" ><a href="/editprofile">Save</a> </button></p>
+            <p><button class="btn-success" type="submit" >Save</button></p>
         </form>
           </div>
         </div>

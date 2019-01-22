@@ -4,14 +4,20 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Event extends Model
+class ProduceDetail extends Model
 {
      protected $fillable = [
         'user_id','title' ,'body',
     ];
+     public function teas() {
+
+        return $this->BelongsTo(Tea::class);
+    }
      public function users() {
 
-        return $this->BelongsTo(User::class);
+        return $this->BelongsTo(Users::class);
     }
+    
+
 
 }

@@ -12,6 +12,11 @@ class ReportController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    
+    public function report()
+    {
+        return view('dashboard.reports');
+    }
     public function index()
     {
         //
