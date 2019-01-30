@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class TeasTableSeeder extends Seeder
+class Tea_DetailsTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -11,6 +11,6 @@ class TeasTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Tea::class, 31)->create();
+        factory(App\Tea_Details::class, 5)->create();
     }
 }

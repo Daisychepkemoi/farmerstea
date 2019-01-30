@@ -1,7 +1,8 @@
 <?php
 
 namespace App;
-
+Use App\User;
+use App\Tea_Details;
 use Illuminate\Database\Eloquent\Model;
 
 class Tea extends Model
@@ -11,11 +12,11 @@ class Tea extends Model
     ];
      public function Users() {
 
-        return $this->BelongsTo(User::class);
+        return $this->BelongsTo(User::class,'user_id');
     }
-     public function producedetail() {
+     public function Tea_details() {
 
-        return $this->hasMany(ProduceDetail::class);
+        return $this->hasMany(Tea_Details::class,'tea_no');
     }
    
 

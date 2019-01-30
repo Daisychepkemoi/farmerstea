@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Event;
+use App\User;
+use App\Notification;
+use Illuminate\Pagination\Paginator;
+
 use Illuminate\Http\Request;
 
 class EventController extends Controller
@@ -12,9 +16,65 @@ class EventController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+
+     public function __construct()
     {
-        //
+        $this->middleware('auth');
+    }
+    public function eventsperday()
+    {
+         $user = auth()->user();
+        $notcount = Notification::get()->count();
+        $month = request('month');
+        $nmonth = date('m',strtotime($month));
+       $user_id = Event::pluck('user_id');
+            // $events = Event::orderBy('held_at', 'DESC')->get();
+            $createdby= User::where('id', $user_id)->get();
+       
+               $eventcount = Event::whereYear('held_at', '=', request('year'))
+              ->whereMonth('held_at', '=', $nmonth)
+              ->count();
+
+              if($eventcount == 0) {
+                return view('admin.emptyevent',compact('user','notcount'));
+              }
+              else{
+                 $events = Event::whereYear('held_at', '=', request('year'))
+              ->whereMonth('held_at', '=', $nmonth)
+              ->paginate(10);
+              
+              // dd($eventcount);
+              return view('admin.viewevents',compact('user','notcount','events','createdby'));
+          }
+              // dd($event);
+    }
+
+    public function notificationsperday()
+    {
+         $user = auth()->user();
+        $notcount = Notification::get()->count();
+        $month = request('month');
+        $nmonth = date('m',strtotime($month));
+       $user_id = Notification::pluck('user_id');
+            // $events = Event::orderBy('held_at', 'DESC')->get();
+            $createdby= User::where('id', $user_id)->get();
+       
+               $notcount = Notification::whereYear('created_at', '=', request('year'))
+              ->whereMonth('created_at', '=', $nmonth)
+              ->count();
+
+              if($notcount == 0) {
+                return view('admin.emptynot',compact('user','notcount'));
+              }
+              else{
+                 $notification = Notification::whereYear('created_at', '=', request('year'))
+              ->whereMonth('created_at', '=', $nmonth)
+              ->paginate(10);
+              
+              // dd($eventcount);
+              return view('admin.viewnotifications',compact('user','notcount','notification','createdby'));
+          }
+              // dd($event);
     }
 
     /**
@@ -35,7 +95,16 @@ class EventController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $user= auth()->user();
+        $users =$user->id;
+        $notification = Notification::create([
+            'user_id'=>$users,
+            'title'=>request('title'),
+            'body'=>request('body'),
+            
+        ]);
+        dd($notification);
+        return redirect('/viewnotifications', compact('user'));
     }
 
     /**

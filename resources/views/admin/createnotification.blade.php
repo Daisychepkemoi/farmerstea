@@ -7,68 +7,24 @@
 
         <div class="panel-body" id="event">
          <h5 class="panel-heading" id="panelhead">Notifications</h5>
-         <div class="eventid">
-          <p><a href="/notificationid">HELLO krnya</a></p>
-          <p><small>blah blah blahhhhhhhhh</small></p>
-        </div>
-        <hr>
-        <div class="eventid">
-          <p><a href="/eventid">HELLO krnya</a></p>
-          <p><small>blah blah blahhhhhhhhh</small></p>
-        </div>
-        <hr>
-        <div class="eventid">
-          <p><a href="/eventid">HELLO krnya</a></p>
-          <p><small>blah blah blahhhhhhhhh</small></p>
-        </div>
-        <hr>
-        <div class="eventid">
-         <p><a href="/eventid">HELLO krnya</a></p>
-         <p><small>blah blah blahhhhhhhhh</small></p>
-       </div>
-       <hr>
-       <div class="eventid">
-         <p><a href="/eventid">HELLO krnya</a></p>  
-         <p><small>blah blah blahhhhhhhhh</small></p>
-       </div>
-       <hr>
-        <div class="eventid">
-         <p><a href="/eventid">HELLO krnya</a></p>
-        <p><small>blah blah blahhhhhhhhh</small></p>
-      </div>
-      <hr>
-      <div class="eventid">
-        <p>HELLO krnya</p>
-        <p><small>blah blah blahhhhhhhhh</small></p>
-      </div>
-      <hr>
+         
+     <form method="POST" action="/admin/createnotification">
+            @csrf
+            <label for="title"><b>{{ __('Notification Title') }}</b></label>
+            <input class="input" id="title" type="text"  placeholder="Title" name="title"  required autofocus>
+             <label for="body"><b>{{ __('Notification Body') }}</b></label>
+            {{-- <TEXTAREA class="input" id="body" type="text"  placeholder="Body" name="body"  required autofocus> </TEXTAREA> --}}
+             <textarea name="body"   class="summernote" required autofocus=""></textarea>
+           
+          
+            <button class=" button btn-success" type="submit">Create</button>
+       
+
+          </form>
+         
 
     </div>
-    <div class="panel-body" id="eventdate">
-      <div class="panel-body" id="month">
-       <h5 class="panel-heading" id="panelhead">Time</h5>
-       <div class="time" >
-        <select>
-          <option>2018</option>
-          <option>2019</option>
-          <option>2020</option>
-          <option>2021</option>
-          <option>2022</option>
-          <option>2018</option>
-        </select>
-        <p><a href="">January</a></p>
-        <p><a href="">January</a></p>
-        <p><a href="">January</a></p>
-        <p><a href="">January</a></p>
-        <p><a href="">January</a></p>
-        <p><a href="">January</a></p>
-        <p><a href="">January</a></p>
-        <p><a href="">January</a></p>
-        <p><a href="">January</a></p>
-        <p><a href="">January</a></p>
-        <p><a href="">January</a></p>
-      </div>
-    </div>
+   
     <div class="panel-body" id="blog">
      <h5 class="panel-heading" id="panelhead">Latest News</h5>
      <div class="blogid" >

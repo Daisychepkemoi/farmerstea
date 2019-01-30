@@ -7,18 +7,37 @@
                 <h4>Period</h4>
                 <div class="start">
                     <label for="startdate" >Start Date</label>
-                    <input  type="date" name="startdate" placeholder="Start Date">
+                    <input  type="text" name="startdate" placeholder="Start Date">
                 </div>
                 <div class="start">
                     <label for="enddate" >EndDate</label>
-                    <input type="date"  name="enddate" placeholder="End Date">
+                    <input type="text"  name="enddate" placeholder="End Date">
                 </div>
                 <div class="end">
 
                     <p>
-                        <a href="{{ route('generate',['download'=>'pdf']) }}" download >
+                        // $teadetails = Tea_Details::get();
+    // dd($teasum);
+        // // dd($teasum);
+        // $usertea = DB::table('users')
+        // ->select('users.id','users.f_name','users.l_name','teas.tea_no')
+        // ->join('teas','teas.user_id','=','users.id')
+        // ->where('users.role','user')
+        // ->get();
+
+        //  $tead = DB::table('teas')
+        // ->select('teas.tea_no','teas.user_id','sum(tea__details.net_weight) as netweight','tea__details.gross_weight')
+        // ->join('tea__details','tea__details.tea_no','=','teas.tea_no')
+        // // ->whereIn('teas.tea_no',$tea)
+        // // ->groupBy('teas.tea_no')
+        // ->get()
+       
+        // ->sum('net_weight')
+        ;
+        // dd($farmer);
+                        <a href="/report" download >
                             <i> 
-                                <img src="{{ URL::to('image/Downloads.ico') }}" title="Download">
+                                <img src="{{ URL::to('image/Downloads.ico') }}" title="Download" download>
                             </i>
 
                         </a>
@@ -31,55 +50,40 @@
               <h5 class="panel-heading" id="panelhead">TEA REPORT</h5>
               <div class="panel-body" id="owner">
                    <table class="table borderless" id="table">
-                      @foreach($tea as $teas)
+
                       <tbody>
                         <tr>
                           <td class="label">Name</td>
-                          <td class="detail">{{ $user->f_name}} {{ $user->l_name}}</td>
+                          <td class="detail">Daisy Chepkemoi</td>
                       </tr>
                       <tr>
                           <td class="label">National Id</td>
-                          <td class="detail">{{ $user->national_id}}</td>     
+                          <td class="detail">Mark</td>     
                       </tr>
                       <tr>
                           <td class="label">Phone Number</td>
-                          <td class="detail">{{ $user->phone_no}}</td>
+                          <td class="detail">Mark</td>
 
                       </tr>
-                      @if($teas->tea_no == null)
                       <tr>
                           <td class="label">Tea Number</td>
-                          <td class="detail">Not yet allocated</td>     
+                          <td class="detail">Mark</td>     
                       </tr>
-                     
-                    @else
-
-
                       <tr>
-                          <td class="label">Tea Number</td>
-                          <td class="detail">{{$teas->tea_no}}</td>     
-                      </tr>
-                    
-                    @endif
-                      <tr>
-
                           <td class="label">Email</td>
-                          <td class="detail">{{ $user->email}}</td>     
+                          <td class="detail">Mark</td>     
                       </tr>
                       <tr>
                           <td class="label">No Of Acres</td>
-                          <td class="detail">{{$teas->no_acres}}</td>     
+                          <td class="detail">20</td>     
                       </tr>
                       <tr>
                           <td class="label">Date Of Processing</td>
-                          <td class="detail">{{ $teas->created_at}}</td>     
+                          <td class="detail">Mark</td>     
                       </tr>
 
 
                     </tbody>
-                      @endforeach
-                        
-                   
                 </table>
               </div>
             </div>
@@ -96,45 +100,32 @@
                         </tr>
                       </thead>
                       <tbody>
-                          @foreach($tea as $teas)
-                        {{-- @foreach($teadetail as $teadetails) --}}
-
                        <tr>
                         <th scope="row">Total Kg</th>
-                        <td>{{$teadetaila}}</td>
-                        <td>{{$teadetaila * 20 }}</td>
+                        <td>200</td>
+                        <td>2000</td>
 
                        </tr>
                        <tr>
-                        <th scope="row">Expected Bonus Ksh</th>
+                        <th scope="row">Expected Bonus</th>
                         <td></td>
-                        <td>{{$teas->bonus}}</td>
+                        <td>4000</td>
                       </tr>
                         <tr>
                           <th scope="row">No Of Fertelizer Bags</th>
-                          <td>{{$teas->no_of_fert}}</td>
-                          <td>{{$teas->no_of_fert * 1492}}</td>
-                        </tr>
-                        <tr>
-                          <th scope="row">Expected_Produce kgs/yr</th>
-                          <td>{{$teas->expected_produce}}</td>
-                          <td>{{$teas->expected_produce * 20}}</td>
+                          <td>9</td>
+                          <td>-8100.00</td>
                         </tr>
 
-                       {{--  <tr>
+                        <tr>
                           <th scope="row">Total</th>
                           <td ></td>
-                          <td >{{($teadetaila * 20+ $teas->bonus)-($teas->no_of_fert * 1492) }}</td>
+                          <td >10000</td>
                          
-                        </tr> --}}
-                      </tbody>
-                    </table>
-                        {{-- @endforeach --}}
-                        @endforeach
-                        
-                      </div>
+                        </tr>
+                        </tbody>
+                        </table>
               </div>
-              <div class="panel panel-default">
               <div class="panel-heading " id="panelhead">Detailed Report</div>
                <div class="panel-body">
                 <table class="table table-bordered">
@@ -149,44 +140,43 @@
                         </tr>
                       </thead>
                       <tbody>
-                        @foreach($teadetail as $teadetails)
                        <tr>
-
                         
-                        <td>{{$teadetails->receipt_no}}</td>
-                        <td>{{$teadetails->date_offered}}</td>
-                        <td>{{$teadetails->gross_weight}}</td>
-                        <td>{{$teadetails->net_weight}}</td>
-                        <td>{{$teadetails->total_as_at_day}}</td>
-                        
+                        <td>200</td>
+                        <td>2000</td>
+                        <td>2000</td>
+                        <td>2000</td>
+                        <td>2000</td>
 
                        </tr>
-                       
-                       @endforeach
                        <tr>
-                       
-                        <tr>
-                          <td colspan="3">Total Kg</td>
-                        <td>{{$teadetaila}}</td>
-                        <td>{{$teadetaila}}</td>
-                        
-                        </tr>
-                         <tr>
-                          <td colspan="3"></td>
-                        <td></td>
-                        <td> {{$teadetail->links()}}</td>
-                        
-                        </tr>
-                         
-                          
-                         
-                        
-                       
+                       <td>200</td>
+                        <td>2000</td>
+                        <td>2000</td>
+                        <td>2000</td>
+                        <td>2000</td>
+                      </tr>
+                        <td>200</td>
+                        <td>2000</td>
+                        <td>2000</td>
+                        <td>2000</td>
+                        <td>2000</td>
 
+                        <tr>
+                          <td>200</td>
+                        <td>2000</td>
+                        <td>2000</td>
+                        <td>2000</td>
+                        <td>2000</td>
+                        </tr>
+                        <tr>
+                          <td>Total Kg</td>
+                        <td colspan="4">2000</td>
+                        
+                        </tr>
                         </tbody>
                         </table>
               </div>
-            </div>
 
        </div>
    </div>

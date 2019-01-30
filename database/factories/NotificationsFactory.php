@@ -13,3 +13,4 @@ $factory->define(App\Notification::class, function (Faker $faker) {
     ];
     
 });
+

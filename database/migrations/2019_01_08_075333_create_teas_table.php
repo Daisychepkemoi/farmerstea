@@ -7,6 +7,7 @@ use Illuminate\Database\Migrations\Migration;
 class CreateTeasTable extends Migration
 {
     /**
+    
      * Run the migrations.
      *
      * @return void
@@ -22,7 +23,8 @@ class CreateTeasTable extends Migration
             $table->float('expected_produce');
             $table->float('no_of_fert');
             $table->float('bonus');
-            
+            $table->date('date_verified')->default(now());
+            $table->string('verified_by')->nullable();
             $table->string('location');
             $table->timestamps();
         });

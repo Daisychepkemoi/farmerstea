@@ -8,13 +8,15 @@
         <div class="panel-body" id="eventids">
          <h5 class="panel-heading" id="panelhead">Events</h5>
          <div class="panel panel-success" id="eventid">
-         <h5><a href="">Titlehnbnmcxnmvfn k c biihjdvnc</a></h5>
+         <h5><a href="">{{$notification->title}}</a></h5>
          <p>
-            To group many panels together, wrap a  with class .panel-group around them.
-
-            The .panel-group class clears the bottom-margin of each panel:
+            {!!$notification->body!!}
           </p>
+          <p>Created By{{$users->f_name}} {{$users->l_name}}</p>
+          {{-- <p> Held On{{$notification->held_at}}</p> --}}
+          <p> Created at :{{$notification->created_at->diffForHumans()}}</p>
 
+          <a href="/back" class="btn btn-success">Back</a>
 
         </div>
       </div>
@@ -22,25 +24,7 @@
           <div class="panel-body" id="month">
            <h5 class="panel-heading" id="panelhead">Time</h5>
            <div class="time" >
-            <select>
-              <option>2018</option>
-              <option>2019</option>
-              <option>2020</option>
-              <option>2021</option>
-              <option>2022</option>
-              <option>2018</option>
-            </select>
-            <p><a href="">January</a></p>
-            <p><a href="">January</a></p>
-            <p><a href="">January</a></p>
-            <p><a href="">January</a></p>
-            <p><a href="">January</a></p>
-            <p><a href="">January</a></p>
-            <p><a href="">January</a></p>
-            <p><a href="">January</a></p>
-            <p><a href="">January</a></p>
-            <p><a href="">January</a></p>
-            <p><a href="">January</a></p>
+            @include('layouts.sortnotperdate')
           </div>
         </div>
         <div class="panel-body" id="blog">

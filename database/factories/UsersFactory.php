@@ -6,14 +6,13 @@ use Illuminate\Support\Facades\Hash;
 
 $factory->define(App\User::class, function (Faker $faker) {
 	$role=[
- 'admin',
  'user',
 ];
     return [
         'f_name' => $faker->name,
         'l_name' => $faker->name,
-        'national_id' => $faker->RandomNumber,
-        'phone_no' => $faker->phoneNumber,
+        'national_id' => $faker->unique()->numberBetween($min = 1500, $max = 1800),
+        'phone_no' => $faker->unique()->phoneNumber,
         'role' => $faker->randomElement($role),
         'email' => $faker->unique()->safeEmail,
         'email_verified_at' => now(),
@@ -21,3 +20,4 @@ $factory->define(App\User::class, function (Faker $faker) {
         'remember_token' => str_random(10),
     ];
 });
+

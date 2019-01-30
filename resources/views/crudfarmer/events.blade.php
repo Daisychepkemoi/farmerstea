@@ -6,12 +6,12 @@
       <div class="panel-body">
 
         <div class="panel-body" id="event">
-         <h5 class="panel-heading" id="panelhead">Notifications</h5>
+         <h5 class="panel-heading" id="panelhead">Events</h5>
          <div class="eventid">
-          <p><a href="/notificationid">HELLO krnya</a></p>
+          <p><a href="/eventid">HELLO krnya</a></p>
           <p><small>blah blah blahhhhhhhhh</small></p>
         </div>
-        <hr> 
+        <hr>
         <div class="eventid">
           <p><a href="/eventid">HELLO krnya</a></p>
           <p><small>blah blah blahhhhhhhhh</small></p>

@@ -1,7 +1,11 @@
 <?php
 
 namespace App;
-
+Use App\User;
+use App\Tea_Details;
+use App\Notification;
+use App\Event;
+use App\Tea;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -27,22 +31,22 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
-    public function teas() {
+    public function tea() {
 
      
-        return $this->hasOne(Tea::class);
+        return $this->hasOne(Tea::class,'user_id');
     }
-     public function notifications() {
+     public function notification() {
 
-        return $this->hasMany(Notification::class);
+        return $this->hasMany(Notification::class,'user_id');
     }
-     public function Events() {
+     public function Event() {
 
-        return $this->hasMany(Event::class);
+        return $this->hasMany(Event::class,'user_id');
     }
-     public function producedetail() {
+     public function teadetail() {
 
-        return $this->hasMany(ProduceDetail::class);
+        return $this->hasMany(Tea_Details::class);
     }
 
 

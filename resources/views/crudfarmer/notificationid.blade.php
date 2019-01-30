@@ -8,13 +8,12 @@
         <div class="panel-body" id="eventids">
          <h5 class="panel-heading" id="panelhead">Events</h5>
          <div class="panel panel-success" id="eventid">
-         <h5><a href="/admin/events/{{$event->id}}">{{$event->title}}</a></h5>
+         <h5><a href="">Titlehnbnmcxnmvfn k c biihjdvnc</a></h5>
          <p>
-            {{$event->body}}
+            To group many panels together, wrap a  with class .panel-group around them.
+
+            The .panel-group class clears the bottom-margin of each panel:
           </p>
-          <p>Created By{{$users->f_name}} {{$users->l_name}}</p>
-          <p> Held On  {{\Carbon\Carbon::parse($event->held_at)->format('d M Y')}}</p>
-          <p> Created :{{$event->created_at->diffForHumans()}}</p>
 
 
         </div>
@@ -23,20 +22,25 @@
           <div class="panel-body" id="month">
            <h5 class="panel-heading" id="panelhead">Time</h5>
            <div class="time" >
-            
-          @include('layouts.sortperyear')
-           
-           {{--  <p><a href="">January</a></p>
-            <p><a href="">February</a></p>
-            <p><a href="">March</a></p>
-            <p><a href="">April</a></p>
-            <p><a href="">May</a></p>
+            <select>
+              <option>2018</option>
+              <option>2019</option>
+              <option>2020</option>
+              <option>2021</option>
+              <option>2022</option>
+              <option>2018</option>
+            </select>
             <p><a href="">January</a></p>
             <p><a href="">January</a></p>
             <p><a href="">January</a></p>
             <p><a href="">January</a></p>
             <p><a href="">January</a></p>
-            <p><a href="">January</a></p> --}}
+            <p><a href="">January</a></p>
+            <p><a href="">January</a></p>
+            <p><a href="">January</a></p>
+            <p><a href="">January</a></p>
+            <p><a href="">January</a></p>
+            <p><a href="">January</a></p>
           </div>
         </div>
         <div class="panel-body" id="blog">

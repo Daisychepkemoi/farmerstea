@@ -7,66 +7,22 @@
 
         <div class="panel-body" id="event">
          <h5 class="panel-heading" id="panelhead">Notifications</h5>
-         <div class="eventid">
-          <p><a href="/notificationid">HELLO krnya</a></p>
-          <p><small>blah blah blahhhhhhhhh</small></p>
-        </div>
-        <hr>
-        <div class="eventid">
-          <p><a href="/eventid">HELLO krnya</a></p>
-          <p><small>blah blah blahhhhhhhhh</small></p>
-        </div>
-        <hr>
-        <div class="eventid">
-          <p><a href="/eventid">HELLO krnya</a></p>
-          <p><small>blah blah blahhhhhhhhh</small></p>
-        </div>
-        <hr>
-        <div class="eventid">
-         <p><a href="/eventid">HELLO krnya</a></p>
-         <p><small>blah blah blahhhhhhhhh</small></p>
-       </div>
-       <hr>
-       <div class="eventid">
-         <p><a href="/eventid">HELLO krnya</a></p>  
-         <p><small>blah blah blahhhhhhhhh</small></p>
-       </div>
-       <hr>
-        <div class="eventid">
-         <p><a href="/eventid">HELLO krnya</a></p>
-        <p><small>blah blah blahhhhhhhhh</small></p>
-      </div>
-      <hr>
-      <div class="eventid">
-        <p>HELLO krnya</p>
-        <p><small>blah blah blahhhhhhhhh</small></p>
-      </div>
-      <hr>
-
+           @foreach($notification as $notify)
+          <p><a href="/admin/viewnotification/{{$notify->id}}">{{$notify->title}}</a></p>
+          <p><small>{!! str_limit($notify->body, $limit = 150, $end = '....') !!}</small></p>
+          <a href="/admin/viewnotification/{{$notify->id}}" class="btn btn-success"> Read More </a>
+        @foreach($createdby as $created)
+          {{-- <p> Created By <strong>{{$created->f_name}} {{$created->l_name}}</strong>  On <strong>{{$notify->created_at->diffForHumans()}}</strong> </p> --}}
+         
+          @endforeach
+          @endforeach
+           <p> {{$notification->links()}}</p>
     </div>
     <div class="panel-body" id="eventdate">
       <div class="panel-body" id="month">
        <h5 class="panel-heading" id="panelhead">Time</h5>
        <div class="time" >
-        <select>
-          <option>2018</option>
-          <option>2019</option>
-          <option>2020</option>
-          <option>2021</option>
-          <option>2022</option>
-          <option>2018</option>
-        </select>
-        <p><a href="">January</a></p>
-        <p><a href="">January</a></p>
-        <p><a href="">January</a></p>
-        <p><a href="">January</a></p>
-        <p><a href="">January</a></p>
-        <p><a href="">January</a></p>
-        <p><a href="">January</a></p>
-        <p><a href="">January</a></p>
-        <p><a href="">January</a></p>
-        <p><a href="">January</a></p>
-        <p><a href="">January</a></p>
+       @include('layouts.sortnotperdate')
       </div>
     </div>
     <div class="panel-body" id="blog">

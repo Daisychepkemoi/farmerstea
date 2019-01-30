@@ -50,13 +50,7 @@
                 @endif
                 <tr>
                   <td scope=" row" class="first">Location</td>
-                  <td class="detail" > <select class="detail" id="email">
-                    <option>{{ $teas->location}}</option>
-                    <option>Kapsir</option>
-                    <option>America</option>
-                    <option>America</option>
-                    <option>America</option>
-                    </select>
+                  <td class="detail" > <input type="number" name="tea_no" value="{{ $teas->location}}" required="" readonly="">
                   </td>     
                 </tr>
                 <tr>

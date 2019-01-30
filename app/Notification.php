@@ -11,7 +11,7 @@ class Notification extends Model
     ];
      public function users() {
 
-        return $this->Belongsto(User::class);
+        return $this->Belongsto(User::class,'user_id');
     }
     
 

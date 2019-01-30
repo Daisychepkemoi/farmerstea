@@ -6,6 +6,12 @@ use Illuminate\Http\Request;
 use PDF;
 use App\User;
 use App\Tea;
+use App\Notification;
+use App\Tea_Details;
+use Illuminate\Pagination\Paginator;
+// use Auth;
+// use View;
+// use App\Http\Controllers\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -21,9 +27,11 @@ class UsersController extends Controller
      *
      * @return void
      */
+   
     public function __construct()
     {
         $this->middleware('auth');
+       
     }
 
     /**
@@ -33,7 +41,7 @@ class UsersController extends Controller
      */
 
 
-    //
+     // protected $user = auth()->user();
     public function index()
     {
         return view('posts.index');
@@ -41,43 +49,62 @@ class UsersController extends Controller
 
     public function admin()
     {
-        return view('dashboard.admin');
+        $user = auth()->user();
+         $notcount = Notification::get()->count();
+        // $tea= Tea::where('user_id', $user->id)->get();
+        return view('dashboard.admin',compact('user','notcount'));
     }
     public function report()
     {
         $user = auth()->user();
         $tea= Tea::where('user_id', $user->id)->get();
-        // dd($tea);
-        return view('dashboard.reports', compact('user', 'tea'));
+        $teauser= Tea::where('user_id', $user->id)->pluck('tea_no');
+        // $tead= Tea::where('user_id',$teauser->id)->pluck('tea_no');
+        $teadetail = Tea_Details::whereIn('tea_no',$teauser)->paginate(15);
+        $teadetaila = Tea_Details::whereIn('tea_no',$teauser)->pluck('net_weight')->sum();
+         // $total_as_at_day = Tea_details::where('tea_no',$teauser)->latest()->first();
+         $notcount = Notification::get()->count();
+        // dd($total_as_at_day->net_weight);
+        return view('dashboard.reports', compact('user', 'tea','teadetail','teadetaila','notcount'));
     }
     public function events()
     {
-        return view('dashboard.events');
+        $user = auth()->user();
+         $notcount = Notification::get()->count();
+        return view('dashboard.events',compact('notcount','user'));
     }
     public function eventid()
     {
-        return view('dashboard.eventid');
+        $user = auth()->user();
+         $notcount = Notification::get()->count();
+        return view('dashboard.eventid',compact('notcount','user'));
     }
     public function notification()
     {
-        return view('dashboard.notification');
+        $user = auth()->user();
+         $notcount = Notification::get()->count();
+        return view('dashboard.notification',compact('notcount','user'));
     }
     public function notificationid()
     {
-        return view('dashboard.notificationid');
+        $user = auth()->user();
+         $notcount = Notification::get()->count();
+        return view('dashboard.notificationid',compact('notcount','user'));
     }
     public function profile()
     {
         $user=auth()->user();
         $tea= Tea::where('user_id', $user->id)->get();
+         $notcount = Notification::get()->count();
         // dd($tea);
-        return view('dashboard.profile', compact('user', 'tea'));
+        return view('dashboard.profile', compact('user', 'tea','notcount'));
     }
     public function editprofile(tea $tea)
     {
         $user=auth()->user();
+         $notcount = Notification::get()->count();
         $tea= Tea::where('user_id', $user->id)->get();
-        return view('dashboard.editprofile', compact('user', 'tea'));
+        return view('dashboard.editprofile', compact('user', 'tea','notcount'));
     }
     public function generate()
     {
@@ -87,8 +114,19 @@ class UsersController extends Controller
         // Finally, you can download the file using download function
         return $pdf->download('customers.pdf');
     }
-    public function edit($id)
+    public function edit(tea $tea, $id, Request $request)
     {
         $users= User::find($id);
+        $users->f_name=$request->get('firstname');
+        $users->l_name=$request->get('lastname');
+        $users->national_id=$request->get('national_id');
+        // $users->national_id=$request->get('location');
+        $users->phone_no=$request->get('phone_no');
+        $users->email=$request->get('email');
+        // $users->password=$request->get('password');
+            
+        $users->save();
+        return redirect('/profile');
+        // dd($users);
     }
 }

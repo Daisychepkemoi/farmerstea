@@ -8,16 +8,9 @@
         <div class="panel-body" id="event">
          <h5 class="panel-heading" id="panelhead">Events</h5>
          <div class="">
-          @foreach($events as $event)
-          <p><a href="/admin/events/{{$event->id}}">{{$event->title}}</a></p>
-          <p><small>{{$event->body}}</small></p>
-        @foreach($createdby as $created)
-          <p> Created By <strong>{{$created->f_name}} {{$created->l_name}}</strong> to be held on <strong>
-           {{\Carbon\Carbon::parse($event->held_at)->format('d M Y')}}
-
-          </strong> </p>
-          @endforeach
-          @endforeach
+          
+          <p>Sorry you have no event for this period</p>
+          
         </div>
         <hr>
 
