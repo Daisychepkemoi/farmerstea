@@ -8,7 +8,7 @@
         <div class="panel-body" id="eventids">
          <h5 class="panel-heading" id="panelhead">Events</h5>
          <div class="panel panel-success" id="eventid">
-         <h5><a href="/admin/events/{{$event->id}}">{{$event->title}}</a></h5>
+         <h5><a href="/events/{{$event->id}}">{{$event->title}}</a></h5>
          <p>
             {{$event->body}}
           </p>

@@ -21,6 +21,7 @@
         <script src="{{asset('js/assets/c3.min.js')}}"></script>
         <script src="{{asset('js/assets/dashboard.js')}}"></script>
          <script src="{{ asset('/js/jquery.min.js')}}"></script> 
+            {{-- <script src="{{ asset('js/app.js') }}" defer></script> --}}
 
         <script src="{{asset('js/assets/summernote.min.js')}}"></script>
         <script src="{{asset('js/assets/notepad.js')}}"></script>
@@ -47,37 +48,26 @@
                     <div id="cm-menu-scroller">
                         <ul class="cm-menu-items">
                             @if($user->role == 'user')
-                            <li ><a href="index.html" class="sf-house" >Home</a></li>
-                            <li class="active"><a href="dashboard-sales.html" class="sf-dashboard">Dashboard</a></li>
+                            <li ><a href="{{ url('/')}}" class="sf-house" >Home</a></li>
+                            <li class="active"><a href="/dashboard" class="sf-dashboard">Dashboard</a></li>
                             <li><a href="{{ route('report') }}" class="sf-brick">Reports</a></li>
-                            <li class="cm-submenu">
-                                <a class="sf-window-layout" href="{{ route ('event') }}">Events <span class="caret"></span></a>
-                                <ul>
-                                    <li><a href="{{ route ('event') }}">This Month</a></li>
-                                    <li><a href="layouts-breadcrumb2.html">This Year</a></li>
-                                    
-                                </ul>
-                            </li>
-                           
-                            <li><a href="notepad.html" class="sf-notepad">Text Editor</a></li>
+                            <li><a href="/viewevents" class="sf-brick">Events</a></li>
+                          
                             @else
-                            <li ><a href="index.html" class="sf-house" >Home</a></li>
-                            <li class="active"><a href="dashboard-sales.html" class="sf-dashboard"> Admin Dashboard</a></li>
+                            <li ><a href="{{ url('/') }}" class="sf-house" >Home</a></li>
+                            <li class="active"><a href="/dashboard" class="sf-dashboard"> Admin Dashboard</a></li>
                            
                             <li class="cm-submenu">
                                 <a class="sf-window-layout" >Reports <span class="caret"></span></a>
                                 <ul>
                                     <li><a href="/admin/farmersreport">Farmers Report</a></li>
                                     <li><a href="/admin/teareport">Tea Report</a></li>
-                                    <!-- <li><a href="layouts-tabs.html">2nd nav tabs</a></li> -->
                                 </ul>
                             </li>
                              <li class="cm-submenu">
                                 <a class="sf-window-layout" >Manage Farmers <span class="caret"></span></a>
                                 <ul>
                                     <li><a href="/admin/upgradefarmer">Tea Number Allocation</a></li>
-                                    {{-- <li><a href="teareport">Tea Report</a></li> --}}
-                                    <!-- <li><a href="layouts-tabs.html">2nd nav tabs</a></li> -->
                                 </ul>
                             </li>
                             @if($user->created_by = 'admin')
@@ -86,8 +76,6 @@
                                 <a class="sf-window-layout" > Manage Staff<span class="caret"></span></a>
                                 <ul>
                                     <li><a href="/admin/addrole">Add/remove Admin</a></li>
-                                    {{-- <li><a href="admin/teareport">Tea Report</a></li> --}}
-                                    <!-- <li><a href="layouts-tabs.html">2nd nav tabs</a></li> -->
                                 </ul>
                             </li>
                             @endif
@@ -95,7 +83,7 @@
                                 <a class="sf-window-layout">Events <span class="caret"></span></a>
                                 <ul>
                                     <li><a href="/admin/createevents">Create Event</a></li>
-                                    <li><a href="/admin/viewevents">View Events</a></li>
+                                    <li><a href="/viewevents">View Events</a></li>
                                     <!-- <li><a href="layouts-tabs.html">2nd nav tabs</a></li> -->
                                 </ul>
                             </li>
@@ -103,21 +91,11 @@
                                 <a class="sf-window-layout" >Notifications <span class="caret"></span></a>
                                 <ul>
                                     <li><a href="/admin/createnotification">Create Notification</a></li>
-                                    <li><a href="/admin/viewnotifications">View Notifications</a></li>
-                                    <!-- <li><a href="layouts-tabs.html">2nd nav tabs</a></li> -->
+                                    <li><a href="/viewnotifications">View Notifications</a></li>
                                 </ul>
                             </li>
-                            <!-- <li class="cm-submenu">
-                                <a class="sf-cat">Icons <span class="caret"></span></a>
-                                <ul>
-                                    <li><a href="ico-sf.html">Small-n-flat</a></li>
-                                    <li><a href="ico-md.html">Material Design</a></li>
-                                    <li><a href="ico-fa.html">Font Awesome</a></li>
-                                </ul>
-                            </li> -->
-                            {{-- <li><a href="notepad.html" class="sf-notepad">Text Editor</a></li> --}}
+                           
                             @endif
-                            <!-- <li><a href="login.html" class="sf-lock-open">Login page</a></li> -->
                         </ul>
                     </div>
                 </div>
@@ -126,19 +104,15 @@
         <header id="cm-header">
             <nav class="cm-navbar cm-navbar-success">
                 <div class="btn btn-success  hidden-md hidden-lg" data-toggle="cm-menu" style="background-image: url({{asset('image/home.ico')}}); "></div>
-                <div class="cm-flex">
-                    <h1>Dashboard</h1> 
-                    <h1>Dashboard</h1> 
-                    <h1>Dashboard</h1> 
-                    <h1>Dashboard</h1> 
-                    <h1>Dashboard</h1> 
-                    <form id="cm-search" action="index.html" method="get">
+                <div class="cm-flex"> 
+                    <form id="cm-search" action="/search" method="get">
                         <input type="search" name="q" autocomplete="off" placeholder="Search...">
                     </form>
                 </div>
                 <div class="pull-right">
                     <div id="cm-search-btn" class="btn btn-success " data-toggle="cm-search" style="background-image: url({{url('/image/searchh.ico')}}) ;"></div>
                 </div>
+                @if($user->role == 'admin')
                 <div class="dropdown pull-right">
                     <button class="btn btn-success"  style="background-image: url({{url('/image/Notification.ico')}}) ;" data-toggle="dropdown"> <span class="label label-danger">{{$notcount}}</span> </button>
                     <div class="popover cm-popover bottom">
@@ -162,6 +136,8 @@
                         </div>
                     </div>
                 </div>
+                @else
+                @endif
                 <div class="dropdown pull-right">
                     <button class="btn btn-success " style="background-image: url({{url('/image/User.ico')}}) ;" data-toggle="dropdown"></button>
                     <ul class="dropdown-menu">
@@ -172,9 +148,9 @@
                         <li>
                             <a href="/profile"> <i> <img src="{{ URL::to('image/Profile.ico') }}"></i> Profile</a>
                         </li>
-                        <li>
+                        {{-- <li>
                             <a href="#"><i> <img src="{{ URL::to('image/Setting.ico') }}"></i> Settings</a>
-                        </li>
+                        </li> --}}
                         <li>
                             <a href="{{ url('/logout') }}"  onclick="event.preventDefault();document.getElementById('logout-form').submit();"><i> <img src="{{ URL::to('image/Sign.ico') }}"></i>
                                 Logout

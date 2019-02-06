@@ -12,12 +12,12 @@ $factory->define(App\Tea_Details::class, function (Faker $faker) {
     $total =$total_as_at_day->net_weight + $net;
     // $total=$net;
     $startingDate = $faker->date;
-    $endingDate  = $faker->dateTimeBetween($startDate = '-1 years', $endDate = 'now');
+    $endingDate  = $faker->dateTimeBetween($startDate = 'now', $endDate = '+1 week');
     return [
         // 'user_id' => $faker->randomElement($user),
         // 'tea_id' => $faker->number,
-        'tea_no' =>3,
-        'receipt_no' => $faker->unique()->numberBetween($min = 1000, $max = 4000),
+        'tea_no' =>$faker->randomElement($teano),
+        'receipt_no' => $faker->unique()->numberBetween($min = 8131, $max = 8140),
         'gross_weight' => $gross,
         'net_weight' => $net,
         'total_as_at_day' => $total,

@@ -16,6 +16,11 @@
   
 </header>
 <!-- Features Section -->
+
+  
+<!-- About Section -->
+
+<!-- Services Section -->
 <div id="features" class="text-center">
   <div class="container">
     <div class="col-md-10 col-md-offset-1 section-title">
@@ -45,27 +50,23 @@
 <div id="about">
   <div class="container">
     <div class="row">
-      <div class="col-xs-12 col-md-6"> <img src="img/about.jpg" class="img-responsive" alt=""> </div>
+      <div class="col-xs-12 col-md-6"> <img src="{{ URL('/image/desk.jpg')}}" class="img-responsive" alt=""> </div>
       <div class="col-xs-12 col-md-6">
         <div class="about-text">
           <h2>About Us</h2>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-          <h3>Why Choose Us?</h3>
+          <p></p>
+          <h3>Litein Tea Factory</h3>
           <div class="list-style">
             <div class="col-lg-6 col-sm-6 col-xs-12">
               <ul>
-                <li>Lorem ipsum dolor</li>
-                <li>Tempor incididunt</li>
-                <li>Lorem ipsum dolor</li>
-                <li>Incididunt ut labore</li>
+                <li>Mission</li>
+                    <p>To invest in tea and other related profitable ventures for the benefit of the shareholders and other stakeholders</p>
               </ul>
             </div>
             <div class="col-lg-6 col-sm-6 col-xs-12">
               <ul>
-                <li>Aliquip ex ea commodo</li>
-                <li>Lorem ipsum dolor</li>
-                <li>Exercitation ullamco</li>
-                <li>Lorem ipsum dolor</li>
+                <li>Vision</li>
+              <p>To be the preferred investment vehicle for the small holder tea farmers in Eastern Africa.</p>
               </ul>
             </div>
           </div>
@@ -79,24 +80,24 @@
   <div class="container">
     <div class="section-title">
       <h2>Our Services</h2>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit duis sed dapibus leonec.</p>
+      <p>jhgfghj</p>
     </div>
     <div class="row">
       <div class="col-md-4"> <i class="fa fa-wordpress"></i>
         <div class="service-desc">
-          <h3>Lorem ipsum dolor</h3>
+          <h3>Online Tea Farmer Registration</h3>
           <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sed dapibus leo nec ornare diam sedasd commodo nibh ante facilisis bibendum dolor feugiat at.</p>
         </div>
       </div>
       <div class="col-md-4"> <i class="fa fa-cart-arrow-down"></i>
         <div class="service-desc">
-          <h3>Consectetur adipiscing</h3>
+          <h3>Predictions on Bonus</h3>
           <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sed dapibus leo nec ornare diam sedasd commodo nibh ante facilisis bibendum dolor feugiat at. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
         </div>
       </div>
       <div class="col-md-4"> <i class="fa fa-cloud-download"></i>
         <div class="service-desc">
-          <h3>Lorem ipsum dolor</h3>
+          <h3>Instant Farmer Notification</h3>
           <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sed dapibus leo nec ornare diam sedasd commodo nibh ante facilisis bibendum dolor feugiat at.</p>
         </div>
       </div>
@@ -104,19 +105,19 @@
     <div class="row">
       <div class="col-md-4"> <i class="fa fa-language"></i>
         <div class="service-desc">
-          <h3>Consectetur adipiscing</h3>
+          <h3>Farmers Tea Report Summary</h3>
           <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sed dapibus leo nec ornare diam sedasd commodo nibh ante facilisis bibendum dolor feugiat at.</p>
         </div>
       </div>
       <div class="col-md-4"> <i class="fa fa-plane"></i>
         <div class="service-desc">
-          <h3>Lorem ipsum dolor</h3>
+          <h3>Approximation On Fertilizer Allocation</h3>
           <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sed dapibus leo nec ornare diam sedasd commodo nibh ante facilisis bibendum dolor feugiat at.</p>
         </div>
       </div>
       <div class="col-md-4"> <i class="fa fa-pie-chart"></i>
         <div class="service-desc">
-          <h3>Consectetur adipiscing</h3>
+          <h3>Trends in Tea Production</h3>
           <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sed dapibus leo nec ornare diam sedasd commodo nibh ante facilisis bibendum dolor feugiat at.</p>
         </div>
       </div>
@@ -124,97 +125,148 @@
   </div>
 </div>
 <!-- Gallery Section -->
-<div id="portfolio" class="text-center">
-  <div class="container">
-    <div class="section-title">
-      <h2>Gallery</h2>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit duis sed dapibus leonec.</p>
-    </div>
-    <div class="row">
-      <div class="portfolio-items">
-        <div class="col-sm-6 col-md-4 col-lg-4">
-          <div class="portfolio-item">
-            <div class="hover-bg"> <a href="img/portfolio/01-large.jpg" title="Project Title" data-lightbox-gallery="gallery1">
-              <div class="hover-text">
-                <h4>Lorem Ipsum</h4>
-              </div>
-              <img src="img/portfolio/01-small.jpg" class="img-responsive" alt="Project Title"> </a> </div>
-            </div>
-          </div>
+  <div id="portfolio" class="text-center">
+    <div class="container">
+      <div class="section-title">
+        <h2>Gallery</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit duis sed dapibus leonec.</p>
+      </div>
+      <div class="row">
+        <div class="portfolio-items">
           <div class="col-sm-6 col-md-4 col-lg-4">
             <div class="portfolio-item">
-              <div class="hover-bg"> <a href="img/portfolio/02-large.jpg" title="Project Title" data-lightbox-gallery="gallery1">
+              <div class="hover-bg"> <a href="/" title="Project Title" data-lightbox-gallery="gallery1">
                 <div class="hover-text">
-                  <h4>Adipiscing Elit</h4>
+                  <h4>Lorem Ipsum</h4>
                 </div>
-                <img src="img/portfolio/02-small.jpg" class="img-responsive" alt="Project Title"> </a> </div>
+                <img src="{{URL('/image/desk.jpg')}}" class="img-responsive" alt="Project Title"> </a> </div>
               </div>
             </div>
-            <div class="col-sm-6 col-md-4 col-lg-4">
-              <div class="portfolio-item">
-                <div class="hover-bg"> <a href="img/portfolio/03-large.jpg" title="Project Title" data-lightbox-gallery="gallery1">
-                  <div class="hover-text">
-                    <h4>Lorem Ipsum</h4>
-                  </div>
-                  <img src="img/portfolio/03-small.jpg" class="img-responsive" alt="Project Title"> </a> </div>
+             <div class="col-sm-6 col-md-4 col-lg-4">
+            <div class="portfolio-item">
+              <div class="hover-bg"> <a href="/" title="Project Title" data-lightbox-gallery="gallery1">
+                <div class="hover-text">
+                  <h4>Lorem Ipsum</h4>
                 </div>
+                <img src="{{URL('/image/desk.jpg')}}" class="img-responsive" alt="Project Title"> </a> </div>
               </div>
-              <div class="col-sm-6 col-md-4 col-lg-4">
-                <div class="portfolio-item">
-                  <div class="hover-bg"> <a href="img/portfolio/04-large.jpg" title="Project Title" data-lightbox-gallery="gallery1">
-                    <div class="hover-text">
-                      <h4>Lorem Ipsum</h4>
-                    </div>
-                    <img src="img/portfolio/04-small.jpg" class="img-responsive" alt="Project Title"> </a> </div>
-                  </div>
+            </div>
+               <div class="col-sm-6 col-md-4 col-lg-4">
+            <div class="portfolio-item">
+              <div class="hover-bg"> <a href="/" title="Project Title" data-lightbox-gallery="gallery1">
+                <div class="hover-text">
+                  <h4>Lorem Ipsum</h4>
                 </div>
+                <img src="{{URL('/image/desk.jpg')}}" class="img-responsive" alt="Project Title"> </a> </div>
+              </div>
+            </div>
                 <div class="col-sm-6 col-md-4 col-lg-4">
-                  <div class="portfolio-item">
-                    <div class="hover-bg"> <a href="img/portfolio/05-large.jpg" title="Project Title" data-lightbox-gallery="gallery1">
-                      <div class="hover-text">
-                        <h4>Adipiscing Elit</h4>
-                      </div>
-                      <img src="img/portfolio/05-small.jpg" class="img-responsive" alt="Project Title"> </a> </div>
-                    </div>
-                  </div>
-                  <div class="col-sm-6 col-md-4 col-lg-4">
-                    <div class="portfolio-item">
-                      <div class="hover-bg"> <a href="img/portfolio/06-large.jpg" title="Project Title" data-lightbox-gallery="gallery1">
-                        <div class="hover-text">
-                          <h4>Dolor Sit</h4>
-                        </div>
-                        <img src="img/portfolio/06-small.jpg" class="img-responsive" alt="Project Title"> </a> </div>
-                      </div>
-                    </div>
-                    <div class="col-sm-6 col-md-4 col-lg-4">
-                      <div class="portfolio-item">
-                        <div class="hover-bg"> <a href="img/portfolio/07-large.jpg" title="Project Title" data-lightbox-gallery="gallery1">
-                          <div class="hover-text">
-                            <h4>Dolor Sit</h4>
-                          </div>
-                          <img src="img/portfolio/07-small.jpg" class="img-responsive" alt="Project Title"> </a> </div>
-                        </div>
-                      </div>
-                      <div class="col-sm-6 col-md-4 col-lg-4">
-                        <div class="portfolio-item">
-                          <div class="hover-bg"> <a href="img/portfolio/08-large.jpg" title="Project Title" data-lightbox-gallery="gallery1">
-                            <div class="hover-text">
-                              <h4>Lorem Ipsum</h4>
-                            </div>
-                            <img src="img/portfolio/08-small.jpg" class="img-responsive" alt="Project Title"> </a> </div>
-                          </div>
-                        </div>
-                        <div class="col-sm-6 col-md-4 col-lg-4">
-                          <div class="portfolio-item">
-                            <div class="hover-bg"> <a href="img/portfolio/09-large.jpg" title="Project Title" data-lightbox-gallery="gallery1">
-                              <div class="hover-text">
-                                <h4>Adipiscing Elit</h4>
+            <div class="portfolio-item">
+              <div class="hover-bg"> <a href="/" title="Project Title" data-lightbox-gallery="gallery1">
+                <div class="hover-text">
+                  <h4>Lorem Ipsum</h4>
+                </div>
+                <img src="{{URL('/image/desk.jpg')}}" class="img-responsive" alt="Project Title"> </a> </div>
+              </div>
+            </div>
+               <div class="col-sm-6 col-md-4 col-lg-4">
+            <div class="portfolio-item">
+              <div class="hover-bg"> <a href="/" title="Project Title" data-lightbox-gallery="gallery1">
+                <div class="hover-text">
+                  <h4>Lorem Ipsum</h4>
+                </div>
+                <img src="{{URL('/image/desk.jpg')}}" class="img-responsive" alt="Project Title"> </a> </div>
+              </div>
+            </div>
+               <div class="col-sm-6 col-md-4 col-lg-4">
+            <div class="portfolio-item">
+              <div class="hover-bg"> <a href="/" title="Project Title" data-lightbox-gallery="gallery1">
+                <div class="hover-text">
+                  <h4>Lorem Ipsum</h4>
+                </div>
+                <img src="{{URL('/image/desk.jpg')}}" class="img-responsive" alt="Project Title"> </a> </div>
+              </div>
+            </div>
+                 <div class="col-sm-6 col-md-4 col-lg-4">
+            <div class="portfolio-item">
+              <div class="hover-bg"> <a href="/" title="Project Title" data-lightbox-gallery="gallery1">
+                <div class="hover-text">
+                  <h4>Lorem Ipsum</h4>
+                </div>
+                <img src="{{URL('/image/desk.jpg')}}" class="img-responsive" alt="Project Title"> </a> </div>
+              </div>
+            </div>
+             <div class="col-sm-6 col-md-4 col-lg-4">
+            <div class="portfolio-item">
+              <div class="hover-bg"> <a href="/" title="Project Title" data-lightbox-gallery="gallery1">
+                <div class="hover-text">
+                  <h4>Lorem Ipsum</h4>
+                </div>
+                <img src="{{URL('/image/desk.jpg')}}" class="img-responsive" alt="Project Title"> </a> </div>
+              </div>
+            </div>
+             <div class="col-sm-6 col-md-4 col-lg-4">
+            <div class="portfolio-item">
+              <div class="hover-bg"> <a href="/" title="Project Title" data-lightbox-gallery="gallery1">
+                <div class="hover-text">
+                  <h4>Lorem Ipsum</h4>
+                </div>
+                <img src="{{URL('/image/desk.jpg')}}" class="img-responsive" alt="Project Title"> </a> </div>
+              </div>
+            </div>
+          </div>
+        </div>
+       </div>
+      </div>
+    
+          
+      {{-- footer --}}
+      <div id="footer" class="text-center">
+        <div class="row" id="row">
+          {{-- <div class="row"> <i class="fa fa-wordpress"></i> --}}
+            <div class="section-title">
+              <h3>Online Tea Farmer Registration</h3>
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sed dapibus leo nec ornare diam sedasd commodo nibh ante facilisis bibendum dolor feugiat at.</p>
+            </div>
+          {{-- </div> --}}
+          {{-- <div class="row"> <i class="fa fa-cart-arrow-down"></i> --}}
+            <div class="section-title">
+              <h3>Predictions on Bonus</h3>
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sed dapibus leo nec ornare diam sedasd commodo nibh ante facilisis bibendum dolor feugiat at. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            </div>
+          {{-- </div> --}}
+        </div>
+        <div class="row" id="row2">
+          {{-- <div class="col-md-4"> <i class="fa fa-cloud-download"></i> --}}
+                  <div id="contact" class="text-center">
+                     <div class="container">
+                        <div class="section-title">
+                          <h2>contact us</h2>
+                           
+                             {{-- <h3>Form</div>/h3> --}}
+                                <form method="POST" action="">
+                                  <label>Email <strong>*</strong></label>
+                                  <input class="form-control" type="email" name="email" placeholder="Email..">
+                                  <label>Title <strong>*</strong></label>
+                                  <input class="form-control" type="text" name="title" placeholder="Title...">
+                                  <label>Body <strong>*</strong></label>
+                                  <textarea class="form-control"></textarea>
+                                  <button class="btn-custom" type="submit"> Submit</button>
+                                </form>
                               </div>
-                              <img src="img/portfolio/09-small.jpg" class="img-responsive" alt="Project Title"> </a> </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  @endsection
+                               
+                             </div>
+                     </div>
+                  {{-- </div> --}}
+               </div>
+            <div class="col text-center" id="copy">
+            <div class="portfolio-item">
+             <h3>Property Of Litein Tea Factory</h3>
+             <p>&copy copyright 2019</p>
+            </div>
+        </div>
+       
+          
+     
+
+   @endsection

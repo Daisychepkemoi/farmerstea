@@ -115,9 +115,9 @@ hr {
 
 	transition: all 0.8s;
 }
-#menu.navbar-default {
+#menu .navbar-default {
 	background-color: #fff;
-	/*background-color: green;*/
+	/*background-color: red;*/
 
 	border-color: rgba(231, 231, 231, 0);
 	box-shadow: 0 0 10px rgba(0,0,0,0.15)
@@ -318,6 +318,7 @@ header .intro-text {
 	margin-left: 6px;
 	list-style: none;
 	padding: 0;
+	font-size: 20px;
 }
 #about .about-text li:before {
 	content: '\f00c';
@@ -327,6 +328,7 @@ header .intro-text {
 	font-weight: 300;
 	padding-right: 8px;
 }
+
 #about img {
 	width: 520px;
 	margin-top: 10px;
@@ -341,7 +343,8 @@ header .intro-text {
 /* Services Section */
 #services {
 	padding: 100px 0;
-	background: linear-gradient(to right, #6372ff 0%, #5ca9fb 100%);
+	/*background: linear-gradient(to right, #6372ff 0%, green 100%);*/
+	background: linear-gradient(to right, green 0%, green 100%);
 	color: #fff;
 }
 #services .service-desc {
@@ -483,17 +486,31 @@ header .intro-text {
 	padding: 10px 0 0 0;
 	color: #888;
 }
+#footer #row{
+	float: left;
+	/*background: blue;*/
+	width: 60%;
+
+}
+#footer #row2{
+	float: right;
+	background: red;
+	width: 39%;
+
+}
 /* Contact Section */
-#contact {
-	padding: 100px 0 60px 0;
+#row2 #contact {
+	padding: 0px 0 60px 0;
 	background: linear-gradient(to right, #6372ff 0%, #5ca9fb 100%);
 	color: rgba(255,255,255,.75);
+	width: 100%;
+	/*background: white;*/
 }
 #contact .section-title {
 	margin-bottom: 40px;
 }
 #contact .section-title p {
-	font-size: 16px;
+	font-size: 10px;
 }
 #contact h2 {
 	color: #fff;
@@ -501,7 +518,7 @@ header .intro-text {
 	margin-bottom: 15px;
 	padding-bottom: 15px;
 }
-#contact .section-title h2::after {
+#contact #row .section-title h3::after {
 	position: absolute;
 	content: "";
 	background: rgba(255,255,255,.3);
@@ -513,12 +530,15 @@ header .intro-text {
 #contact h3 {
 	color: #fff;
 	margin-top: 80px;
-	margin-bottom: 25px;
+	/*margin-bottom: 25px;*/
 	padding-bottom: 20px;
 	font-weight: 400;
 }
 #contact form {
 	padding-top: 20px;
+	width: 70%;
+	margin-left: 20%;
+	/*position: relative;*/
 }
 #contact .text-danger {
 	color: #cc0033;
@@ -534,7 +554,7 @@ header .intro-text {
 	background: #fff;
 }
 label {
-	font-size: 12px;
+	font-size: 20px;
 	font-weight: 400;
 	font-family: 'Open Sans', sans-serif;
 	float: left;
@@ -611,7 +631,13 @@ color: #777;
 }
 /* Footer Section*/
 #footer {
-	background: #f6f6f6;
+	/*background: #f6f6f6;*/
+	padding: 0px 0 60px 0;
+	background: linear-gradient(to right, #6372ff 0%, #5ca9fb 100%);
+	color: rgba(255,255,255,.75);
+	width: 100%;
+	height: 80vh;
+	/*background: red;*/
 	padding: 30px 0;
 }
 #footer p {
@@ -703,5 +729,16 @@ strong{
   color: #000;
   font-size: 35px;
   font-weight: bold;
+}
+#copy{
+	clear: both;
+	color: white;
+	height: 100px;
+}
+#copy h3{
+	color: white
+}
+#copy p{
+color: white;
 }
 /*end login section*/

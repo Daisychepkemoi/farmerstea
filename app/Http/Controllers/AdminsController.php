@@ -19,17 +19,6 @@ class AdminsController extends Controller
     {
         $this->middleware('auth');
     }
-    // $notcount = Notification::get()->count();
-    public function admin()
-    {
-        $notcount = Notification::get()->count();
-        return view('admin.admindashboard', compact('notcount'));//
-    }
-    // public function report()
-    // {
-    //     $notcount = Notification::get()->count();
-    //     return view('admin.report', compact('notcount'));
-    // }
     public function createevents()
     {
         $user= auth()->user();
@@ -56,21 +45,25 @@ class AdminsController extends Controller
         $user = auth()->user();
         $event= Event::where('id', $id)->first();
         $notcount = Notification::get()->count();
+         $db = DB::raw('YEAR(held_at) as created');
+        $eventyear = Event::select($db)->orderBy('created','DESC')->pluck('created')->unique();
         $users = User::where('id', $event->user_id)->first();
-        return view('admin.vieweventid', compact('user', 'event', 'users', 'notcount'));
+        return view('admin.vieweventid', compact('user', 'event', 'users', 'notcount','eventyear'));
     }
     public function viewevents()
     {
+       
+        $db = DB::raw('YEAR(held_at) as created');
+        $eventyear = Event::select($db)->orderBy('created','DESC')->pluck('created')->unique();
+        // dd($eventyear);''
         $user = auth()->user();
         $event = Event::all();
         $notcount = Notification::get()->count();
         if ($event->count() > 0) {
-            // $eventcount= Event::('user_id');
             $user_id = Event::pluck('user_id');
             $events = Event::orderBy('held_at', 'DESC')->get();
             $createdby= User::where('id', $user_id)->get();
-            // dd($events);
-            return view('admin.viewevents', compact('user', 'events', 'createdby', 'notcount'));
+            return view('admin.viewevents', compact('user', 'events', 'createdby', 'notcount','eventyear'));
         } else {
             return view('admin.emptyevent', compact('user', 'notcount'));
         }
@@ -95,17 +88,7 @@ class AdminsController extends Controller
                 'title'=>request('title'),
                 'body'=>$detail,
         ]);
-        //     return view('summernote_display',compact('summernote'));
-
-       
-        // // $notcount = Notification::get()->count();
-        // $notification = Notification::create([
-            
-            
-            
-            
-        // ]);
-        // dd($notification);
+        
         return redirect('/admin/viewnotifications');
     }
     public function viewnotifications()
@@ -116,11 +99,7 @@ class AdminsController extends Controller
             $notification = Notification::orderBy('created_at', 'DESC')->paginate(7);
             $user_id = Notification::pluck('user_id');
             $createdby =User::where('id', $user_id)->get();
-            // $all = Notification::orderBy('created_at', 'DESC')->pluck('body');
-            // $body = $all->body;
-            // $bodylimitd = str::limit($all, 100, '...');
 
-            // dd($bodylimitd);
             return view('admin.viewnotifications', compact('notification', 'user', 'createdby', 'notcount'));
         } else {
             return view('admin.emptynot', compact('user', 'notcount'));
@@ -176,8 +155,6 @@ class AdminsController extends Controller
         $user = auth()->user();
         $notcount = Notification::get()->count();
         
-      
-        // DB::table('teas')->where('user_id', $request->id)->update(['tea_no' => $tea ,'date_verified'=>now(),'verified_by'=>$user->f_name]);
         DB::table('users')->where('id', $request->id)->update(['verifiedadmin' => 'denied']);
        
         return redirect('/admin/upgradefarmer');
@@ -186,9 +163,7 @@ class AdminsController extends Controller
     {
         $user = auth()->user();
         $notcount = Notification::get()->count();
-        
-      
-        // DB::table('teas')->where('user_id', $request->id)->update(['tea_no' => $tea ,'date_verified'=>now(),'verified_by'=>$user->f_name]);
+ 
         DB::table('users')->where('id', $request->id)->update(['verifiedadmin' => 'revoked']);
        
         return redirect('/admin/upgradefarmer');

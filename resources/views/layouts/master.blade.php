@@ -10,6 +10,8 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet" type="text/css">
 
     <!-- Bootstrap -->
+        <script src="{{ asset('js/app.js') }}" defer></script>
+
     <link rel="stylesheet" type="text/css"  href="{{asset('css/bootstrap.css')}}">
     <link rel="stylesheet" type="text/css"  href="{{asset('css/forms.css')}}">
     {{-- <link rel="stylesheet" type="text/css" href="fonts/font-awesome/css/font-awesome.css"> --}}
@@ -94,7 +96,7 @@
               <img class="" src="{{ URL::to('image/oflogo.jpg') }}">
           </div>
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
-         
+       
            </div>
           
           <!-- Collect the nav links, forms, and other content for toggling -->
@@ -103,24 +105,36 @@
                @if (Route::has('login'))
                <div class="top-right links">
                 @auth
-                
-                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                    {{ Auth::user()->name }} <span class="caret"></span>
-                </a>
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="#features" class="page-scroll">Features</a></li>
+                        <li><a href="#about" class="page-scroll">About</a></li>
+                        <li><a href="#services" class="page-scroll">Services</a></li>
+                        <li><a href="#contact" class="page-scroll">Contact</a></li>
+                        <li><a href="/welcome" class="page-scroll">Blog</a></li>
+                        <li><a href="/dashboard">Dashboard</a></li>                        
+                     <li class="nav-item dropdown">
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                    {{ Auth::user()->f_name }} <span class="caret"></span>
+                                </a>
 
-                {{-- <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown"> --}}
-                    <a class="dropdown-item" href="{{ route('logout') }}"
-                    onclick="event.preventDefault();
-                    document.getElementById('logout-form').submit();">
-                    {{ __('Logout') }}
-                </a>
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="{{ route('logout') }}"
+                                    onclick="event.preventDefault();
+                                    document.getElementById('logout-form').submit();">
+                                    {{ __('Logout') }}
+                                </a>
 
-                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                    @csrf
-                </form>
-                {{-- @endauth --}}
-            {{-- </div> --}}
-        </li>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                    @csrf
+                                </form>
+                            </div>
+                        </li>
+                      
+                       
+         </ul>
+     </div>
+        
         
         @else
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -129,16 +143,14 @@
                 <li><a href="#about" class="page-scroll">About</a></li>
                 <li><a href="#services" class="page-scroll">Services</a></li>
                 <li><a href="#contact" class="page-scroll">Contact</a></li>
+                <li><a href="/welcome" class="page-scroll">Blog</a></li>
                 <li> <a href="{{ route('login') }}">Login</a></li>
-                @if (Route::has('register'))
-                <li><a href="{{ route('register')}}">Register</a></li>
-                @endif
+                <li> <a href="{{ route('register') }}">Register</a></li>
+                {{-- @if (Route::has('register')) --}}
+           
             </ul>
         </div>
-        
-        
 
-        
         
     </div>
     @endif

@@ -4,15 +4,6 @@
     <div class="container-fluid">
         <div class="panel panel-default">
             <div class="panel-heading " id="panelhead">
-                <h4>Period</h4>
-                <div class="start">
-                    <label for="startdate" >Start Date</label>
-                    <input  type="date" name="startdate" placeholder="Start Date">
-                </div>
-                <div class="start">
-                    <label for="enddate" >EndDate</label>
-                    <input type="date"  name="enddate" placeholder="End Date">
-                </div>
                 <div class="end">
 
                     <p>
@@ -23,7 +14,6 @@
 
                         </a>
                     </p>
-                    <p class="report"><button class="btn-success"><a href="">Generate Report</a></button></p>
                 </div>
             </div>
             
@@ -111,7 +101,7 @@
                         <td>{{$teas->bonus}}</td>
                       </tr>
                         <tr>
-                          <th scope="row">No Of Fertelizer Bags</th>
+                          <th scope="row">No Of Fertelizer Bags/Yr</th>
                           <td>{{$teas->no_of_fert}}</td>
                           <td>{{$teas->no_of_fert * 1492}}</td>
                         </tr>
@@ -136,6 +126,24 @@
               </div>
               <div class="panel panel-default">
               <div class="panel-heading " id="panelhead">Detailed Report</div>
+                <div class="panel-heading " id="panelhead">
+
+                <h4>Period</h4>
+                <div class="start">
+                    @include('sort.farmersort')
+                </div>
+                <div class="end">
+
+                    <p>
+                        <a href="{{ route('generate',['download'=>'pdf']) }}" download >
+                            <i> 
+                                <img src="{{ URL::to('image/Downloads.ico') }}" title="Download">
+                            </i>
+
+                        </a>
+                    </p>
+                </div>
+            </div>
                <div class="panel-body">
                 <table class="table table-bordered">
                      <thead>
@@ -172,9 +180,10 @@
                         
                         </tr>
                          <tr>
-                          <td colspan="3"></td>
+                          <td colspan="3">Page No</td>
                         <td></td>
-                        <td> {{$teadetail->links()}}</td>
+                        {{-- <td> {{$teadetail->links()}}</td> --}}
+                        <td> {{ $teadetail->appends(request()->input())->links() }}</td>
                         
                         </tr>
                          

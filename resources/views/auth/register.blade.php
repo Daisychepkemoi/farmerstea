@@ -14,7 +14,6 @@
     <div class="container">
 
       <div class="age">
-        {{-- <h1>kjhg</h1> --}}
 
         <label for="firstname"><b>{{ __('First Name') }}</b></label> 
         <input class="input" id="firstname" type="text" {{ $errors->has('firstname') ? ' is-invalid' : '' }} placeholder="First Name" name="firstname" value="{{ old('firstname') }}" required autofocus>

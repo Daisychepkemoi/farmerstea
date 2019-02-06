@@ -9389,6 +9389,17 @@ body.cm-login {
 	display: inline;
 	margin-left: 50px;
 }
+.start select{
+	height: 35px;
+	width: 150px;
+	margin-left: 15px;
+	border-color: green;
+}
+.start button{
+	height: 40px;
+	width: 150px;
+	margin-left: 100px;
+}
 #panelhead label{
 	margin-top: 10px;
 	margin-left: 50px;
@@ -9609,7 +9620,61 @@ form p button a{
 .adddelete{
 	color: white !important;
 }
+#app{
+	height:300px;
+	margin-bottom: 200px;
+}
+#text{
+	height: 100px;
+	/*background: red;*/
+	/*display: block;*/
+	/*clear: both;*/
+	/*text-align: justify !important;*/
+ }
+ #app #left{
+	 	float: left;
+	 	width: 40%;
+	 	height: 90%;
+	 	margin-left: 5%;
+}
+#app #right {
+	width: 40%;
+	float: right;
+	height: 90%;
+	margin-right: 5%;
+}
 
+#text p{
+	
+	/*background: red;*/
+	/*display: block;*/
+	text-transform: lowercase !important;
+	text-align: center !important;
+	 }
+.chart{
+	width: 60%;
+	margin-left: 20%;
+}
+
+.more{
+	float: right;
+	margin-right: 200px;
+	margin-bottom: 50px;
+}
+.more button{
+	height: 50px;
+	width: 200px;
+	
+}
+.more button a{
+	color: white;
+	font-size: 18px;
+	text-transform: initial;
+}
+.more form{
+	float: right;
+	margin-right: 100px;
+}
 
 
 

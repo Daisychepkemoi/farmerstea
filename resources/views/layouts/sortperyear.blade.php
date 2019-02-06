@@ -1,12 +1,9 @@
 <form method="POST" action="/eventsperdate">
               @csrf
               <select name="year">
-              <option>2018</option>
-              <option>2019</option>
-              <option>2020</option>
-              <option>2021</option>
-              <option>2022</option>
-              <option>2018</option>
+             @foreach($eventyear as $eventyr)
+              <option>{{$eventyr}}</option>
+              @endforeach
           </select>
              <select name="month">
               <option>January</option>

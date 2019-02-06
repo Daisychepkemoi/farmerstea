@@ -11,6 +11,6 @@ class Tea_DetailsTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Tea_Details::class, 5)->create();
+        factory(App\Tea_Details::class, 9)->create();
     }
 }

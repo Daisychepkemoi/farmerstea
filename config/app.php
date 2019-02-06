@@ -229,6 +229,8 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'PDF' => Barryvdh\DomPDF\Facade::class,
         'Charts' => ConsoleTVs\Charts\Charts::class,
+        'Input' => Illuminate\Support\Facades\Input::class,
+        'Str'       => Illuminate\Support\Str::class,
         // 'PDF' => Barryvdh\Snappy\Facades\SnappyPdf::class,
         // 'SnappyImage' => Barryvdh\Snappy\Facades\SnappyImage::class,
 

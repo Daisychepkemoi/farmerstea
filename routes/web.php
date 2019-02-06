@@ -16,15 +16,13 @@ Route::get('/', function () {
 });
 
 Auth::routes();
+//users
 
-Route::get('/charts', 'TeaController@index')->name('chart');
-Route::get('/home', 'UsersController@index')->name('home');
-Route::get('/regista', 'UsersController@regista');
-Route::post('/reg', 'UsersController@store');
-Route::get('/dashboard', 'UsersController@admin')->name('dash');
 Route::get('/report', 'UsersController@report')->name('report');
-Route::get('/events', 'UsersController@events')->name('event');
-Route::get('/eventid', 'UsersController@eventid')->name('eventid');
+Route::get('/welcome', 'PostsController@welcome')->name('welcome');
+Route::get('/post/{id}', 'PostsController@postid')->name('postid');
+Route::post('/create', 'PostsController@store')->name('store');
+Route::get('/sortreport', 'UsersController@sortreport')->name('sortreport');
 Route::get('/notification', 'UsersController@notification');
 Route::get('/notificationid', 'UsersController@notificationid');
 Route::get('/profile', 'UsersController@profile');
@@ -33,11 +31,10 @@ Route::get('/profile/edit/{id}', 'UsersController@editprofile');
 Route::get('/pdfgenerate', 'UsersController@generate')->name('generate');
 //admin
 // Route::get('/', 'UsersController@index')->name('home');
-Route::get('/admin/admindashboard', 'AdminsController@admin')->name('dash');
 Route::get('/admin/createevents', 'AdminsController@createevents');
 Route::post('/admin/createevents', 'AdminsController@store')->name('createevent');
-Route::get('/admin/viewevents', 'AdminsController@viewevents');
-Route::get('/admin/events/{id}', 'AdminsController@vieweventid');
+Route::get('/viewevents', 'AdminsController@viewevents');
+Route::get('/events/{id}', 'AdminsController@vieweventid');
 Route::get('/admin/createnotification', 'AdminsController@createnotification');
 Route::post('/admin/createnotification', 'AdminsController@storenotification');
 Route::get('/admin/viewnotification/{id}', 'AdminsController@viewnotificationid');
@@ -57,7 +54,20 @@ Route::get('/back', 'AdminsController@back');
 // Route::get('/admin/editprofile', 'AdminsController@editprofile');
 Route::get('/admin/farmersreport', 'ReportController@farmersreport')->name('farmersreport');
 Route::get('/admin/teareport', 'ReportController@farmersreport')->name('farmersreport');
+
 //eventscontoller
 Route::post('/eventsperdate', 'EventController@eventsperday')->name('eventsperday');
+//charts
+Route::get('/dashboard', 'TeaController@admindash')->name('admindash');
+Route::post('/admin/netperday', 'TeaController@netperday');
+Route::post('/admin/netpermonth', 'TeaController@netpermonth');
 Route::post('/notificationsperdate', 'EventController@notificationsperday')->name('notificationsperday');
+
+Route::any('/search',function(){
+    $q = Input::get ( 'q' );
+    $user = App\User::where('f_name','LIKE','%'.$q.'%')->orWhere('email','LIKE','%'.$q.'%')->get() ;
+    if(count($user) > 0)
+        return view('welcome')->withDetails($user)->withQuery ( $q );
+    else return view ('welcome')->withMessage('No Details found. Try to search again !');
+});
 

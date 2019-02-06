@@ -4,14 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use PDF;
+use DB;
+use App\Event;
 use App\User;
 use App\Tea;
 use App\Notification;
 use App\Tea_Details;
 use Illuminate\Pagination\Paginator;
-// use Auth;
-// use View;
-// use App\Http\Controllers\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -42,16 +41,12 @@ class UsersController extends Controller
 
 
      // protected $user = auth()->user();
-    public function index()
-    {
-        return view('posts.index');
-    }
+    
 
     public function admin()
     {
         $user = auth()->user();
          $notcount = Notification::get()->count();
-        // $tea= Tea::where('user_id', $user->id)->get();
         return view('dashboard.admin',compact('user','notcount'));
     }
     public function report()
@@ -59,26 +54,28 @@ class UsersController extends Controller
         $user = auth()->user();
         $tea= Tea::where('user_id', $user->id)->get();
         $teauser= Tea::where('user_id', $user->id)->pluck('tea_no');
-        // $tead= Tea::where('user_id',$teauser->id)->pluck('tea_no');
-        $teadetail = Tea_Details::whereIn('tea_no',$teauser)->paginate(15);
+          $db = DB::raw('YEAR(date_offered) as date');
+        $year = Tea_Details::select($db)->orderBy('date', 'DESC')->pluck('date')->unique();
+        $teadetail = Tea_Details::whereIn('tea_no',$teauser)->orderBy('date_offered','DESC')->paginate(15);
         $teadetaila = Tea_Details::whereIn('tea_no',$teauser)->pluck('net_weight')->sum();
-         // $total_as_at_day = Tea_details::where('tea_no',$teauser)->latest()->first();
          $notcount = Notification::get()->count();
-        // dd($total_as_at_day->net_weight);
-        return view('dashboard.reports', compact('user', 'tea','teadetail','teadetaila','notcount'));
+        return view('dashboard.reports', compact('user', 'tea','teadetail','teadetaila','notcount','year'));
     }
-    public function events()
+    public function sortreport()
     {
         $user = auth()->user();
+        $tea= Tea::where('user_id', $user->id)->get();
+        $teauser= Tea::where('user_id', $user->id)->pluck('tea_no');
+         $db = DB::raw('YEAR(date_offered) as date');
+        $year = Tea_Details::select($db)->orderBy('date', 'DESC')->pluck('date')->unique();
+         $month = request('month');
+        $nmonth = date('m',strtotime($month));
+        $teadetail = Tea_Details::whereIn('tea_no',$teauser)->whereYear('date_offered',request('year'))->whereMonth('date_offered',$nmonth)->orderBy('date_offered','DESC')->paginate(10);
+        $teadetaila = Tea_Details::whereIn('tea_no',$teauser)->whereYear('date_offered',request('year'))->whereMonth('date_offered',$nmonth)->pluck('net_weight')->sum();
          $notcount = Notification::get()->count();
-        return view('dashboard.events',compact('notcount','user'));
+        return view('dashboard.reports', compact('user', 'tea','teadetail','teadetaila','notcount','year'));
     }
-    public function eventid()
-    {
-        $user = auth()->user();
-         $notcount = Notification::get()->count();
-        return view('dashboard.eventid',compact('notcount','user'));
-    }
+   
     public function notification()
     {
         $user = auth()->user();
