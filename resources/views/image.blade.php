@@ -5,19 +5,23 @@
 </head>
 <body>
    {{-- # resources/views/books/show.blade.php --}}
-...
-<div class="col-md-6 offset-md-3 book-desc">
+{{-- ... --}}
+
+<div class="col-md-6 offset-md-3 bk-desc">
     <div class="card">
-        <img class="card-img-top" src="{{url('uploads/'.$book->filename)}}" alt="{{$book->filename}}">
+        @foreach($posts as $post)
+        <img class="card-img-top" src="{{url('uploads/'.$post->image)}}" alt="{{$post->image}}" style="width: 100px; height: 100px;">
         <div class="card-body">
-            <h4 class="card-title">Book No: {{ $book->id}}</h4>
             <p class="card-text">
-                Book <strong>{{ $book->name}}</strong> is written by <strong>{{ $book->author}}</strong>
+                <h4>    {{$post->title}}</h4>
+                <p> {{$post->body}}</p>
             </p>
             <a href="/welcome" class="btn btn-dark">Back</a>
         </div>
     </div>
+    @endforeach
 </div>
 </div>
 </body>
 </html>
+

@@ -17,7 +17,7 @@ class UsersTableSeeder extends Seeder
          	'l_name' => 'memo',
          	'national_id' => '14595269',
          	'phone_no' => '888056896',
-            'email' => 'daisy@email.com',
+            'email' => 'daishgy@email.com',
             'role' => 'user',
             'password' => Hash::make('123456'),
         ]);

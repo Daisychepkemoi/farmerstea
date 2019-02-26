@@ -6,6 +6,7 @@ use App\Event;
 use App\User;
 use App\Notification;
 use Illuminate\Pagination\Paginator;
+use Illuminate\Notifications\Notification;
 
 use Illuminate\Http\Request;
 
@@ -103,7 +104,9 @@ class EventController extends Controller
             'body'=>request('body'),
             
         ]);
-        dd($notification);
+                // $user->notify(new NewEvent($proposal));
+
+        // dd($notification);
         return redirect('/viewnotifications', compact('user'));
     }
 

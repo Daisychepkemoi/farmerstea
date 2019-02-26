@@ -8,6 +8,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use App\Mail\NewUser;
+use Illuminate\Support\Facades\Mail;
 
 class RegisterController extends Controller
 {
@@ -29,7 +31,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/dashboard';
+    protected $redirectTo = '/homeordash';
 
     /**
      * Create a new controller instance.
@@ -89,6 +91,12 @@ class RegisterController extends Controller
             'location' =>request('Location'),
             
         ]);
+        $admins = User::where('role','admin')->get();
+        foreach($admins as $admin){
+
+        \Mail::to($admin->email)->send(new NewUser($user));
+        }
+
         // $pr= array()
         return ($user);
         // dd($user);

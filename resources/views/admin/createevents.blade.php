@@ -3,73 +3,117 @@
 <div id="global">
   <div class="container-fluid">
     <div class="panel panel-default" >
-      <div class="panel-body">
+      <div class="panel-body" id=" container" style="background: ; width: 100%;">
+        <div class="panel-heading " id="panelhead">
+               
+                <div class="heading" style="height:;">
+                   <div class="" style="margin-right: 10%;">
+                    <p class="report"><button class="btn-success" style="width: 300px;">Create new Event </button></p>
+                </div>
+                </div>
+            </div>
+        <div class="container"  id="contains" style="width: 70%; float: left; "  >
+          {{-- <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css"> --}}
+        <link rel="stylesheet" type="text/css" href="{{asset('css/pop.css')}}">
+        <div  id="myForma">
+             <table class="table table-striped" >
+                <tbody>
+                   <tr>
+                      <td colspan="" class="" style="">
+                         <form class="well form-horizontal" method="POST" action="{{route('createevent')}}" style=" background-image: url('{{asset('image/desk.jpg')}}'); background-size: cover;opacity: 0.9;color: white;">
+                          @csrf
+                            <fieldset>
+                               <div class="form-group">
+                                  <label class="col-md-4 control-label" style=" height: 50px;"> Title</label>
+                                  <div class="col-md-6 inputGroupContainer">
+                                     <div class="input-group"><span class="input-group-addon" style=" height: 50px;"><i class="glyphicon glyphicon-user"></i></span>
+                                      <input id="title" name="title" placeholder="Title" class="form-control" required="true" value="" type="text" style=" height: 50px;"></div>
+                                  </div>
+                               </div>
+      
+                               <div class="form-group">
+                                  <label class="col-md-4 control-label" style=" height: 50px;">Location</label>
+                                  <div class="col-md-6 inputGroupContainer">
+                                     <div class="input-group">
+                                        <span class="input-group-addon" style="max-width: 100%; height: 50px;"><i class="glyphicon glyphicon-list"></i></span>
+                                      <input id="title" name="held_at" placeholder="Title" class="form-control" required="true" value="" type="date" style=" height: 50px;">
 
-        <div class="panel-body" id="event">
-         <h5 class="panel-heading" id="panelhead"> Create Events</h5>
-         {{-- <div class="eventid"> --}}
-          <form method="POST" action="{{route('createevent')}}">
-            @csrf
-            <label for="title"><b>{{ __('Event Title') }}</b></label>
-            <input class="input" id="title" type="text"  placeholder="Title" name="title"  required autofocus>
-             <label for="body"><b>{{ __('Event Body') }}</b></label>
-            <TEXTAREA class="input" id="body" type="text"  placeholder="Body" name="body"  required autofocus> </TEXTAREA>
-            <label for="held_at"><b>{{ __('held_at') }}</b></label>
-           <input class="input" id="title" type="date"  placeholder="held_at" name="held_at"  required autofocus>
-           <label for="location"><b>{{ __('location') }}</b></label>
-            <select class="input" id="Location" type="text"  placeholder="location" name="location"  required autofocus>
-          <option>Kapkarin</option>
-          <option>Cheborgei</option>
-          <option>Chebwagan</option>
-          <option>America</option>
-          <option>Lalagin</option>
-          <option>Kiptewit</option>
-          <option>Kapsir</option>
-          <option>Sosit</option>
-        </select>
-            <button class=" button btn-success" type="submit">Post</button>
-       
+                                     </div>
+                                  </div>
+                               </div>
+                               <div class="form-group">
+                                  <label class="col-md-4 control-label" style=" height: 50px;">Body</label> <br> <br>
+                                  <div class="col-md-6 inputGroupContainer">
+                                     <div class="input-group"><span class="input-group-addon" style=" height: 300px;"><i class="glyphicon glyphicon-text-height"></i></span><textarea id="fullName" name="body" placeholder="body" class=" form-control" required="true" value="" type="text" style=" height: 300px !important;"></textarea></div>
+                                  </div>
+                               </div>
+                               
+                               
+                               <div class="form-group">
+                                  <label class="col-md-4 control-label" style=" height: 50px;"></label>
 
-          </form>
-         
+                                  <div class="col-md-6 inputGroupContainer">
+                                     <div class="input-group">
+                                       <button class="btn-success" name="submit" style="width: 300px;margin-left: 20px; height: 70px;"> Post</button>
+                                       {{-- <button class="btn-danger"  style="width: 300px;margin-left: 20px; height: 70px;" onclick="closeForm()"">Close</button> --}}
+
+                                     </div>
+                                  </div>
+                               </div>
+                              
+                            </fieldset>
+                         </form>
+
+                      </td>
+                      
+                   </tr>
+                </tbody>
+                <hr style=" width: 100%;">
+             </table>
+          </div>  
         </div>
-      {{-- </div> --}}
-    <div class="panel-body" id="eventdate">
-      <div class="panel-body" id="month">
-       <h5 class="panel-heading" id="panelhead">Time</h5>
-       <div class="time" >
-        <select>
-          <option>2018</option>
-          <option>2019</option>
-          <option>2020</option>
-          <option>2021</option>
-          <option>2022</option>
-          <option>2018</option>
-        </select>
-        <p><a href="">January</a></p>
-        <p><a href="">January</a></p>
-        <p><a href="">January</a></p>
-        <p><a href="">January</a></p>
-        <p><a href="">January</a></p>
-        <p><a href="">January</a></p>
-        <p><a href="">January</a></p>
-        <p><a href="">January</a></p>
-        <p><a href="">January</a></p>
-        <p><a href="">January</a></p>
-        <p><a href="">January</a></p>
-      </div>
-    </div>
-    <div class="panel-body" id="blog">
-     <h5 class="panel-heading" id="panelhead">Latest News</h5>
-     <div class="blogid" >
-      <p>HELLO krnya</p>
-      <p><small>blah blah blahhhhhhhhh</small></p>
-    </div>
-  </div>  
+        <div class="container"  id="contain" style="width: 29%;float: right; background: white" >
+          {{-- <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css"> --}}
+        <div  id="myForma">
+             <table class="table table-striped" >
+                <tbody>
+                   <tr>
+                      <td colspan="" class="" style="">
+                         
+                            <fieldset>
+                              <h1>Recent Events</h1>
+                            </fieldset>
+                            <hr>
+                            @foreach($events as $event)
+                            <fieldset>
+                               <div class="form-group">
+                                  <div class="col-md-12 inputGroupContainer">
+                                     <div class="input-group" style=" height: ;">
+                                      <p style="font-size: 16px; font-weight: bold; color: red;"><a href="/events/{{$event->id}}" style="color: red !important;">{!! strip_tags(\Illuminate\Support\Str::words($event->title, 20,'...')) !!}</a></p>
+                                       <p>{!! strip_tags(\Illuminate\Support\Str::words($event->title, 35,'...')) !!} <b>Created On {{$event->created_at->diffForHumans()}}</b> </p>
+                                     </div>
+                                  </div>
+                             </div>
+                            </fieldset>
+                            <hr>
+                            @endforeach
+                             <hr>
+                            <fieldset>
+                              <a href="/viewevents" class="btn btn-success" style="margin-left: 60px; width: 150px;"> View More</a>
+                            </fieldset>
 
-</div>
-</div>
-</div>
+                      </td>
+                      
+                   </tr>
+                </tbody>
+                <hr style=" width: 100%;">
+             </table>
+          </div>  
+        </div>
+    <hr>   
+      </div>
+   </div>
+  </div>
 </div>
 </div>
 @endsection

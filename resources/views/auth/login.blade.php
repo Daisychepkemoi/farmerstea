@@ -2,8 +2,18 @@
 
 @section('content')
  <div class="landing-page">
-              <div style="background-color: rgba(0,0,0,0.8); height: 100%; width: 100%; position: absolute;"></div>
+              <div style=""></div>
               <div class="buttons-container" data-aos="slide-up" data-aos-duration="3000">
+                      @if (session()->has('warning'))
+             <div class="alert alert-warning" id="alert">
+              {{ session('warning') }}
+            </div>
+            @endif
+            @if (session()->has('success'))
+             <div class="alert alert-success" id="alert">
+              {{ session('success') }}
+            </div>
+            @endif
                <form class="modal-content animate" action="{{ route('login') }}" method="POST">
     <div class="imgcontainer">
       

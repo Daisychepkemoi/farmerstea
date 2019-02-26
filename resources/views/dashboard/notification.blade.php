@@ -7,42 +7,15 @@
 
         <div class="panel-body" id="event">
          <h5 class="panel-heading" id="panelhead">Notifications</h5>
-         <div class="eventid">
-          <p><a href="/notificationid">HELLO krnya</a></p>
-          <p><small>blah blah blahhhhhhhhh</small></p>
+         @foreach($notification as $not)
+         <div class="" style="padding-left: 30px; padding-right: 30px; min-height: 30px;">
+          <p><a href="/notification/{{$not->id}}">{!! strip_tags(\Illuminate\Support\Str::words($not->title, 20,'...')) !!}</a></p>
+          <p><small>{!! strip_tags(\Illuminate\Support\Str::words($not->body, 35,'...')) !!}</small></p>
+          <p> Created on <b>{{$not->created_at->diffForHumans()}}</b></p>
         </div>
         <hr> 
-        <div class="eventid">
-          <p><a href="/eventid">HELLO krnya</a></p>
-          <p><small>blah blah blahhhhhhhhh</small></p>
-        </div>
-        <hr>
-        <div class="eventid">
-          <p><a href="/eventid">HELLO krnya</a></p>
-          <p><small>blah blah blahhhhhhhhh</small></p>
-        </div>
-        <hr>
-        <div class="eventid">
-         <p><a href="/eventid">HELLO krnya</a></p>
-         <p><small>blah blah blahhhhhhhhh</small></p>
-       </div>
-       <hr>
-       <div class="eventid">
-         <p><a href="/eventid">HELLO krnya</a></p>  
-         <p><small>blah blah blahhhhhhhhh</small></p>
-       </div>
-       <hr>
-        <div class="eventid">
-         <p><a href="/eventid">HELLO krnya</a></p>
-        <p><small>blah blah blahhhhhhhhh</small></p>
-      </div>
-      <hr>
-      <div class="eventid">
-        <p>HELLO krnya</p>
-        <p><small>blah blah blahhhhhhhhh</small></p>
-      </div>
-      <hr>
-
+        @endforeach
+       
     </div>
     <div class="panel-body" id="eventdate">
       <div class="panel-body" id="month">

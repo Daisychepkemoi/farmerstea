@@ -1,5 +1,5 @@
 <?php
-
+use App\User;
 use Faker\Generator as Faker;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
@@ -8,11 +8,12 @@ use Illuminate\Http\Request;
 
 
 $factory->define(App\Posts::class, function (Faker $faker) {
-	// $filePath = storage_path('/images');
+		$user = User::where('function', 'Blogger')->pluck('f_name','l_name')->toArray();
 	return [
 		'body' => $faker->paragraph(2),
-		// 'image' => $faker->imageUrl(400, 300),
-		// 'image' => $faker->image('/uploads',400,300)
+		'title' => $faker->sentence(50),
+		'created_by' =>$faker->randomElement($user),
+		
 		'image' => $faker->image('public/uploads',400,300, null, false)
 
 	];

@@ -7,14 +7,16 @@
 
         <div class="panel-body" id="eventids">
          <h5 class="panel-heading" id="panelhead">Events</h5>
-         <div class="panel panel-success" id="eventid">
-         <h5><a href="">Titlehnbnmcxnmvfn k c biihjdvnc</a></h5>
-         <p>
-            To group many panels together, wrap a  with class .panel-group around them.
-
-            The .panel-group class clears the bottom-margin of each panel:
+         <div class="panel panel-success" id="" style="min-height: 20px; padding: 40px;">
+         <h5><a href="/notification/{{$notification->id}}" style="text-transform: uppercase; color: green; font-size: 20px; font-weight: bold;" >{{$notification->title}}</a></h5>
+         <p style="font-size: 16px; ">
+            {!! strip_tags($notification->body) !!}
           </p>
-
+          <p style="float: right;">{{$notification->created_at->diffForHumans()}}</p>
+          <p style="float: right; margin-right: 40px;"> Posted by : <span style="font-style: italic;">{{$username->f_name}} </span> </p>
+          <br>
+          <br>
+          <a class="btn-primary" style="width:200px; height: 50px; color: white; text-align: center;padding-top: 15px; float: left; margin-left: 100px;   "> Back</a>
 
         </div>
       </div>

@@ -38,7 +38,7 @@
     }
     #menu{
         /*background-color: green !important;*/
-        color: white;
+        /*color: white;*/
     }
 
     .full-height {
@@ -107,12 +107,24 @@
                 @auth
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav navbar-right">
+                        <li><a href="/home" class="page-scroll">Home</a></li>
                         <li><a href="#features" class="page-scroll">Features</a></li>
                         <li><a href="#about" class="page-scroll">About</a></li>
                         <li><a href="#services" class="page-scroll">Services</a></li>
                         <li><a href="#contact" class="page-scroll">Contact</a></li>
                         <li><a href="/welcome" class="page-scroll">Blog</a></li>
-                        <li><a href="/dashboard">Dashboard</a></li>                        
+                        @if(auth()->user()->verifiedadmin == 'verified') 
+                        {{-- a verified user --}}
+                        <li><a href="/dashboard">Dashboard</a></li>  
+                        @elseif(auth()->user()->verifiedadmin == 'notverified' &&auth()->user()->role == 'admin' && auth()->user()->created_by == 'user' )
+                        {{-- an main admin --}}
+                          <li><a href="/dashboard">Dashboard</a></li> 
+                         @elseif(auth()->user()->verifiedadmin == 'notverified' &&auth()->user()->role == 'admin' && auth()->user()->created_by == 'admin' )
+                         {{-- other admins --}}
+                          <li><a href="/dashboard">Dashboard</a></li> 
+                        @else
+
+                        @endif                      
                      <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->f_name }} <span class="caret"></span>
@@ -139,6 +151,7 @@
         @else
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
+                <li><a href="/home" class="page-scroll">Home</a></li>
                 <li><a href="#features" class="page-scroll">Features</a></li>
                 <li><a href="#about" class="page-scroll">About</a></li>
                 <li><a href="#services" class="page-scroll">Services</a></li>

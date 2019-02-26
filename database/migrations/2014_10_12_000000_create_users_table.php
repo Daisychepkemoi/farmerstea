@@ -22,10 +22,11 @@ class CreateUsersTable extends Migration
             $table->string('phone_no')->unique();
             $table->string('password');
             $table->boolean('verified')->default(0);
+            $table->string('function')->default('user');
             $table->string('verifiedadmin')->default('notverified');
             $table->string('role')->default('user');
             $table->timestamp('email_verified_at')->nullable();
-            $table->string('created_by')->nullable();
+            $table->string('created_by')->default('user');
             $table->rememberToken();
             $table->timestamps();
         });

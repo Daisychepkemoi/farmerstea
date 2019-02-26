@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 class Tea_Details extends Model
 {
      protected $fillable = [
-        'user_id','title' ,'body',
+        'user_id','net_weight' ,'gross_weight','offered_by','total_as_at_day','receipt_no','tea_no','date_offered',
     ];
      public function teas() {
 

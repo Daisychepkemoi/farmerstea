@@ -1729,7 +1729,8 @@ a.bg-primary:hover {
 }
 
 .bg-success {
-	background-color: #5cb85c !important;
+	/*background-color: #5cb85c !important;*/
+	background-color: green !important;
 	color: white;
 
 }
@@ -3795,7 +3796,7 @@ fieldset[disabled] .btn-primary.active {
 
 .btn-success {
 	color: #fff;
-	background-color: #2ecc71;
+	background-color:green;
 	border-color: #29b765;
 	line-height: 20px
 }
@@ -9619,9 +9620,10 @@ form p button a{
 }
 .adddelete{
 	color: white !important;
+	/*background: blue !important;*/
 }
 #app{
-	height:300px;
+	height:400px;
 	margin-bottom: 200px;
 }
 #text{
@@ -9633,15 +9635,15 @@ form p button a{
  }
  #app #left{
 	 	float: left;
-	 	width: 40%;
-	 	height: 90%;
-	 	margin-left: 5%;
+	 	width: 50%;
+	 	height: 100%;
+	 	margin-left: 2.5%;
 }
 #app #right {
 	width: 40%;
 	float: right;
 	height: 90%;
-	margin-right: 5%;
+	margin-right: 2.5%;
 }
 
 #text p{

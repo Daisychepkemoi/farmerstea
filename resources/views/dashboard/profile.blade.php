@@ -19,7 +19,6 @@
            <div class="profileone">
              <h5 class="panel-heading " id="panelhead">Profile Details</h5>
              <table class="table table-borderless" id="table">
-                @foreach($tea as $teas)
               <tbody>
                  <tr>
                   <td  class="first">Name</td>
@@ -34,7 +33,7 @@
                   <td class="detail">{{ $user->phone_no}}</td>
 
                 </tr>
-                @if($teas->tea_no == null)
+                @if($tea->tea_no == null)
                 <tr>
                   <td scope=" row" class="first">Tea Number</td>
                   <td class="detail">Not yet allocated</td>     
@@ -47,7 +46,7 @@
                 @endif
                 <tr>
                   <td scope=" row" class="first">Location</td>
-                  <td class="detail">{{ $teas->location}}</td>     
+                  <td class="detail">{{ $tea->location}}</td>     
                 </tr>
                 <tr>
                   <td scope="row" class="first">Email</td>
@@ -55,9 +54,8 @@
                 </tr>
                 <tr>
                   <td scope="row" class="first">No Of Acres</td>
-                  <td class="detail">{{ $teas->no_acres}}</td>     
+                  <td class="detail">{{ $tea->no_acres}}</td>     
                 </tr>
-                @endforeach
               </tbody>
             </table>
           </div>

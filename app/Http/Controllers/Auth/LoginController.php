@@ -25,8 +25,10 @@ class LoginController extends Controller
      *
      * @var string
      */
-
-    protected $redirectTo = '/dashboard';
+    // if(auth()->user()->verifiedadmin == 'verified'){
+            protected $redirectTo = '/homeordash';
+        // }
+    
 
     /**
      * Create a new controller instance.

@@ -62,7 +62,8 @@
                       </tr>
                       <tr>
                           <td class="label">Date Of Processing</td>
-                          <td class="detail">{{ $teas->created_at}}</td>     
+                         <td class="detail">{{\Carbon\Carbon::parse(now())->format('l  d M Y ')}}</td>
+
                       </tr>
 
 
@@ -162,7 +163,7 @@
 
                         
                         <td>{{$teadetails->receipt_no}}</td>
-                        <td>{{$teadetails->date_offered}}</td>
+                        <td>{{\Carbon\Carbon::parse($teadetails->date_offered)->format('l   d M Y')}}</td>
                         <td>{{$teadetails->gross_weight}}</td>
                         <td>{{$teadetails->net_weight}}</td>
                         <td>{{$teadetails->total_as_at_day}}</td>

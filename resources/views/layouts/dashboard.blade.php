@@ -5,11 +5,11 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
         <link rel="stylesheet" type="text/css" href="{{asset('css/assets/bootstrap-clearmin.min.css')}}">
         <link rel="stylesheet" type="text/css" href="{{asset('css/paginator.css')}}">
-        {{-- <link rel="stylesheet" type="text/css" href="{{asset('css/assets/roboto.css')}}"> --}}
-        {{-- <link rel="stylesheet" type="text/css"  href="{{asset('css/form.css')}}"> --}}
-        {{-- <link rel="stylesheet" type="text/css" href="{{asset('css/assets/material-design.css')}}"> --}}
-        {{-- <link rel="stylesheet" type="text/css" href="{{asset('css/assets/small-n-flat.css')}}"> --}}
-        {{-- <link rel="stylesheet" type="text/css" href="{{asset('css/assets/font-awesome.min.css')}}"> --}}
+        <link rel="stylesheet" type="text/css" href="{{asset('css/assets/roboto.css')}}">
+        <link rel="stylesheet" type="text/css"  href="{{asset('css/form.css')}}">
+        <link rel="stylesheet" type="text/css" href="{{asset('css/assets/material-design.css')}}">
+        <link rel="stylesheet" type="text/css" href="{{asset('css/assets/small-n-flat.css')}}">
+        <link rel="stylesheet" type="text/css" href="{{asset('css/assets/font-awesome.min.css')}}">
         <link rel="stylesheet" type="text/css" href="{{asset('css/assets/c3.min.css')}}">
          <script src="{{asset('js/assets/jquery-2.1.3.min.js')}}"></script>
         <script src="{{asset('js/assets/jquery.mousewheel.min.js')}}"></script>
@@ -30,8 +30,13 @@
          
         <script>
                 $(document).ready(function() {
-                    $('.summernote').summernote();
+                    $('.summernote').summernote(
+                        {
+                            height:300
+
+                        });
                 });
+
         </script>
 
     
@@ -39,24 +44,28 @@
     </head>
     <body class="cm-no-transition cm-2-navbar">
         <div id="cm-menu">
-            <nav class="cm-navbar cm-navbar-success">
-                <div class="cm-flex"><a href="index.html" class="" background-image: url({{url('/image/Notification.ico')}})></a></div>
-                <div class="btn btn-success " data-toggle="" style="background-image: url({{asset('image/home.ico')}})"></div>
+            <nav class="cm-navbar " style="background: green;">
+                {{-- <div class="cm-flex"><a href="index.html" class="" style="background-image: url({{url('/image/Notification.ico')}})"></a></div> --}}
+              <span>  <img src="{{ URL::to('image/logo.jpg') }}" style="width: 170px; height: 70px; margin-left: 5px; margin-top: 5px;">
+                <div class="btn btn-success " data-toggle="" style="background-image: url({{asset('image/home.ico')}})"></div> </span>
             </nav>
             <div id="cm-menu-content">
                 <div id="cm-menu-items-wrapper">
-                    <div id="cm-menu-scroller">
+                    <div id="cm-menu-scroller" >
                         <ul class="cm-menu-items">
                             @if($user->role == 'user')
-                            <li ><a href="{{ url('/')}}" class="sf-house" >Home</a></li>
+                            <li ><a href="{{ url('/')}}" class="glyphicon " >Home</a></li>
+                             @if($user->verifiedadmin == "verified"  )
                             <li class="active"><a href="/dashboard" class="sf-dashboard">Dashboard</a></li>
                             <li><a href="{{ route('report') }}" class="sf-brick">Reports</a></li>
                             <li><a href="/viewevents" class="sf-brick">Events</a></li>
-                          
+                            <li><a href="/blog" class="sf-brick">Blog</a></li>
+                                @else
+                                @endif
                             @else
                             <li ><a href="{{ url('/') }}" class="sf-house" >Home</a></li>
                             <li class="active"><a href="/dashboard" class="sf-dashboard"> Admin Dashboard</a></li>
-                           
+                           @if($user->function == 'user' || $user->function == 'Admin')
                             <li class="cm-submenu">
                                 <a class="sf-window-layout" >Reports <span class="caret"></span></a>
                                 <ul>
@@ -64,36 +73,64 @@
                                     <li><a href="/admin/teareport">Tea Report</a></li>
                                 </ul>
                             </li>
+                            @endif
+                            @if($user->function == 'Admin' || ($user->function == 'user' && $user->created_by == 'user') ||$user->function == 'Agent')
                              <li class="cm-submenu">
                                 <a class="sf-window-layout" >Manage Farmers <span class="caret"></span></a>
                                 <ul>
+                             @if($user->function == 'Admin' || ($user->function == 'user' && $user->created_by == 'user')) 
                                     <li><a href="/admin/upgradefarmer">Tea Number Allocation</a></li>
+                             @endif
+                                    @if($user->function == 'Agent' ||($user->created_by=='user' && $user->function == 'user'))
+                                    <li><a href="/viewdailyproducereport">Todays Produce Report</a></li>
+                                    <li><a href="/addteaproduce">Enter Daily Produce</a></li>
+                                    @else
+                                    @endif
                                 </ul>
                             </li>
-                            @if($user->created_by = 'admin')
-                            @else
+                            @endif
+                            @if($user->created_by == 'user' )
                              <li class="cm-submenu">
                                 <a class="sf-window-layout" > Manage Staff<span class="caret"></span></a>
                                 <ul>
                                     <li><a href="/admin/addrole">Add/remove Admin</a></li>
                                 </ul>
                             </li>
+                            @else
+
                             @endif
                             <li class="cm-submenu">
                                 <a class="sf-window-layout">Events <span class="caret"></span></a>
                                 <ul>
+                                     @if($user->function == 'Admin' || ($user->function == 'user' && $user->created_by == 'user'))
                                     <li><a href="/admin/createevents">Create Event</a></li>
+                                    @endif
                                     <li><a href="/viewevents">View Events</a></li>
                                     <!-- <li><a href="layouts-tabs.html">2nd nav tabs</a></li> -->
                                 </ul>
                             </li>
                             <li class="cm-submenu">
+
                                 <a class="sf-window-layout" >Notifications <span class="caret"></span></a>
                                 <ul>
+                                     @if($user->function == 'Admin' || ($user->function == 'user' && $user->created_by == 'user'))
                                     <li><a href="/admin/createnotification">Create Notification</a></li>
+                                    @endif
                                     <li><a href="/viewnotifications">View Notifications</a></li>
                                 </ul>
                             </li>
+                            
+                             <li class="cm-submenu">
+                                <a class="sf-window-layout">Blog <span class="caret"></span></a>
+                                <ul>
+                                     @if($user->function == 'Admin' || ($user->function == 'user' && $user->created_by == 'user') ||$user->function == 'Blogger')
+                                    <li><a href="/createpost">Create blog post</a></li>
+                                    @endif
+                                    <li><a href="/viewevents">View Blog Posts</a></li>
+                                    <!-- <li><a href="layouts-tabs.html">2nd nav tabs</a></li> -->
+                                </ul>
+                            </li>
+                            
                            
                             @endif
                         </ul>
@@ -102,8 +139,8 @@
             </div>
         </div>
         <header id="cm-header">
-            <nav class="cm-navbar cm-navbar-success">
-                <div class="btn btn-success  hidden-md hidden-lg" data-toggle="cm-menu" style="background-image: url({{asset('image/home.ico')}}); "></div>
+            <nav class="cm-navbar" style="background: green;">
+                <div class="btn btn-success   hidden-md hidden-lg" data-toggle="cm-menu" style="background-image: url({{asset('image/home.ico')}}); "></div>
                 <div class="cm-flex"> 
                     <form id="cm-search" action="/search" method="get">
                         <input type="search" name="q" autocomplete="off" placeholder="Search...">
@@ -132,14 +169,15 @@
                                     <p class="list-group-item-text text-overflow">Pellentesque tincidunt mollis scelerisque. Praesent vel blandit quam.</p>
                                 </a>
                             </div>
-                            <div style="padding:10px"><a class="btn btn-success btn-block" href="/notification">Show me more...</a></div>
+                            <div style="padding:10px"><a class="btn  btn-block" href="/notification" style="background:green;">Show me more...</a></div>
                         </div>
                     </div>
                 </div>
                 @else
                 @endif
-                <div class="dropdown pull-right">
-                    <button class="btn btn-success " style="background-image: url({{url('/image/User.ico')}}) ;" data-toggle="dropdown"></button>
+                <div class="dropdown pull-right" style="background:green;">
+                     {{-- <button class="btn" data-toggle="dropdown">H</button> --}}
+                    <button class="btn btn-success" style="background-image: url({{url('/image/User.ico')}}) ; " data-toggle="dropdown"></button>
                     <ul class="dropdown-menu">
                         <li class="disabled text-center">
                             <a style="cursor:default;"><strong>{{$user->f_name}}</strong></a>

@@ -5,118 +5,103 @@
         <div class="panel panel-default">
             <div class="panel-heading " id="panelhead">
                
-                <div class="end">
-
-                    <p>
-                        <a href="{{ route('generate',['download'=>'pdf']) }}" download >
-                            <i> 
-                                <img src="{{ URL::to('image/Downloads.ico') }}" title="Download">
-                            </i>
-
-                        </a>
-                    </p>
-                    <p class="report"><button class="btn-success"><a href="">Generate Report</a></button></p>
+                <div class="heading" style="height:;">
+                   <div class="end">
+                    <p class="report"><button class="btn-success" onclick="openForm()">Create new Admin </button></p>
+                </div>
                 </div>
             </div>
             
-           @if($user->created_by='admin')
+           @if($user->created_by =='admin')
            @else
-          
-              <div class="panel-heading " id="panelhead">Create new Admin</div>
-              <div class="panel-body">
-                <form class="modal-content animate" action="/admin/addadmin" method="POST">
-                     
-                      @csrf
-                 
-                        <div class="container">
-
-                          <div class="age">
-              
-
-                            <label for="firstname"><b>{{ __('First Name') }}</b></label> 
-                            <input class="input" id="firstname" type="text" {{ $errors->has('firstname') ? ' is-invalid' : '' }} placeholder="First Name" name="firstname" value="{{ old('firstname') }}" required autofocus>
-                            @if ($errors->has('firstname'))
-                            <span class="invalid-feedback" role="alert">
-                              <strong>{{ $errors->first('firstname') }}</strong>
-                            </span> 
-                            @endif
-                          </div>
-                          <div class="ages">
-                            {{-- <h1>nbvc</h1> --}}
-                            <label for="lastname" ><b>{{ __('Lastname') }}</b></label>
-                            <input class="input" id="lastname" type="text" {{ $errors->has('lastname') ? ' is-invalid' : '' }} placeholder="last Name" name="lastname" value="{{ old('lastname') }}" required autofocus>
-                            @if ($errors->has('lastname'))
-                            <span class="invalid-feedback" role="alert">
-                              <strong>{{ $errors->first('lastname') }}</strong>
-                            </span>
-                            @endif
-                            <br>
-
-                          </div>
-                          <br>
-                          <div class="age">
-                            <label for="NationalID"><b>{{ __('National ID') }}</b></label>
-                            <input class="input" id="NationalID" type="number" {{ $errors->has('national_id') ? ' is-invalid' : '' }} placeholder="National ID" name="national_id" value="{{ old('national_id') }}" required autofocus>
-                            @if ($errors->has('national_id'))
-                            <span class="invalid-feedback" role="alert">
-                              <strong>{{ $errors->first('national_id') }}</strong>
-                            </span>
-                            @endif
-                          </div>
-                          <div class="ages">
-                            <label for="phone_no"><b>{{ __('Phone Number') }}</b></label>
-                            <input class="input" id="phone_no" type="number" {{ $errors->has('phone_no') ? ' is-invalid' : '' }} placeholder="Phone Number" name="phone_no" value="{{ old('phone_no') }}" required autofocus>
-                            @if ($errors->has('phone_no'))
-                            <span class="invalid-feedback" role="alert">
-                              <strong>{{ $errors->first('phone_no') }}</strong>
-                            </span>
-                            @endif
-                          </div>
-                         
-                         
-                        <label for="email"><b>{{ __('Email') }}</b></label>
-                        <input id="email" class="input" type="email" {{ $errors->has('email') ? ' is-invalid' : '' }} placeholder="Email" name="email" value="{{ old('email') }}" required autofocus>
-                        @if ($errors->has('email'))
-                        <span class="invalid-feedback" role="alert">
-                          <strong>{{ $errors->first('email') }}</strong>
-                        </span>
-                        @endif
+        <link rel="stylesheet" type="text/css" href="{{asset('css/pop.css')}}">
+<div class="container"  >
+  <div class="popup" id="myForm">
+       <table class="table table-striped" >
+          <tbody>
+             <tr>
+                <td colspan="" class="backg" style="">
+                   <form class="well form-horizontal" method="POST" action="/admin/addadmin" style=" background-image: url('{{asset('image/desk.jpg')}}'); background-size: cover;opacity: 0.9;color: white;">
+                    @csrf
+                      <fieldset>
+                         <div class="form-group">
+                            <label class="col-md-4 control-label" style=" height: 50px;">First Name</label>
+                            <div class="col-md-6 inputGroupContainer">
+                               <div class="input-group"><span class="input-group-addon" style=" height: 50px;"><i class="glyphicon glyphicon-user"></i></span><input id="firstName" name="firstname" placeholder="First Name" class="form-control" required="true" value="" type="text" style=" height: 50px;"></div>
+                            </div>
+                         </div>
+                          <div class="form-group">
+                            <label class="col-md-4 control-label" style=" height: 50px;">Last Name</label>
+                            <div class="col-md-6 inputGroupContainer">
+                               <div class="input-group" style=" height: 50px;"><span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span><input id="lastName" name="lastname" placeholder="Last Name" class="form-control" required="true" value="" type="text" style=" height: 50px;"></div>
+                            </div>
+                         </div>
+                         <div class="form-group">
+                            <label class="col-md-4 control-label" style=" height: 50px;">National Id</label>
+                            <div class="col-md-6 inputGroupContainer">
+                               <div class="input-group"><span class="input-group-addon" style=" height: 50px;"><i class="glyphicon glyphicon-home"></i></span><input id="addressLine1" name="national_id" placeholder="National ID" class="form-control" required="true" value="" type="Number" style=" height: 50px;"></div>
+                            </div>
+                         </div>
+                          <div class="form-group">
+                            <label class="col-md-4 control-label" style=" height: 50px;">Phone Number</label>
+                            <div class="col-md-6 inputGroupContainer">
+                               <div class="input-group"><span class="input-group-addon" style=" height: 50px;"><i class="glyphicon glyphicon-earphone"></i></span><input id="phoneNumber" name="phone_no" placeholder="Phone Number" class="form-control" required="true" value="" type="text" style=" height: 50px;"></div>
+                            </div>
+                         </div>
                         
-                        <div class="age">
-                          <label for="password"><b>{{ __('Password') }}</b></label>
-                            <input id="password" type="password" class="input{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
-                            @if ($errors->has('password'))
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $errors->first('password') }}</strong>
-                                </span>
-                              @endif
-                        </div>
-                       
-                        <button class="button" type="submit"> {{ __('Save') }}</button>
-                      
-                        <br> <br>
-                      </div>
-                      @if($errors->any())
-                      <div class="row collapse">
-                        <ul class="alert-box warning radius">
-                          @foreach($errors->all() as $error)
-                          <li>{{$error}}</li>
-                          @endforeach
-                        </ul>
-                      </div>
-                      @endif
-                      <input type="text" name="created_by" value="{{$user->f_name}}" readonly="" hidden="">
+                         
+                         <div class="form-group">
+                            <label class="col-md-4 control-label" style=" height: 50px;">Role</label>
+                            <div class="col-md-6 inputGroupContainer">
+                               <div class="input-group">
+                                  <span class="input-group-addon" style="max-width: 100%; height: 50px;"><i class="glyphicon glyphicon-list"></i></span>
+                                  <select name="function" class="selectpicker form-control" style=" height: 50px;">
+                                    <option>Admin</option>
+                                    <option>Agent</option>
+                                    <option>Blogger</option>
+                                    </select>
+                               </div>
+                            </div>
+                         </div>
+                         <div class="form-group">
+                            <label class="col-md-4 control-label" style=" height: 50px;">Email</label>
+                            <div class="col-md-6 inputGroupContainer">
+                               <div class="input-group">
+                                <span class="input-group-addon" style="max-width: 100%; height: 50px;"><i class="glyphicon glyphicon-envelope"></i></span><input id="email" name="email" placeholder="Email" class="form-control" required="true" value="" type="email" style=" height: 50px;"></div>
+                            </div>
+                         </div>
+                          <div class="form-group">
+                            <label class="col-md-4 control-label" style=" height: 50px;">Password</label>
+                            <div class="col-md-6 inputGroupContainer">
+                               <div class="input-group"><span class="input-group-addon" style=" height: 50px;"><i class="glyphicon glyphicon-lock"></i></span><input id="password" name="password" placeholder="" class="form-control" required="true" value="" type="password" style=" height: 50px;"></div>
+                            </div>
+                         </div>
+                         <div class="form-group">
+                            <label class="col-md-4 control-label" style=" height: 50px;"></label>
 
-                    </form>
+                            <div class="col-md-6 inputGroupContainer">
+                               <div class="input-group">
+                                 <button class="btn-success" name="submit" style="width: 300px;margin-left: 20px; height: 70px;"> Submit</button>
+                                 <button class="btn-danger"  style="width: 300px;margin-left: 20px; height: 70px;" onclick="closeForm()">Close</button>
 
-
-                    </div>
-
+                               </div>
+                            </div>
+                         </div>
                         
-                      {{-- </div> --}}
-              </div>
-              @endif
-              
+                      </fieldset>
+                   </form>
+
+                </td>
+                
+             </tr>
+          </tbody>
+          <hr style=" width: 100%;">
+       </table>
+    </div>  
+  </div>
+    <hr>   
+           @endif
+              <div class="container" style="width: 100%; ">
                 <div class="panel panel-default">
               <div class="panel-heading " id="panelhead">Admins
                 <a href="{{ route('generate',['download'=>'pdf']) }}" download >
@@ -133,8 +118,9 @@
                             <th scope="col">Name</th>
                           <th scope="col">Email</th>
                           <th scope="col">Created_On</th>
+                          <th scope="col">function</th>
                           <th scope="col"> National_ID</th>
-                          @if($user->created_by='admin')
+                          @if($user->created_by=='admin')
                           @else
                           <th colspan="2">Edit</th>
                           @endif
@@ -144,11 +130,12 @@
                       <tbody>
                         @foreach($admins as $admin)
                        <tr>
-                        <th scope="row">{{$admin->f_name}}{{$admin->l_name}}</th>
+                        <th scope="row">{{$admin->f_name}}  {{$admin->l_name}}</th>
                         <td >{{$admin->email}}</td>
                         <td >{{$admin->updated_at}}</td>
+                        <td >{{$admin->function}}</td>
                         <td >{{$admin->national_id}}</td>
-                        @if($user->created_by='admin')
+                        @if($user->created_by=='admin')
                           @else
                           
                         
@@ -161,7 +148,8 @@
                         <td>Go To Page</td>
                         <td></td>
                         <td></td>
-                         @if($user->created_by= 'admin')
+                        <td></td>
+                         @if($user->created_by== 'admin')
                           @else
                          
                         <td></td>
@@ -192,9 +180,9 @@
                         <tr class="bg-success">
                             <th scope="col">Name</th>
                           <th scope="col">Email</th>
-                          <th scope="col">Role</th>
+                          <th scope="col">Function</th>
                           <th scope="col"> National_ID</th>
-                           @if($user->created_by='admin')
+                           @if($user->created_by=='admin')
                           @else
                           <th colspan="2">Edit</th>
                           @endif
@@ -206,11 +194,11 @@
                        <tr>
                         <th scope="row">{{$denied->f_name}}{{$denied->l_name}}</th>
                         <td >{{$denied->email}}</td>
-                        <td >{{$denied->role}}</td>
+                        <td >{{$denied->function}}</td>
                         <td >{{$denied->national_id}}</td>
-                        @if($user->created_by = 'admin')
+                        @if($user->created_by == 'admin')
                         @else
-                          <td scope="col"> <button class="btn-danger"><a class="adddelete" href="/admin/addpriviledge/{{$denied->id}}">Add To Admins</a>  </button></td>
+                          <td scope="col"> <button class="btn-danger"><a class="adddelete" href="/admin/addpriviledge/{{$denied->id}}">ReAdd To Admins</a>  </button></td>
                           @endif
                         
 
@@ -220,7 +208,8 @@
                         <td>Go To Page</td>
                         <td></td>
                          <td></td>
-                          @if($user->created_by= 'admin')
+                         {{-- <td></td> --}}
+                          @if($user->created_by== 'admin')
                           @else
 
                         <td></td>
@@ -238,8 +227,17 @@
               </div>
             </div>
            
-
+          </div>
        </div>
    </div>
 </div>
+<script>
+function openForm() {
+  document.getElementById("myForm").style.display = "block";
+}
+
+function closeForm() {
+  document.getElementById("myForm").style.display = "none";
+}
+</script>
 @endsection

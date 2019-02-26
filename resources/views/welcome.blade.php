@@ -154,6 +154,25 @@ width: 75%;    }
             <div class="well well-sm">
                 <div class="form-group">
                     <div class="input-group input-group-md">
+                        <form method="POST" action="/postcreate" enctype="multipart/form-data"> 
+                        @csrf                       <div class="form-group">
+        <div class="form-group">
+                               <label for="title">Title:</label>
+                                <input type="text" class="form-control" name="title"/ required="">
+                                  </div>
+                                   <div class="form-group">
+                               <label for="body">Body:</label>
+                                <input type="text" class="form-control" name="body"/ required="">
+                                  </div>
+                                   <div class="form-group">
+                               <label for="image">Image:</label>
+                                <input type="file" class="form-control" name="image" required="" />
+                                  </div>
+                              <button class="btn-success" name="submit">Submit</button>
+                              {{-- </form> --}}
+    </form>
+
+
                       {{-- <p></p> --}}
                           {{-- <a class="btn btn-success" href="#">Read More</a> --}}
 
@@ -161,16 +180,16 @@ width: 75%;    }
     {{-- <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> --}}
 </div>
             </div>
-            <div id="products" class="row list-group">
+         {{--    <div id="products" class="row list-group">
                                     @foreach($posts as $post)
 
                 <div class="item col-xs-4 col-lg-4" ">
     <div class="thumbnail text-center">
         <img class="group list-group-image" src="{{$post->image}}" />
         <div class="caption">
-            {{-- <h4 class="group inner list-group-item-heading">@{{ post.title }}</h4> --}}
-            <p class="mb-0">{{  str_limit($post->body, 70, '....')}}</p>
-            {{-- <p class="group inner list-group-item-text">{!! Str::characters($post->body, 9,'....')  !!}</p> --}}
+            {{ <h4 class="group inner list-group-item-heading">@{{ post.title }}</h4> --}}
+           {{--  <p class="mb-0">{{  str_limit($post->body, 70, '....')}}</p>
+            <p class="group inner list-group-item-text">{!! Str::characters($post->body, 9,'....')  !!}</p>
             <div class="row">
                 <div class="col-xs-12 col-md-6">
                     <p class="">Created {{ $post->created_at->diffForHumans() }}</p>
@@ -184,9 +203,9 @@ width: 75%;    }
 </div>
     @endforeach
 
-            </div>
+            </div> --}} 
         </div>
-            {{$posts->links()}}
+            {{-- {{$posts->links()}} --}}
 
         {{-- # resources/views/books/insert.blade.php --}}
 

@@ -10,6 +10,7 @@ class Tea extends Model
      protected $fillable = [
         'tea_no','location', 'bonus','expected_produce','user_id','no_of_fert','no_acres',
     ];
+    public $timestamps = true;
      public function Users() {
 
         return $this->BelongsTo(User::class,'user_id');

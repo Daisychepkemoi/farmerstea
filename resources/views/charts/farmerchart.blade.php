@@ -2,11 +2,14 @@
 @section('content')
 <div id="global">
     <div class="container-fluid">
+        @if($user->verifiedamin == 'revoked' || $user->verifiedamin == 'notverified' || $user->verifiedamin == 'denied')
+        <p>Sorry, you can't view your dashboard, please contact admin form more details</p>
+        @else
+
         <div class="panel panel-default">
             <div class="panel-heading " id="panelhead">
                 <div class="panel-body" id="text">Chart Representation Report
                     <div class="end">
-
                     <p>
                         <a href="{{ route('generate',['download'=>'pdf']) }}" download >
                             <i> 
@@ -49,6 +52,15 @@
                
             </div>
             </div>
+
+
+                   
+                   
+                {{-- </div> --}}
+               
+            {{-- </div> --}}
+        {{-- </div> --}}
+        @endif
         </div>
     </div>
 </div>

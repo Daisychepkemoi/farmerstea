@@ -12,6 +12,20 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\NewEvent;
+use App\Mail\VerifyFarmer;
+use App\Mail\NewNotification;
+use App\Mail\NewAdmin;
+
+
+
+// use App\Notification\NewEvent;
+// use Illuminate\Notifications\Notification;
+
+// use App\Notifications\AcceptOrReject;
+
+
 
 class AdminsController extends Controller
 {
@@ -23,7 +37,8 @@ class AdminsController extends Controller
     {
         $user= auth()->user();
         $notcount = Notification::get()->count();
-        return view('admin.createevents', compact('user', 'notcount'));
+        $events = Event::orderBy('created_at','desc')->paginate(3);
+        return view('admin.createevents', compact('user', 'notcount','events'));
     }
     public function store()
     {
@@ -37,7 +52,8 @@ class AdminsController extends Controller
             'body'=>request('body'),
             
         ]);
-        return redirect('/admin/viewevents');
+        Mail::send(new NewEvent($event));
+        return redirect('/admin/createevents');
     }
 
     public function vieweventid($id)
@@ -55,7 +71,6 @@ class AdminsController extends Controller
        
         $db = DB::raw('YEAR(held_at) as created');
         $eventyear = Event::select($db)->orderBy('created','DESC')->pluck('created')->unique();
-        // dd($eventyear);''
         $user = auth()->user();
         $event = Event::all();
         $notcount = Notification::get()->count();
@@ -65,14 +80,16 @@ class AdminsController extends Controller
             $createdby= User::where('id', $user_id)->get();
             return view('admin.viewevents', compact('user', 'events', 'createdby', 'notcount','eventyear'));
         } else {
-            return view('admin.emptyevent', compact('user', 'notcount'));
+          
+            return view('admin.emptyevent', compact('user', 'notcount','eventyear'));
         }
     }
     public function createnotification()
     {
         $user = auth()->user();
         $notcount = Notification::get()->count();
-        return view('admin.createnotification', compact('user', 'notcount'));
+        $notifications = Notification::orderBy('created_at','desc')->paginate(3);
+        return view('admin.createnotification', compact('user', 'notcount','notifications'));
     }
     public function storenotification(Request $request)
     {
@@ -88,8 +105,8 @@ class AdminsController extends Controller
                 'title'=>request('title'),
                 'body'=>$detail,
         ]);
-        
-        return redirect('/admin/viewnotifications');
+        Mail::send(new NewNotification($notification));
+        return redirect('/admin/createnotification');
     }
     public function viewnotifications()
     {
@@ -126,11 +143,13 @@ class AdminsController extends Controller
     {
         $user = auth()->user();
         $notcount = Notification::get()->count();
-        $farmers = User::where('verifiedadmin', 'notverified')->where('role', 'user')->where('created_by', 'user')->orderBy('created_at', 'DESC')->paginate(15);
-        $rejected = User::where('verifiedadmin', 'denied')->where('role', 'user')->where('created_by', 'user')->orderBy('created_at', 'DESC')->paginate(15);
+        // $farmers = User::where('verifiedadmin', 'notverified')->where('role', 'user')->where('created_by', 'user')->orderBy('created_at', 'DESC')->paginate(15);
+         $farmers = DB::table('users')->join('teas','users.id','=', 'teas.user_id')->select('users.*','teas.tea_no')->where('users.verifiedadmin','notverified')->where('role','user')->orderBy('updated_at','desc')->paginate(15);
+        $rejected = User::where('verifiedadmin', 'denied')->where('role', 'user')->where('created_by', 'user')->orderBy('updated_at', 'DESC')->paginate(15);
         // dd($farmers);
-        $farmerver = User::where('verifiedadmin', 'verified')->where('role', 'user')->where('created_by', 'user')->orderBy('updated_at', 'DESC')->paginate(15);
-        $revokedfarmer = User::where('verifiedadmin', 'revoked')->where('role', 'user')->where('created_by', 'user')->orderBy('updated_at', 'DESC')->paginate(15);
+        $farmerver = DB::table('users')->join('teas','users.id','=', 'teas.user_id')->select('users.*','teas.tea_no')->where('users.verifiedadmin','verified')->where('role','user')->orderBy('updated_at','desc')->paginate(15);
+        // dd($farmerver);
+            $revokedfarmer = DB::table('users')->join('teas','users.id','=', 'teas.user_id')->select('users.*','teas.tea_no')->where('users.verifiedadmin','revoked')->orderBy('updated_at','desc')->paginate(15);
         // dd($farmers);
         return view('crudfarmer.verifyfarmer', compact('user', 'notcount', 'farmers', 'farmerver', 'rejected', 'tea_no', 'revokedfarmer'));
     }
@@ -140,14 +159,33 @@ class AdminsController extends Controller
         $notcount = Notification::get()->count();
         
         $admin = User::where('role', 'admin')->pluck('f_name');
-        $tea_no = Tea::whereIn('verified_by', $admin)->latest()->first();
-        $tea = $tea_no->tea_no+1;
+
+        // $tea_no = Tea::whereIn('verified_by', $admin)->orderBy('updated_at','desc')->first();
+        $teano = Tea::max('tea_no');
+        // $tea
+        // dd($teano);
+        // dd($tea_no == null);
+        if($teano == null){
+            // $tea = 1;
+            // $tea = $tea+1;
+             DB::table('teas')->where('user_id', $request->id)->update(['tea_no' => 1,'updated_at'=>now(),'date_verified'=>now(),'verified_by'=>$user->f_name]);
+        DB::table('users')->where('id', $request->id)->update(['verifiedadmin' => 'verified']);
         
 
-        
-        DB::table('teas')->where('user_id', $request->id)->update(['tea_no' => $tea,'date_verified'=>now(),'verified_by'=>$user->f_name]);
-        DB::table('users')->where('id', $request->id)->update(['verifiedadmin' => 'verified']);
-       
+        }
+        else{
+             $tea = $teano + 1;
+             // dd($teano);
+              DB::table('teas')->where('user_id', $request->id)->update(['tea_no' => $tea,'date_verified'=>now(),'updated_at'=>now(),'verified_by'=>$user->f_name]);
+            DB::table('users')->where('id', $request->id)->update(['verifiedadmin' => 'verified','updated_at'=>now()]);
+
+         // $farmers = Tea::where('user_id',$id)->first();
+         // dd($farmers);
+
+        }
+         $farmer = User::find($id);
+                Mail::send(new VerifyFarmer($farmer));
+         
         return redirect('/admin/upgradefarmer');
     }
     public function denyfarmer($id, Request $request)
@@ -155,8 +193,10 @@ class AdminsController extends Controller
         $user = auth()->user();
         $notcount = Notification::get()->count();
         
-        DB::table('users')->where('id', $request->id)->update(['verifiedadmin' => 'denied']);
-       
+        DB::table('users')->where('id', $request->id)->update(['verifiedadmin' => 'denied','updated_at'=>now()]);
+     $farmer = User::find($id);
+      Mail::send(new VerifyFarmer($farmer));
+
         return redirect('/admin/upgradefarmer');
     }
     public function revokefarmer($id, Request $request)
@@ -164,16 +204,19 @@ class AdminsController extends Controller
         $user = auth()->user();
         $notcount = Notification::get()->count();
  
-        DB::table('users')->where('id', $request->id)->update(['verifiedadmin' => 'revoked']);
-       
+        DB::table('users')->where('id', $request->id)->update(['verifiedadmin' => 'revoked','updated_at'=>now()]);
+       $farmer = User::find($id);
+       // dd($farmer);
+       Mail::send(new VerifyFarmer($farmer));
         return redirect('/admin/upgradefarmer');
     }
     public function unrevokefarmer($id, Request $request)
     {
         $user = auth()->user();
         $notcount = Notification::get()->count();
-        DB::table('users')->where('id', $request->id)->update(['verifiedadmin' => 'verified']);
-       
+        DB::table('users')->where('id', $request->id)->update(['verifiedadmin' => 'verified','updated_at'=>now()]);
+       $farmer = User::find($id);
+      Mail::send(new VerifyFarmer($farmer));
         return redirect('/admin/upgradefarmer');
     }
     public function addrole(Request $request)
@@ -204,13 +247,17 @@ class AdminsController extends Controller
         $notcount = Notification::get()->count();
         $farmerver = User::where('role', 'admin')->orderBy('updated_at', 'DESC')->paginate(15);
         DB::table('users')->where('id', $id)->update(['role' => 'admin']);
-        return redirect('/admin//addrole');
+        return redirect('/admin/addrole');
     }
     public function addadmin()
     {
         $user = auth()->user();
         $users =$user->f_name;
         $notcount =Notification::get()->count();
+        // dd(request('function'));
+        $password = request('password');
+        // dd($password);
+        // $admin = User::where('id',20)->first();
         $admin = User::create([
             'f_name'=>request('firstname'),
             'l_name'=>request('lastname'),
@@ -221,15 +268,57 @@ class AdminsController extends Controller
             'password'=>Hash::make(request('password')),
             
             'role'=>'admin',
-            
+             ]);
+            // dd($admin);
+        // Mail::send(new NewAdmin($admin));
 
-        ]);
-        DB::table('users')->where('id', $admin->id)->update(['created_by' => $users]);
-        // dd($admin->created_by);
+
+        DB::table('users')->where('id', $admin->id)->update(['created_by' => $users,'role'=>'admin','function' => request('function')]);
+        Mail::send(new NewAdmin($admin,$password));
         return redirect('/admin/addrole');
     }
     public function back()
     {
         return redirect('/viewnotifications');
+    }
+    public function editfarmer($id,Request $request)
+    {
+        $user = auth()->user();
+        $notcount =Notification::get()->count();
+        $farmer = User::find($id);
+        // dd($farmer);
+        $tea= Tea::where('user_id', $farmer->id)->first();
+        // dd($tea);
+
+        return view('admin.editfarmer',compact('user','farmer','tea','notcount'));
+
+    }
+    public function saveeditfarmer($id,Request $request)
+    {
+        $users= User::find($id);
+        $users->f_name=$request->get('firstname');
+        $users->l_name=$request->get('lastname');
+        $users->national_id=$request->get('national_id');
+        $users->phone_no=$request->get('phone_no');
+        $users->email=$request->get('email');
+            
+        $users->save();
+         // $tea= Tea::where('user_id', $id)->first();
+         // dd($users);
+
+        // dd($request->get('lastname'));
+        $expected_produce=  911* request('no_acres');
+        $bonus= $expected_produce * 28.80;
+        $fert=   8 * request('no_acres');
+        
+          $up =DB::table('teas')->where('user_id', $id)->update(['no_acres'=>request('no_acres'),'location'=>request('location'),'expected_produce'=>$expected_produce,'bonus'=>$bonus,'no_of_fert'=>$fert]);
+          // dd($up);
+        $user = auth()->user();
+        $notcount =Notification::get()->count();
+        $farmer = User::find($id);
+        // dd($farmer);
+        $tea= Tea::where('user_id', $farmer->id)->first();
+       return view('admin.editfarmer',compact('user','farmer','tea','notcount'));
+
     }
 }

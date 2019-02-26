@@ -31,27 +31,17 @@ class TeaController extends Controller
         
             if($user->role == 'admin')
             {
-// dd($user->f_name);
-            //ratio of admins to farmers
-        $adminofficial = User::where('created_by','user')->where('role','admin')->count();
-        $createdadmin = User::where('created_by','admin')->where('role','admin')->count();
-        $adminratio = new SampleCharts;
-        $adminratio->labels(["No Of Farmers", "No Of Admins"])
-                    ->dataset('Admin Ratio', 'pie',[$adminofficial,$createdadmin])->options([
-                    'backgroundColor' => [
-                    'rgba(0, 99, 12, 0.4)',
-                    'rgba(54, 162, 235, 1)'],
-                    ]);
+
+       
             //no of farmers as per verification
             $rejected = User::where('verifiedadmin','rejected')->where('role','user')->count();
             $verified = User::where('verifiedadmin','verified')->where('role','user')->count();
             $unverified = User::where('verifiedadmin','notverified')->where('role','user')->count();
             $revoked = User::where('verifiedadmin','revoked')->count();
-            // dd($unverified);
             $verifiedfarmer = new ProduceChart;
              $verifiedfarmer->labels(['rejected','verified','unverified','revoked'])->options([
                     'legend' => ['display' => true],
-                    ])->dataset('Farmer Verification', 'bar',[$rejected,$verified,$unverified,$revoked])->options([
+                    ])->dataset('Farmer Verification', 'pie',[$rejected,$verified,$unverified,$revoked])->options([
                     'label' => '# of Votes',
                     'borderColor' => '#ff0000',
                     'borderWidth' => 1,
@@ -172,7 +162,7 @@ class TeaController extends Controller
                     ]);
 
 
-            return view('charts.adminchart', compact('totalpermonth','totalperday','user','notcount','totalperyear','verifiedfarmer','adminratio'));
+            return view('charts.adminchart', compact('totalpermonth','totalperday','user','notcount','totalperyear','verifiedfarmer'));
         }else{
             // dd($user->role);
                     $tea_no = Tea::where('user_id', $user->id)->pluck('tea_no');
@@ -343,7 +333,7 @@ class TeaController extends Controller
              $totalpermonth->labels($netmonth->values())->options([
                     'legend' => ['display' => true],
                     ])
-                    ->dataset('General Year Perfomance per month', 'bar',$month->values())
+                    ->dataset('General Year Perfomance per month for', 'bar',$month->values())
                     ->options([
                     'label' => '# of Votes',
                     'borderColor' => '#ff0000',
@@ -509,7 +499,7 @@ class TeaController extends Controller
              $totalpermonth->labels($netmonth->values())->options([
                     'legend' => ['display' => true],
                     ])
-                    ->dataset('General Year Perfomance per month', 'bar',$month->values())
+                    ->dataset('General Year Perfomance per month for Year '.(request('year')), 'bar',$month->values())
                     ->options([
                     'label' => '# of Votes',
                     'borderColor' => '#ff0000',
