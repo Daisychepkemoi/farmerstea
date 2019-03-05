@@ -187,13 +187,9 @@ width: 75%;    }
                 @foreach($comments as $comment)
                 <div class="item col-xs-4 col-lg-4" ">
                 <div class="thumbnail text-center">
-                    {{-- <img class="group list-group-image" src="{{URL::to('/image/desk.jpg')}}"  /> --}}
                     <div class="caption">
-                        {{-- <h4 class="group inner list-group-item-heading">@{{ posts.title }}</h4> --}}
                         <p class="mb-0">{{ $comment->body}}</p>
-                        {{-- <p class="group inner list-group-item-text">{!! Str::characters($posts->body, 9,'....')  !!}</p> --}}
                         <div class="row">
-                            {{-- <div class="col-xs-12 col-md-6"> --}}
                                 <p class="">Commented  {{ $comment->created_at->diffForHumans() }}</p>
                             </div>
                             

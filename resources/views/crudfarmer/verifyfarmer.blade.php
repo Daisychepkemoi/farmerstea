@@ -49,8 +49,8 @@
                         <td >{{$farmer->email}}</td>
                         <td >{{$farmer->tea_no}}</td>
                         <td >{{$farmer->national_id}}</td>
-                         <td scope="col"> <button class="btn-primary"><a class="adddelete" href="/admin/verifyfarmer/{{$farmer->id}}">Asign Tea Number</a></button></td>
-                          <td scope="col"> <button class="btn-danger"><a class="adddelete" href="/admin/notverifyfarmer/{{$farmer->id}}">Deny Tea Number</a>  </button></td>
+                         <td scope="col"> <a class="adddelete" href="/admin/verifyfarmer/{{$farmer->id}}"><button class="btn-primary">Asign Tea Number</button></a></td>
+                          <td scope="col"><a class="adddelete" href="/admin/notverifyfarmer/{{$farmer->id}}"> <button class="btn-danger">Deny Tea Number  </button> </a></td>
                         
 
                        </tr>
@@ -106,9 +106,9 @@
                         <td >{{$farmerv->tea_no}}</td>
                         <td >{{$farmerv->national_id}}</td>
                        
-                          <td scope="col"> <button class="btn-danger"><a class="adddelete" href="/admin/revokefarmer/{{$farmerv->id}}">Revoke Tea Number</a>  </button></td>
+                          <td scope="col"> <a class="adddelete" href="/admin/revokefarmer/{{$farmerv->id}}"> <button class="btn-danger">Revoke Tea Number</button></a>  </td>
 
-                          <td scope="col"> <button class="btn-primary"><a class="adddelete" href="/admin/editfarmer/{{$farmerv->id}}">Edit Farmer Details</a>  </button></td>
+                          <td scope="col"> <a class="adddelete" href="/admin/editfarmer/{{$farmerv->id}}"> <button class="btn-primary"> Edit Farmer Details  </button> </a></td>
                         
 
                        </tr>
@@ -159,8 +159,8 @@
                         <td >{{$rejects->email}}</td>
                         <td >{{$rejects->tea_no}}</td>
                         <td >{{$rejects->national_id}}</td>
-                         <td scope="col"> <button class="btn-danger" style=""><a class="adddelete" href="/admin/verifyfarmer/{{$rejects->id}}">Asign Tea Number</a></button></td>
-                          <td scope="col"> <button class="btn-danger"><a class="adddelete" href="/admin/notverifyfarmer/{{$rejects->id}}">Deny Tea Number</a>  </button></td>
+                         <td scope="col"><a class="adddelete" href="/admin/verifyfarmer/{{$rejects->id}}"> <button class="btn-danger" style="">Asign Tea Number</button></a></td>
+                          <td scope="col"><a class="adddelete" href="/admin/notverifyfarmer/{{$rejects->id}}"> <button class="btn-danger">Deny Tea Number</button></a>  </td>
                         
 
                        </tr>
@@ -211,7 +211,7 @@
                         <td >{{$revoked->tea_no}}</td>
                         <td >{{$revoked->national_id}}</td>
                        
-                          <td scope="col"> <button class="btn-danger"><a class="adddelete" href="/admin/unrevokefarmer/{{$revoked->id}}">Unrevoke Tea Number</a>  </button></td>
+                          <td scope="col"><a class="adddelete" href="/admin/unrevokefarmer/{{$revoked->id}}" <button class="btn-danger">>Unrevoke Tea Number</button></a>  </td>
                         
 
                        </tr>

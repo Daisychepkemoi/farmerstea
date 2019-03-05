@@ -126,7 +126,7 @@
                                      @if($user->function == 'Admin' || ($user->function == 'user' && $user->created_by == 'user') ||$user->function == 'Blogger')
                                     <li><a href="/createpost">Create blog post</a></li>
                                     @endif
-                                    <li><a href="/viewevents">View Blog Posts</a></li>
+                                    <li><a href="/blog">View Blog Posts</a></li>
                                     <!-- <li><a href="layouts-tabs.html">2nd nav tabs</a></li> -->
                                 </ul>
                             </li>
@@ -140,9 +140,10 @@
         </div>
         <header id="cm-header">
             <nav class="cm-navbar" style="background: green;">
+                
                 <div class="btn btn-success   hidden-md hidden-lg" data-toggle="cm-menu" style="background-image: url({{asset('image/home.ico')}}); "></div>
                 <div class="cm-flex"> 
-                    <form id="cm-search" action="/search" method="get">
+                    <form id="cm-search" action="/search" method="POST">
                         <input type="search" name="q" autocomplete="off" placeholder="Search...">
                     </form>
                 </div>
@@ -155,21 +156,19 @@
                     <div class="popover cm-popover bottom">
                         <div class="arrow"></div>
                         <div class="popover-content">
+                   @foreach($nots as $noti)
+
                             <div class="list-group">
-                                <a href="/notificationid" class="list-group-item">
+                                <a href="/notification/{{$noti->id}}" class="list-group-item">
                                     <h4 class="list-group-item-heading text-overflow">
-                                         <i> <img src="{{ URL::to('image/Messages.ico') }}"></i> Nunc volutpat aliquet magna.
+                                         <i> <img src="{{ URL::to('image/Messages.ico') }}"></i> {{$noti->title}}
                                     </h4>
-                                    <p class="list-group-item-text text-overflow">Pellentesque tincidunt mollis scelerisque. Praesent vel blandit quam.</p>
+                                    <p class="list-group-item-text text-overflow">{{$noti->body}}</p>
                                 </a>
-                                  <a href="#" class="list-group-item">
-                                    <h4 class="list-group-item-heading text-overflow">
-                                         <i> <img src="{{ URL::to('image/Messages.ico') }}"></i> Nunc volutpat aliquet magna.
-                                    </h4>
-                                    <p class="list-group-item-text text-overflow">Pellentesque tincidunt mollis scelerisque. Praesent vel blandit quam.</p>
-                                </a>
+                                  
                             </div>
-                            <div style="padding:10px"><a class="btn  btn-block" href="/notification" style="background:green;">Show me more...</a></div>
+                            @endforeach
+                            <div style="padding:10px"><a class="btn  btn-block" href="/notifications" style="background:green;">Show me more...</a></div>
                         </div>
                     </div>
                 </div>

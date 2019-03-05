@@ -24,8 +24,10 @@ class TeaDetailsController extends Controller
     {
          $user = auth()->user();
          $notcount = Notification::get()->count();
+                           $nots = Notification::latest()->paginate(3);
+
          $teadetails = Tea_Details::whereDate('created_at', Carbon::today())->latest()->paginate(5);
-        return view('admin.addteaproduce', compact('user','notcount','teadetails'));
+        return view('admin.addteaproduce', compact('user','notcount','teadetails','nots'));
     }
 
         public function dailyreport()
@@ -34,7 +36,9 @@ class TeaDetailsController extends Controller
        $notcount = Notification::get()->count(); 
        $teaproduce = Tea_Details::whereDate('created_at',Carbon::today())->paginate(31);
        $totalkg = Tea_Details::whereDate('created_at', Carbon::today())->sum('net_weight');
-        return view('agent.viewdailyreport', compact('user','notcount','teaproduce','totalkg'));
+                                  $nots = Notification::latest()->paginate(3);
+
+        return view('agent.viewdailyreport', compact('user','notcount','teaproduce','totalkg','nots'));
 
     }
     public function sort()
@@ -46,19 +50,21 @@ class TeaDetailsController extends Controller
         $nmonth = date('m',strtotime($monthentered));
         $yearentered = request('year');
         $nyear = date('y',strtotime($yearentered));
+                           $nots = Notification::latest()->paginate(3);
+
 
        if(request('location') == 'All Regions')
        {
          $totalkg = Tea_Details::whereYear('date_offered',request('year'))->whereMonth('date_offered',$nmonth)->sum('net_weight');
          $teaproduce=Tea_Details::whereYear('date_offered',request('year'))->whereMonth('date_offered',$nmonth)->orderBy('date_offered','asc')->get();
-         return view('agent.viewdailyreport', compact('user','notcount','teaproduce','totalkg'));
+         return view('agent.viewdailyreport', compact('user','notcount','teaproduce','totalkg','nots'));
        }
        else
        {
          $tea_no = Tea::where('location',request('location'))->where('tea_no', '!=' , null)->pluck('tea_no');
          $totalkg = Tea_Details::whereYear('date_offered',request('year'))->whereMonth('date_offered',$nmonth)->whereIn('tea_no',$tea_no)->sum('net_weight');
          $teaproduce=Tea_Details::whereYear('date_offered',request('year'))->whereMonth('date_offered',$nmonth)->whereIn('tea_no',$tea_no)->orderBy('date_offered','asc')->get();
-         return view('agent.viewdailyreport', compact('user','notcount','teaproduce','totalkg'));
+         return view('agent.viewdailyreport', compact('user','notcount','teaproduce','totalkg','nots'));
 
        }
       
@@ -133,8 +139,10 @@ class TeaDetailsController extends Controller
         $notcount = Notification::get()->count();
         $teaproduce = Tea_Details::find($id);
         $teadetails = Tea_Details::whereDate('created_at', Carbon::today())->get();
+                           $nots = Notification::latest()->paginate(3);
 
-        return view('admin.editteaproduce',compact('notcount','user','teaproduce','teadetails'));
+
+        return view('admin.editteaproduce',compact('notcount','user','teaproduce','teadetails','nots'));
     }
 
     /**

@@ -90,7 +90,7 @@
                                           <img class="card-img-top" src="{{url('uploads/'.$post->image)}}" alt="{{$post->image}}" style="height: 100px; width: 100%;">
                                           <div class="card-body">
                                               <p class="card-text">
-                                                  <h4>    {{$post->title}}</h4>
+                                                  <h4 style="height: 100px; background:;">    {{$post->title}}</h4>
                                                   <p>{!! strip_tags(\Illuminate\Support\Str::words($post->body, 25,'...')) !!}<b>Created On {{$post->created_at->diffForHumans()}}</b> </p>
                                               </p>
                                           </div>
@@ -110,7 +110,7 @@
 
                              <hr>
                             <fieldset>
-                              <a href="/admin/viewnotifications" class="btn btn-success" style="margin-left: 60px; width: 150px;"> View More</a>
+                              <a href="/blog" class="btn btn-success" style="margin-left: 60px; width: 150px;"> View More</a>
                             </fieldset>
 
                       </td>

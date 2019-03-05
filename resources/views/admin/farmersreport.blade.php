@@ -47,11 +47,11 @@
                           <td class="detail">Chebwagan,America, Lalagin,Kiptewit, Kapsir
                           </td>     
                       </tr>
-                      <tr>
-                          <td class="label">Total produce to date</td>
-                          <td class="detail">{{ $totalkg}} Kgs</td>
+                      {{-- <tr> --}}
+                          {{-- <td class="label">Total produce to date</td>
+                          <td class="detail">{{ $totalkg}} Kgs</td> --}}
 
-                      </tr>
+                      {{-- </tr> --}}
 
                     
 
@@ -67,24 +67,32 @@
                      <thead>
                         <tr class="bg-success">
                          
-                          <th scope="col">Tea Number</th>
-                          <th scope="col"> Total Kg</th>
+                          <th scope="col">Farmer Name</th> 
+                          <th scope="col">National Id</th>
                           
-                          {{-- <th scope="col"> </th> --}}
-                          {{-- <th scope="col"></th> --}}
+                          <th scope="col">Email </th>
+                          <th  scope="col"> Verified ? </th>
+                          <th scope="col">No. Acres </th>
+                          <th scope="col"> </th>
                           {{-- <th scope="col">Handle</th> --}}
                         </tr>
                       </thead>
                       <tbody>
-                      @foreach($teasum as $tean)
+                     @foreach($farmers as $farm)
                        <tr>
-                        <td>{{$tean->tea_no}}</td>
-                        <td>{{$tean->net_weight}}</td>
+                        <td>{{$farm->f_name}}  {{$farm->l_name}}</td>
+                        <td>{{$farm->nationa_id}}</td>
+                        <td>{{$farm->email}}</td>
+                        <td>{{$farm->verifiedadmin}}</td>
+                        <td>{{$farm->no_acres}}</td>
+                        <td> <a href="/admin/editfarmer/{{$farm->id}}" class="" > <button class="btn-primary"> View and edit Details</button></a></td>
+                        {{-- <td>{{$totalksh}}</td> --}}
+                        {{-- <td>  {{$tea->no_acres}}</td> --}}
+                        {{-- <td>{{$tea->no_of_fert}}</td> --}}
 
                        </tr>
-                       @endforeach
                      
-                      
+                      @endforeach
                     
                         </tbody>
                         </table>

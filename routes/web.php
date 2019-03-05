@@ -18,6 +18,7 @@ Route::get('/', function () {
 Auth::routes();
 //users
 
+Route::get('/blog', 'PostsController@blog');
 Route::get('/homeordash', 'UsersController@homeordash');
 Route::get('/addteaproduce', 'TeaDetailsController@index');
 Route::get('/addteaproduce/edit/{id}', 'TeaDetailsController@editteaproduce');
@@ -73,12 +74,7 @@ Route::get('/dashboard', 'TeaController@admindash')->name('admindash');
 Route::post('/admin/netperday', 'TeaController@netperday');
 Route::post('/admin/netpermonth', 'TeaController@netpermonth');
 Route::post('/notificationsperdate', 'EventController@notificationsperday')->name('notificationsperday');
+Route::post('/search', 'PostsController@search')->name('search');
 
-Route::any('/search',function(){
-    $q = Input::get ( 'q' );
-    $user = App\User::where('f_name','LIKE','%'.$q.'%')->orWhere('email','LIKE','%'.$q.'%')->get() ;
-    if(count($user) > 0)
-        return view('welcome')->withDetails($user)->withQuery ( $q );
-    else return view ('welcome')->withMessage('No Details found. Try to search again !');
-});
+
 

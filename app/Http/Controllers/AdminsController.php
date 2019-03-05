@@ -38,7 +38,9 @@ class AdminsController extends Controller
         $user= auth()->user();
         $notcount = Notification::get()->count();
         $events = Event::orderBy('created_at','desc')->paginate(3);
-        return view('admin.createevents', compact('user', 'notcount','events'));
+                          $nots = Notification::latest()->paginate(3);
+
+        return view('admin.createevents', compact('user', 'notcount','events','nots'));
     }
     public function store()
     {
@@ -64,7 +66,9 @@ class AdminsController extends Controller
          $db = DB::raw('YEAR(held_at) as created');
         $eventyear = Event::select($db)->orderBy('created','DESC')->pluck('created')->unique();
         $users = User::where('id', $event->user_id)->first();
-        return view('admin.vieweventid', compact('user', 'event', 'users', 'notcount','eventyear'));
+                          $nots = Notification::latest()->paginate(3);
+
+        return view('admin.vieweventid', compact('user', 'event', 'users', 'notcount','eventyear','nots'));
     }
     public function viewevents()
     {
@@ -76,12 +80,14 @@ class AdminsController extends Controller
         $notcount = Notification::get()->count();
         if ($event->count() > 0) {
             $user_id = Event::pluck('user_id');
-            $events = Event::orderBy('held_at', 'DESC')->get();
+            $events = Event::orderBy('held_at', 'DESC')->paginate();
             $createdby= User::where('id', $user_id)->get();
-            return view('admin.viewevents', compact('user', 'events', 'createdby', 'notcount','eventyear'));
+                          $nots = Notification::latest()->paginate(3);
+
+            return view('admin.viewevents', compact('user', 'events', 'createdby', 'notcount','eventyear','nots'));
         } else {
           
-            return view('admin.emptyevent', compact('user', 'notcount','eventyear'));
+            return view('admin.emptyevent', compact('user', 'notcount','eventyear','nots'));
         }
     }
     public function createnotification()
@@ -89,7 +95,10 @@ class AdminsController extends Controller
         $user = auth()->user();
         $notcount = Notification::get()->count();
         $notifications = Notification::orderBy('created_at','desc')->paginate(3);
-        return view('admin.createnotification', compact('user', 'notcount','notifications'));
+                          $nots = Notification::latest()->paginate(3);
+
+
+        return view('admin.createnotification', compact('user', 'notcount','notifications','nots'));
     }
     public function storenotification(Request $request)
     {
@@ -116,10 +125,12 @@ class AdminsController extends Controller
             $notification = Notification::orderBy('created_at', 'DESC')->paginate(7);
             $user_id = Notification::pluck('user_id');
             $createdby =User::where('id', $user_id)->get();
+                          $nots = Notification::latest()->paginate(3);
 
-            return view('admin.viewnotifications', compact('notification', 'user', 'createdby', 'notcount'));
+
+            return view('admin.viewnotifications', compact('notification', 'user', 'createdby', 'notcount','nots'));
         } else {
-            return view('admin.emptynot', compact('user', 'notcount'));
+            return view('admin.emptynot', compact('user', 'notcount','nots'));
         }
     }
     
@@ -130,19 +141,25 @@ class AdminsController extends Controller
         $notification= Notification::where('id', $id)->first();
         $users = User::where('id', $notification->user_id)->first();
         $notcount = Notification::get()->count();
+                          $nots = Notification::latest()->paginate(3);
+
         // dd($notification);
 
         // DB::table('notifications')->where('id',$id)->update(['viewed' => true]);
-        return view('admin.viewnotificationid', compact('user', 'users', 'notification', 'notcount'));
+        return view('admin.viewnotificationid', compact('user', 'users', 'notification', 'notcount','nots'));
     }
     public function profile()
     {
-        return view('admin.adminprofile');
+                          $nots = Notification::latest()->paginate(3);
+
+        return view('admin.adminprofile','nots');
     }
     public function upgradefarmer()
     {
         $user = auth()->user();
         $notcount = Notification::get()->count();
+                          $nots = Notification::latest()->paginate(3);
+
         // $farmers = User::where('verifiedadmin', 'notverified')->where('role', 'user')->where('created_by', 'user')->orderBy('created_at', 'DESC')->paginate(15);
          $farmers = DB::table('users')->join('teas','users.id','=', 'teas.user_id')->select('users.*','teas.tea_no')->where('users.verifiedadmin','notverified')->where('role','user')->orderBy('updated_at','desc')->paginate(15);
         $rejected = User::where('verifiedadmin', 'denied')->where('role', 'user')->where('created_by', 'user')->orderBy('updated_at', 'DESC')->paginate(15);
@@ -151,7 +168,7 @@ class AdminsController extends Controller
         // dd($farmerver);
             $revokedfarmer = DB::table('users')->join('teas','users.id','=', 'teas.user_id')->select('users.*','teas.tea_no')->where('users.verifiedadmin','revoked')->orderBy('updated_at','desc')->paginate(15);
         // dd($farmers);
-        return view('crudfarmer.verifyfarmer', compact('user', 'notcount', 'farmers', 'farmerver', 'rejected', 'tea_no', 'revokedfarmer'));
+        return view('crudfarmer.verifyfarmer', compact('user', 'notcount', 'farmers', 'farmerver', 'rejected', 'tea_no', 'revokedfarmer','nots'));
     }
     public function verifyfarmer($id, Request $request)
     {
@@ -162,6 +179,8 @@ class AdminsController extends Controller
 
         // $tea_no = Tea::whereIn('verified_by', $admin)->orderBy('updated_at','desc')->first();
         $teano = Tea::max('tea_no');
+                          $nots = Notification::latest()->paginate(3);
+
         // $tea
         // dd($teano);
         // dd($tea_no == null);
@@ -192,6 +211,8 @@ class AdminsController extends Controller
     {
         $user = auth()->user();
         $notcount = Notification::get()->count();
+                          $nots = Notification::latest()->paginate(3);
+
         
         DB::table('users')->where('id', $request->id)->update(['verifiedadmin' => 'denied','updated_at'=>now()]);
      $farmer = User::find($id);
@@ -227,8 +248,10 @@ class AdminsController extends Controller
             $farmerver = User::where('role', 'admin')->orderBy('updated_at', 'DESC')->paginate(15);
             $admins = User::where('role', 'admin')->where('created_by', 'admin')->orderBy('updated_at', 'DESC')->paginate(15);
             $admindenied = User::where('role', 'user')->where('created_by', 'admin')->orderBy('updated_at', 'DESC')->paginate(15);
+                          $nots = Notification::latest()->paginate(3);
+
    
-            return view('crudfarmer.addrole', compact('user', 'notcount', 'farmerver', 'admins', 'admindenied'));
+            return view('crudfarmer.addrole', compact('user', 'notcount', 'farmerver', 'admins', 'admindenied','nots'));
         } else {
             abort('403', 'unauthorized action');
         }
@@ -288,9 +311,11 @@ class AdminsController extends Controller
         $farmer = User::find($id);
         // dd($farmer);
         $tea= Tea::where('user_id', $farmer->id)->first();
+                          $nots = Notification::latest()->paginate(3);
+
         // dd($tea);
 
-        return view('admin.editfarmer',compact('user','farmer','tea','notcount'));
+        return view('admin.editfarmer',compact('user','farmer','tea','notcount','nots'));
 
     }
     public function saveeditfarmer($id,Request $request)
@@ -318,7 +343,9 @@ class AdminsController extends Controller
         $farmer = User::find($id);
         // dd($farmer);
         $tea= Tea::where('user_id', $farmer->id)->first();
-       return view('admin.editfarmer',compact('user','farmer','tea','notcount'));
+                          $nots = Notification::latest()->paginate(3);
+
+       return view('admin.editfarmer',compact('user','farmer','tea','notcount','nots'));
 
     }
 }

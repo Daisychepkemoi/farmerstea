@@ -28,6 +28,8 @@ class TeaController extends Controller
     {
          $user= auth()->user();
         $notcount = Notification::get()->count();
+                           $nots = Notification::latest()->paginate(3);
+
         
             if($user->role == 'admin')
             {
@@ -162,7 +164,7 @@ class TeaController extends Controller
                     ]);
 
 
-            return view('charts.adminchart', compact('totalpermonth','totalperday','user','notcount','totalperyear','verifiedfarmer'));
+            return view('charts.adminchart', compact('totalpermonth','totalperday','user','notcount','totalperyear','verifiedfarmer','nots'));
         }else{
             // dd($user->role);
                     $tea_no = Tea::where('user_id', $user->id)->pluck('tea_no');
@@ -238,6 +240,7 @@ class TeaController extends Controller
                             ],
                             ]);
                   $tea_no = Tea::where('user_id', $user->id)->pluck('tea_no');
+                  // dd($tea_no);
                 $orderperday=DB::raw('DAY(date_offered)');
                 $day=DB::raw('day(date_offered) as day');
                  $netperday = DB::raw('sum(net_weight) as net');
@@ -269,13 +272,15 @@ class TeaController extends Controller
 
                             ],
                             ]);
-                     return view('charts.farmerchart', compact('permonthproduce','user','notcount','peryearproduce','perdayproduce'));
+                     return view('charts.farmerchart', compact('permonthproduce','user','notcount','peryearproduce','perdayproduce','nots'));
         }
    }
    public function netperday()
    {
           $user= auth()->user();
         $notcount = Notification::get()->count();
+                           $nots = Notification::latest()->paginate(3);
+
          $adminofficial = User::where('created_by','user')->where('role','admin')->count();
         $createdadmin = User::where('created_by','admin')->where('role','admin')->count();
             $adminratio = new SampleCharts;
@@ -430,13 +435,15 @@ class TeaController extends Controller
                     ]);
 
 
-            return view('charts.adminchart', compact('totalpermonth','totalperday','user','notcount','totalperyear','verifiedfarmer','adminratio'));
+            return view('charts.adminchart', compact('totalpermonth','totalperday','user','notcount','totalperyear','verifiedfarmer','adminratio','nots'));
    }
 
   public function netpermonth()
   {
      $user= auth()->user();
         $notcount = Notification::get()->count();
+                          $nots = Notification::latest()->paginate(3);
+
          $adminofficial = User::where('created_by','user')->where('role','admin')->count();
         $createdadmin = User::where('created_by','admin')->where('role','admin')->count();
             $adminratio = new SampleCharts;
@@ -596,7 +603,7 @@ class TeaController extends Controller
                     ]);
 
 
-            return view('charts.adminchart', compact('totalpermonth','totalperday','user','notcount','totalperyear','verifiedfarmer','adminratio'));
+            return view('charts.adminchart', compact('totalpermonth','totalperday','user','notcount','totalperyear','verifiedfarmer','adminratio','nots'));
   }
 }
 

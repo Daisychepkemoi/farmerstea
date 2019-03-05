@@ -6,7 +6,7 @@
     <div style="" id="page"></div>
     <div class="buttons-container" data-aos="slide-up" data-aos-duration="3000" style="padding-top: 0%">
         @auth
-       @if ($user->verified == 'notverified')
+       @if ($user->verifiedadmin == 'notverified')
         @if ( $user->role == 'user')
        <div class="alert alert-success" id="alerta" style="background-color: red; height: 100px; margin-top: 100px; width: 80%; margin-left: 10%;">
         <p style="color: black;">Your Account has not been activated!! <button class="button" style="padding-top: 0px; margin-top:-13px; float: right; background: red; font-size: 28px;height: 80px;width: 20px" onclick="closeForm()">&times;</button> </p>
@@ -19,6 +19,29 @@
         </script>
       </div>
       @endif
+      @elseif($user->verifiedadmin == 'revoked')
+      <div class="alert alert-success" id="alerta" style="background-color: red; height: 100px; margin-top: 100px; width: 80%; margin-left: 10%;">
+        <p style="color: black;">Your Account has been revoked!! <button class="button" style="padding-top: 0px; margin-top:-13px; float: right; background: red; font-size: 28px;height: 80px;width: 20px" onclick="closeForm()">&times;</button> </p>
+        <script type="text/javascript">
+          function closeForm() {
+                document.getElementById("alerta").style.display = "none";
+                document.getElementById("lost").style.display = "none";
+                document.getElementById("header").style.height = "100vh";
+            }
+        </script>
+      </div>
+      @elseif($user ->verifiedadmin == 'denied')
+      <div class="alert alert-success" id="alerta" style="background-color: red; height: 100px; margin-top: 100px; width: 80%; margin-left: 10%;">
+        <p style="color: black;">You have been denied a tea number please contact <a href="/contactus">Admin</a>!! <button class="button" style="padding-top: 0px; margin-top:-13px; float: right; background: red; font-size: 28px;height: 80px;width: 20px" onclick="closeForm()">&times;</button> </p>
+        <script type="text/javascript">
+          function closeForm() {
+                document.getElementById("alerta").style.display = "none";
+                document.getElementById("lost").style.display = "none";
+                document.getElementById("header").style.height = "100vh";
+            }
+        </script>
+      </div>
+      @else
       @endif
       @endauth
       <div class="col-md-8" id="eight">
@@ -48,18 +71,18 @@
         
       </div>
          <div class="col-lg-1 lg-success" style="height: 80%; background:white; margin-top: 5%;width: 100%; margin-left: 2px;">
-                            <h3><a href="">Recent Stories</a></h3>
+                            <h3><a href="" class="post">Recent Stories</a></h3>
 
           @foreach($posts as $post)
              <div id="line2" class="col-lg-12">
                 <div class="cofounder-ceo-image">
                   <img class="bloga" src="{{url('uploads/'.$post->image)}}" style="border-radius: 0%; margin-top: 15px;width: 100%;height: 150px;object-fit: cover; float: left; margin-right: 20px;">
                    </div>
-                  <p style="color: black; font-size:14px;padding-top:5px;line-height: 1; letter-spacing: normal; font-weight:normal;padding-top: 20px; "><a href="/post/{{$post->id}}" style="line-height:1;font-weight: normal; font-style:Arial; letter-spacing: normal; ">{!! str_limit($post->title, 40)  !!}</a> {!! str_limit($post->body, 80)  !!}   </p>
+                  <p style="color: black; font-size:14px;padding-top:5px;line-height: 1; letter-spacing: normal; font-weight:normal;padding-top: 20px; "><a href="/post/{{$post->id}}" class="post" style="line-height:1; text-transform: capitalize; ">{!! str_limit($post->title, 40)  !!}</a> {!! str_limit($post->body, 80)  !!}   </p>
               </div>
               <hr style="width: 100%"> <br>
           @endforeach
-            <button style="width: 300px;"><a href="/blog" style="color: white">View More Posts</a></button>
+            <button style="width: 300px;"><a href="/blog" class="post" style="color: white">View More Posts</a></button>
          
            
            
@@ -186,13 +209,12 @@
     <div class="container">
       <div class="section-title">
         <h2>Gallery</h2>
-        <p>Tea Factory was founded by James Finlay and its foundation was laid on 9th April, 1965 by the then Minister of Home Affairs </p>
       </div>
       <div class="row">
         <div class="portfolio-items">
              <div class="col-sm-6 col-md-4 col-lg-4">
             <div class="portfolio-item">
-              <div class="hover-bg"> <a href="/" title="Project Title" data-lightbox-gallery="gallery1">
+              <div class="hover-bg"> <a href="/" title="Project Title" data-lightbox-gallery="galleryww">
                 <div class="hover-text">
                   <h4>Litein</h4>
                 </div>
@@ -201,7 +223,7 @@
             </div>
                <div class="col-sm-6 col-md-4 col-lg-4">
             <div class="portfolio-item">
-              <div class="hover-bg"> <a href="/" title="Project Title" data-lightbox-gallery="gallery1">
+              <div class="hover-bg"> <a href="/" title="Project Title" data-lightbox-gallery="galleryw1">
                 <div class="hover-text">
                   <h4>Tea Farm</h4>
                 </div>
@@ -210,7 +232,7 @@
             </div>
                 <div class="col-sm-6 col-md-4 col-lg-4">
             <div class="portfolio-item">
-              <div class="hover-bg"> <a href="/" title="Project Title" data-lightbox-gallery="gallery1">
+              <div class="hover-bg"> <a href="/" title="Project Title" data-lightbox-gallery="gallerwy1">
                 <div class="hover-text">
                   <h4>Tea Buying Center</h4>
                 </div>
@@ -251,7 +273,7 @@
     
           
       {{-- footer --}}
-      <div id="footer" class="text-center">
+      <div id="footer" class="text-center" style="background:">
         <div class="row" id="row">
           {{-- <div class="row"> <i class="fa fa-wordpress"></i> --}}
             <div class="section-title">
@@ -273,7 +295,6 @@
                         <div class="section-title">
                           <h2>contact us</h2>
                            
-                             {{-- <h3>Form</div>/h3> --}}
                                 <form method="POST" action="">
                                   <label>Email <strong>*</strong></label>
                                   <input class="form-control" type="email" name="email" placeholder="Email..">

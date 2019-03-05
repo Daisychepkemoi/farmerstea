@@ -26,37 +26,39 @@ class ReportController extends Controller
         
     }
     
+    public function teasreport()
+    {
+        $user= auth()->user();
+        $notcount = Notification::get()->count();
+        $farmer = User::where('role','user')->get()->count();
+        $teas = Tea_Details::groupBy('tea_no')->pluck('tea_no');
+        $netmonth=Tea_Details::where('tea_no',$teas)->groupBy('tea_no')->sum('net_weight');
+        $tea = Tea::whereIn('tea_no',$teas)->first();
+            // foreach ($netmonth as $net ) {
+                // $tea = Tea::where('tea_no',$net->tea_no)->first();
+                $totalkg = Tea_Details::sum('net_weight');
+                          $nots = Notification::latest()->paginate(3);
+
+                // $net_weight = Tea_Details::where('tea_no' , $net->tea_no)->sum('net_weight');
+                // $totalksh = $net_weight * 20 ; //total kg transformed to kenya shillings each at 20ksh
+
+             // dd($net_weight);
+                // }
+                           return view('admin.farmersreport',compact('user','netmonth','notcount','tea','totalkg','net_weight','totalksh','farmer','nots'));
+
+      
+       
+    }
     public function farmersreport()
     {
         $user= auth()->user();
         $notcount = Notification::get()->count();
         $farmer = User::where('role','user')->get()->count();
-        // $users = User::where('role','user')->orderBy('id','desc')->get();
-        // $userid = User::where('role','user')->orderBy('id','desc')->pluck('id');
-        // // $us = DB::User('f_name','l_name')->join('tea','tea.user_id','=','user.id')->paginate(4);
-        // $teano = Tea::whereIn('user_id',$userid)->pluck('tea_no');
-        // $tea = Tea::whereIn('user_id',$userid)->get();
-        // $tea_no = Tea::pluck()->sum();
-        $teatotal = Tea::get()->count();
-        $db = DB::raw('sum(net_weight) as net_weight');
+        $farmers = User::where('role','user')->latest()->get();
+                           $nots = Notification::latest()->paginate(3);
 
-      
-        $teasum = DB::table('tea__details')
-        ->select('tea_no',$db)
-        ->groupBy('tea_no')
-        ->paginate(15);
-        // $userid = Tea::whereIn('tea_no',$teasum->tea_no)->pluck('user_id');
-        // dd($teasum->tea_no);
-        $totalkg = Tea_Details::sum('net_weight');
-        // dd($teasum->tea_no);
-        // $teasumm = Tea_Details::whereIn('tea_no',$teano)->pluck('net_weight','tea_no');
-      
-        return view('admin.farmersreport',compact('user','notcount','users','totalkg','tea','teasum','farmer','teatotal'));
-       
-    }
-    public function index()
-    {
-        //
+        return view('admin.farmersreport',compact('user','notcount','totalksh','farmer','farmers','nots'));
+
     }
 
     /**

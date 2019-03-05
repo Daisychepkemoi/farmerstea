@@ -35,9 +35,11 @@ class EventController extends Controller
                $eventcount = Event::whereYear('held_at', '=', request('year'))
               ->whereMonth('held_at', '=', $nmonth)
               ->count();
+                          $nots = Notification::latest()->paginate(3);
+
 
               if($eventcount == 0) {
-                return view('admin.emptyevent',compact('user','notcount'));
+                return view('admin.emptyevent',compact('user','notcount','nots'));
               }
               else{
                  $events = Event::whereYear('held_at', '=', request('year'))
@@ -45,7 +47,7 @@ class EventController extends Controller
               ->paginate(10);
               
               // dd($eventcount);
-              return view('admin.viewevents',compact('user','notcount','events','createdby'));
+              return view('admin.viewevents',compact('user','notcount','events','createdby','nots'));
           }
               // dd($event);
     }
@@ -63,9 +65,12 @@ class EventController extends Controller
                $notcount = Notification::whereYear('created_at', '=', request('year'))
               ->whereMonth('created_at', '=', $nmonth)
               ->count();
+                          $nots = Notification::latest()->paginate(3);
+
 
               if($notcount == 0) {
-                return view('admin.emptynot',compact('user','notcount'));
+
+                return view('admin.emptynot',compact('user','notcount','nots'));
               }
               else{
                  $notification = Notification::whereYear('created_at', '=', request('year'))
@@ -73,7 +78,8 @@ class EventController extends Controller
               ->paginate(10);
               
               // dd($eventcount);
-              return view('admin.viewnotifications',compact('user','notcount','notification','createdby'));
+
+              return view('admin.viewnotifications',compact('user','notcount','notification','createdby','nots'));
           }
               // dd($event);
     }
@@ -107,7 +113,7 @@ class EventController extends Controller
                 // $user->notify(new NewEvent($proposal));
 
         // dd($notification);
-        return redirect('/viewnotifications', compact('user'));
+        return redirect('/viewnotifications');
     }
 
     /**

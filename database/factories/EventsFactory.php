@@ -3,7 +3,7 @@
 use Faker\Generator as Faker;
 
 $factory->define(App\Event::class, function (Faker $faker) {
-	$name=App\User::pluck('id')->toArray();
+	$name=App\User::where('role','admin')->where('function','user')->pluck('id')->toArray();
 	 // $startingDate = $faker->dateTimeThisYear('+4 month');
   //   $endingDate   = strtotime('+1 Week', $startingDate->getTimestamp());
      $startingDate = $faker->date;

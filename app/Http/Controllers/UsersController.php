@@ -30,7 +30,10 @@ class UsersController extends Controller
       public function homeordash(){
          $user = auth()->user();
          $notcount = Notification::get()->count();
-         $posts = Posts::paginate(2);
+
+         
+
+         $posts = Posts::latest()->paginate(2);
          if(auth()->user()->verifiedadmin == 'verified' && $user->role == 'user' && $user->created_by == 'user'){
             return redirect('/dashboard'); //normal user/farmer
 
@@ -50,13 +53,17 @@ class UsersController extends Controller
          $user = auth()->user();
          // $notcount = Notification::get()->count();
          $posts = Posts::paginate(2);
-        return view('posts.index',compact('posts','user'));
+                  $nots = Notification::latest()->paginate(3);
+
+        return view('posts.index',compact('posts','user','nots'));
     }
     public function admin()
     {
         $user = auth()->user();
          $notcount = Notification::get()->count();
-        return view('dashboard.admin',compact('user','notcount'));
+                  $nots = Notification::latest()->paginate(3);
+
+        return view('dashboard.admin',compact('user','notcount','nots'));
     }
     public function report()
     {
@@ -68,7 +75,9 @@ class UsersController extends Controller
         $teadetail = Tea_Details::whereIn('tea_no',$teauser)->orderBy('date_offered','DESC')->paginate(15);
         $teadetaila = Tea_Details::whereIn('tea_no',$teauser)->pluck('net_weight')->sum();
          $notcount = Notification::get()->count();
-        return view('dashboard.reports', compact('user', 'tea','teadetail','teadetaila','notcount','year'));
+                  $nots = Notification::latest()->paginate(3);
+
+        return view('dashboard.reports', compact('user', 'tea','teadetail','teadetaila','notcount','year','nots'));
     }
     public function sortreport()
     {
@@ -82,15 +91,20 @@ class UsersController extends Controller
         $teadetail = Tea_Details::whereIn('tea_no',$teauser)->whereYear('date_offered',request('year'))->whereMonth('date_offered',$nmonth)->orderBy('date_offered','DESC')->paginate(10);
         $teadetaila = Tea_Details::whereIn('tea_no',$teauser)->whereYear('date_offered',request('year'))->whereMonth('date_offered',$nmonth)->pluck('net_weight')->sum();
          $notcount = Notification::get()->count();
-        return view('dashboard.reports', compact('user', 'tea','teadetail','teadetaila','notcount','year'));
+                          $nots = Notification::latest()->paginate(3);
+
+        return view('dashboard.reports', compact('user', 'tea','teadetail','teadetaila','notcount','year','nots'));
     }
    
     public function notification()
     {
         $user = auth()->user();
          $notcount = Notification::get()->count();
-         $notification = Notification::orderBy('created_at','DESC')->get();
-        return view('dashboard.notification',compact('notcount','user','notification'));
+         $notification = Notification::orderBy('created_at','DESC')->paginate();
+                          $nots = Notification::latest()->paginate(3);
+
+
+        return view('dashboard.notification',compact('notcount','user','notification','nots'));
     }
     public function notificationid($id)
     {
@@ -98,22 +112,28 @@ class UsersController extends Controller
          $notcount = Notification::get()->count();
          $notification = Notification::find($id);
          $username  = User:: where('id',$notification->user_id)->first();
-        return view('dashboard.notificationid',compact('notcount','user','notification','username'));
+                          $nots = Notification::latest()->paginate(3);
+
+        return view('dashboard.notificationid',compact('notcount','user','notification','username','nots'));
     }
     public function profile()
     {
         $user=auth()->user();
         $tea= Tea::where('user_id', $user->id)->first();
          $notcount = Notification::get()->count();
-        return view('dashboard.profile', compact('user', 'tea','notcount'));
+                          $nots = Notification::latest()->paginate(3);
+
+        return view('dashboard.profile', compact('user', 'tea','notcount','nots'));
     }
     public function editprofile(tea $tea)
     {
         $user=auth()->user();
          $notcount = Notification::get()->count();
         $tea= Tea::where('user_id', $user->id)->first();
+                          $nots = Notification::latest()->paginate(3);
 
-        return view('dashboard.editprofile', compact('user', 'tea','notcount'));
+
+        return view('dashboard.editprofile', compact('user', 'tea','notcount','nots'));
     }
     public function generate()
     {
