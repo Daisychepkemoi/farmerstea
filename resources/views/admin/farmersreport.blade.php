@@ -1,18 +1,21 @@
 @extends('layouts.dashboard')
+@section('title','FarmersReport.Litein Tea Factory')
+@section('head',' Famer`s Report')
+
 @section('content')
 <div id="global">
     <div class="container-fluid">
         <div class="panel panel-default">
             <div class="panel-heading " id="panelhead">
-                <h4>Period</h4>
-                <div class="start">
+                {{-- <h4>Period</h4> --}}
+                {{-- <div class="start">
                     <label for="startdate" >Start Date</label>
                     <input  type="date" name="startdate" placeholder="Start Date">
                 </div>
                 <div class="start">
                     <label for="enddate" >EndDate</label>
                     <input type="date"  name="enddate" placeholder="End Date">
-                </div>
+                </div> --}}
                 <div class="end">
 
                     <p>
@@ -23,7 +26,7 @@
 
                         </a>
                     </p>
-                    <p class="report"><button class="btn-success"><a href="">Generate Report</a></button></p>
+                    <p class="report"><button class="btn-success"><a href="/farmers">Generate Report</a></button></p>
                 </div>
             </div>
             
@@ -66,26 +69,27 @@
                  
                      <thead>
                         <tr class="bg-success">
-                         
+                         {{-- <th>#</th> --}}
                           <th scope="col">Farmer Name</th> 
                           <th scope="col">National Id</th>
                           
                           <th scope="col">Email </th>
-                          <th  scope="col"> Verified ? </th>
+                          <th  scope="col"> Verification</th>
                           <th scope="col">No. Acres </th>
-                          <th scope="col"> </th>
-                          {{-- <th scope="col">Handle</th> --}}
+{{--                           <th scope="col"> </th>
+ --}}                          {{-- <th scope="col">Handle</th> --}}
                         </tr>
                       </thead>
                       <tbody>
                      @foreach($farmers as $farm)
                        <tr>
+                        {{-- <td></td> --}}
                         <td>{{$farm->f_name}}  {{$farm->l_name}}</td>
-                        <td>{{$farm->nationa_id}}</td>
+                        <td>{{$farm->national_id}}</td>
                         <td>{{$farm->email}}</td>
                         <td>{{$farm->verifiedadmin}}</td>
                         <td>{{$farm->no_acres}}</td>
-                        <td> <a href="/admin/editfarmer/{{$farm->id}}" class="" > <button class="btn-primary"> View and edit Details</button></a></td>
+                        {{-- <td> <a href="/admin/editfarmer/{{$farm->id}}" class="" > <button class="btn-primary"> View and edit Details</button></a></td> --}}
                         {{-- <td>{{$totalksh}}</td> --}}
                         {{-- <td>  {{$tea->no_acres}}</td> --}}
                         {{-- <td>{{$tea->no_of_fert}}</td> --}}
@@ -93,6 +97,10 @@
                        </tr>
                      
                       @endforeach
+                      <tr>
+                        <td colspan="3"></td>
+                        <td>{{$farmers->links()}}</td>
+                      </tr>
                     
                         </tbody>
                         </table>

@@ -1,4 +1,7 @@
 @extends('layouts.master')
+@section('title','Notification.Litein Tea Factory')
+@section('head','View Notifications')
+
 @section('content')
    
             <div class = "wrapper" style="margin-top: 5%;">

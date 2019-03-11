@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
 use Illuminate\Pagination\Paginator;
+use PDF;
 
 
 class PostsController extends Controller
@@ -16,9 +17,22 @@ class PostsController extends Controller
     
     public function __construct()
     {
-        $this->middleware('auth');
+        // $this->middleware('auth');
        
     }
+    public function email()
+    {
+        
+        Mail::send(new NewEvent($event));
+        return redirect('/admin/createevents');
+    }
+    public function down()
+    {
+        $data = ['hhahh'];
+      $pdf = PDF::loadView('submit',$data) ;       
+        return $pdf->download( 'submit.pdf');
+    }
+
      public function search()
     {
     $q =  request( 'q' );

@@ -1,4 +1,6 @@
 @extends('layouts.master')
+@section('title','Home.Litein Tea Factory')
+
 @section('content')
 <header id="header" style="background-image: url({{asset('image/desk.jpg')}}); height: 1400px; background-size: cover; opacity:;"  >
   
@@ -295,7 +297,7 @@
                         <div class="section-title">
                           <h2>contact us</h2>
                            
-                                <form method="POST" action="">
+                                <form method="POST" action="/email">
                                   <label>Email <strong>*</strong></label>
                                   <input class="form-control" type="email" name="email" placeholder="Email..">
                                   <label>Title <strong>*</strong></label>

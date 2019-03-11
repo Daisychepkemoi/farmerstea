@@ -1,4 +1,6 @@
 @extends('layouts.master')
+@section('title','BlogPost.Litein Tea Factory')
+
 @section('content')
    
             <div class = "wrapper" style="margin-top: 5%;">

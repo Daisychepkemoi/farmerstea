@@ -1,4 +1,7 @@
 @extends('layouts.dashboard')
+@section('title','CreateStaff.Litein Tea Factory')
+@section('head','Add Admin')
+
 @section('content')
 <div id="global">
     <div class="container-fluid">

@@ -165,7 +165,7 @@ width: 75%;    }
 
                 <div class="item col-xs-8 col-lg-8" ">
                 <div class="thumbnail text-center">
-                    <img class="group list-group-image" src="{{URL::to('/image/desk.jpg')}}"  />
+                    <img class="group list-group-image" src="{{url('uploads/'.$posts->image)}}"  />
                     <div class="caption">
                         {{-- <h4 class="group inner list-group-item-heading">@{{ posts.title }}</h4> --}}
                         <p class="mb-0">{{ $posts->body}}</p>

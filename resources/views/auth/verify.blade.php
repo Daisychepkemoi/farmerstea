@@ -1,4 +1,6 @@
-@extends('layouts.app')
+@extends('layouts.master')
+@section('title','VerifyEmail.Litein Tea Factory')
+
 
 @section('content')
 <div class="container">

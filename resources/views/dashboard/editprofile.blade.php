@@ -1,4 +1,7 @@
 @extends('layouts.dashboard')
+@section('title','EditProfile.Litein Tea Factory')
+@section('head','Profile')
+
 @section('content')
 <div id="global">
   <div class="container-fluid">

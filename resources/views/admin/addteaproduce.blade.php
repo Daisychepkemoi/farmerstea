@@ -1,4 +1,6 @@
 @extends('layouts.dashboard')
+@section('title','ProduceEntry.Litein Tea Factory')
+@section('head','Add Daily Pproduce')
 @section('content')
 <div id="global">
   <div class="container-fluid">

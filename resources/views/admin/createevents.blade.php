@@ -1,4 +1,6 @@
 @extends('layouts.dashboard')
+@section('title','CreateEvents.Litein Tea Factory')
+@section('head','Create Events')
 @section('content')
 <div id="global">
   <div class="container-fluid">

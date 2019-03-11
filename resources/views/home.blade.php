@@ -1,4 +1,6 @@
 @extends('layouts.app')
+@section('title','dashboard.Litein Tea Factory')
+
 
 @section('content')
 <div class="container">

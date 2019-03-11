@@ -1,4 +1,7 @@
 @extends('layouts.master')
+@section('title','Events.Litein Tea Factory')
+@section('head','View Events')
+
 @section('content')
    
             <div class = "wrapper" style="margin-top: 5%;">

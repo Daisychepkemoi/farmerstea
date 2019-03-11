@@ -1,4 +1,6 @@
 @extends('layouts.master')
+@section('title','Login.Litein Tea Factory')
+
 
 @section('content')
  <div class="landing-page">

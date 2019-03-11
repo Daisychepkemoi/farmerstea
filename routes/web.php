@@ -18,10 +18,13 @@ Route::get('/', function () {
 Auth::routes();
 //users
 
+Route::get('/download', 'PostsController@down');
+
 Route::get('/blog', 'PostsController@blog');
 Route::get('/homeordash', 'UsersController@homeordash');
-Route::get('/addteaproduce', 'TeaDetailsController@index');
+Route::get('/addteaproduce', 'TeaDetailsController@index')->name('addteaproduce');
 Route::get('/addteaproduce/edit/{id}', 'TeaDetailsController@editteaproduce');
+Route::get('/receipt', 'TeaDetailsController@receipt');
 Route::get('/viewdailyproducereport', 'TeaDetailsController@dailyreport');
 Route::post('/editteaproduce/edit/{id}', 'TeaDetailsController@edit');
 Route::post('/agentsort', 'TeaDetailsController@sort');
@@ -65,7 +68,11 @@ Route::post('/admin/editfarmer/{id}', 'AdminsController@saveeditfarmer');
 Route::get('/back', 'AdminsController@back');
 // Route::get('/admin/editprofile', 'AdminsController@editprofile');
 Route::get('/admin/farmersreport', 'ReportController@farmersreport')->name('farmersreport');
-Route::get('/admin/teareport', 'ReportController@farmersreport')->name('farmersreport');
+Route::get('/farmers', 'ReportController@farmers');
+
+Route::get('/admin/teareport', 'ReportController@teasreport')->name('teareport');
+Route::get('/tea', 'ReportController@tea');
+
 
 //eventscontoller
 Route::post('/eventsperdate', 'EventController@eventsperday')->name('eventsperday');
@@ -75,6 +82,12 @@ Route::post('/admin/netperday', 'TeaController@netperday');
 Route::post('/admin/netpermonth', 'TeaController@netpermonth');
 Route::post('/notificationsperdate', 'EventController@notificationsperday')->name('notificationsperday');
 Route::post('/search', 'PostsController@search')->name('search');
+Route::post('/email', 'PostsController@email');
+
+
+
+
+
 
 
 

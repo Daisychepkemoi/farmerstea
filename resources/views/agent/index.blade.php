@@ -1,4 +1,6 @@
 @extends('layouts.master')
+@section('title','Home.Litein Tea Factory')
+
 @section('content')
 <header id="header">
   

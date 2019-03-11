@@ -1,4 +1,7 @@
 @extends('layouts.dashboard')
+@section('title','Notification.Litein Tea Factory')
+@section('head','View Notification')
+
 @section('content')
 <div id="global">
   <div class="container-fluid">

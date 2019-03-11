@@ -1,4 +1,7 @@
 @extends('layouts.dashboard')
+@section('title','EditFarmerDetails.Litein Tea Factory')
+@section('head','Edit Frmers Details')
+
 @section('content')
 <div id="global">
   <div class="container-fluid">
@@ -16,11 +19,10 @@
          </div>
          <div class="profiledetails">
            <div class="profileone">
-             <h5 class="panel-heading " id="panelhead">Farmers details Details</h5>
+             <h5 class="panel-heading " id="panelhead">Farmers Details</h5>
              <form method="POST" action="/admin/editfarmer/{{ $farmer->id}}">
               @csrf
              <table class="table table-borderless" id="table">
-                {{-- @foreach($tea as $) --}}
               <tbody>
                 <tr>
                   <td  class="first">Name</td>

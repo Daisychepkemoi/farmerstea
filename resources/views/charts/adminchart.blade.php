@@ -1,4 +1,7 @@
 @extends('layouts.dashboard')
+@section('title','AdminsChartReport.Litein Tea Factory')
+@section('head','Dashboard')
+
 @section('content')
 <div id="global">
     <div class="container-fluid">
@@ -96,7 +99,7 @@
               
                 <hr>
                   <div class="heading" style="height:;">
-                       <p style="color: black; text-transform: initial; font-weight: normal; text-decoration: underline;"> Total Yearly Produce Per Month Bar Graph </p>
+                       <p style="color: black; text-transform: initial; font-weight: normal; text-decoration: underline;"> Monthly produce In a YEAR Bar Graph </p>
                           <P style="text-transform: none !important; color: black; font-size:20px; font-weight:normal !important;  padding-top: 40px; padding-bottom: 5px; margin-left: 100px; text-align: left;">Below is a Bar Graph showing the total monthly produce to date for this year for all locations in Litein Factory.{{--  <br></P>
                            <P style="text-transform: none !important; color: black; font-size:20px; font-weight:normal !important;  margin-left: 100px; padding-bottom: 20px; text-align: left"> --}}To get the total monthly produce, <br> for a specific year,  please select <b>Year</b>  click <b>  Search</b> from the input below  <br></P>
                            <br>
@@ -126,7 +129,7 @@
 
 
                     {!! $totalpermonth->container() !!}
-                    <p style="color: black; text-transform: none; font-weight: normal;">Total Yearly produce Per Month</p>
+                    <p style="color: black; text-transform: none; font-weight: normal;">Total Monthly Produce In a year</p>
                     <hr>
                 </div>
                 <hr>

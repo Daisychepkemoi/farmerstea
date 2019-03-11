@@ -36,21 +36,60 @@
 
                         });
                 });
+               
 
         </script>
+        <style type="text/css">
+    /*    table
+{
+    counter-reset: rowNumber;
+}
+
+table tr > td:first-child
+{
+    counter-increment: rowNumber;
+}
+                
+table tr td:first-child::before
+{
+    content: counter(rowNumber);
+    min-width: 1em;
+   margin-right: 0.5em;
+}*/ 
+
+  /*  table {
+  counter-reset: rowNumber;
+}
+
+table .r {
+  counter-increment: rowNumber;
+}
+
+table .r td:first-child::before {
+  content: counter(rowNumber);
+  min-width: 1em;
+  margin-right: 0.5em;
+}*/
+     </style>
 
     
-        <title>Dashboard.Litein Tea Factory</title>
+        <title>@yield('title','placeholder')</title>
     </head>
     <body class="cm-no-transition cm-2-navbar">
         <div id="cm-menu">
-            <nav class="cm-navbar " style="background: green;">
-                {{-- <div class="cm-flex"><a href="index.html" class="" style="background-image: url({{url('/image/Notification.ico')}})"></a></div> --}}
-              <span>  <img src="{{ URL::to('image/logo.jpg') }}" style="width: 170px; height: 70px; margin-left: 5px; margin-top: 5px;">
-                <div class="btn btn-success " data-toggle="" style="background-image: url({{asset('image/home.ico')}})"></div> </span>
+             <nav class="cm-navbar cm-navbar" style="background-color: green;">
+                <div class="cm-flex" style="background-image: url({{asset('image/logo.jpg')}});width: 150px; height: 70px; margin-left: 5px; margin-top: 5px;" ><a href="index.html" class="" ></a></div>
+                <div class="btn btn-success " data-toggle="cm-menu" style="background-image: url({{asset('image/home.ico')}})"></div>
             </nav>
+            {{-- <nav class="cm-navbar " style="background: green;"> --}}
+                {{-- <div class="cm-flex"><a href="index.html" class="" style="background-image: url({{url('/image/Notification.ico')}})"></a></div> --}}
+              {{-- <span>  <img src="{{ URL::to('image/logo.jpg') }}" style="width: 170px; height: 70px; margin-left: 5px; margin-top: 5px;"> --}}
+                {{-- <div class="btn btn-success " data-toggle="" style="background-image: url({{asset('image/home.ico')}})"></div> </span> --}}
+            {{-- </nav> --}}
             <div id="cm-menu-content">
+                
                 <div id="cm-menu-items-wrapper">
+                
                     <div id="cm-menu-scroller" >
                         <ul class="cm-menu-items">
                             @if($user->role == 'user')
@@ -140,10 +179,14 @@
         </div>
         <header id="cm-header">
             <nav class="cm-navbar" style="background: green;">
-                
-                <div class="btn btn-success   hidden-md hidden-lg" data-toggle="cm-menu" style="background-image: url({{asset('image/home.ico')}}); "></div>
+              
+                <div class="btn btn-primary md-menu-white hidden-md hidden-lg" data-toggle="cm-menu" style="background-image: url({{asset('image/home.ico')}});" ></div>
+
+                {{-- <div class="btn btn-success   hidden-md hidden-lg" data-toggle="cm-menu" style="background-image: url({{asset('image/home.ico')}}); "></div> --}}
                 <div class="cm-flex"> 
-                    <form id="cm-search" action="/search" method="POST">
+                       <h1 style="padding-left: 100px; color: white;">  @yield('head','placeholder') </h1>
+                        <form id="cm-search" action="/search" method="POST">
+                            @csrf
                         <input type="search" name="q" autocomplete="off" placeholder="Search...">
                     </form>
                 </div>

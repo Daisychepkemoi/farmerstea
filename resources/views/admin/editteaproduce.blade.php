@@ -1,4 +1,7 @@
 @extends('layouts.dashboard')
+@section('title','ProduceEntryEdit.Litein Tea Factory')
+@section('head','Edit Daily Produce')
+
 @section('content')
 <div id="global">
   <div class="container-fluid">
@@ -18,7 +21,7 @@
                       {{ session('success') }}
                     </div>
                     @endif
-                    <p class="report"><button class="btn-success" style="min-width: 300px;">Enter Daily Produce Details </button></p>
+                    <p class="report"><button class="btn-success" style="min-width: 300px;">Enter Daily Produce Details </button> <a href="/addteaproduce" style="float: right;"><button class="btn-primary">Back</button></a></p>
                 </div>
                 </div>
             </div>
@@ -46,7 +49,7 @@
                                   <div class="col-md-6 inputGroupContainer">
                                      <div class="input-group">
                                         <span class="input-group-addon" style="max-width: 100%; height: 50px;"><i class="glyphicon glyphicon-list"></i></span>
-                                      <input id="gross_weight" name="gross_weight" placeholder="Gross Weight" class="form-control" required="true" value="{{$teaproduce->gross_weight}}" type="number" style=" height: 50px;" onmouseout="calculate()" onmouseenter="calculate()">
+                                      <input id="gross_weight" name="gross_weight" placeholder="Gross Weight" class="form-control" required="true" value="{{$teaproduce->gross_weight}}" type="number" style=" height: 50px;" onmouseout="calculate()" onmouseenter="calculate()" readonly="">
 
                                      </div>
                                   </div>

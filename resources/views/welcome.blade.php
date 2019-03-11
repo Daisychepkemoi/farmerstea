@@ -1,4 +1,6 @@
 @extends('layouts.master')
+@section('title','SearchResults.Litein Tea Factory')
+
 @section('content')
    
             <div class = "wrapper" style="margin-top: 5%;">
@@ -13,7 +15,7 @@
                         @foreach($user as $post)
                         <div class="col-md-8" style="height: 500px; border-width: 1px; border-bottom-width: 2px;">
                                 <img class="group list-group-image" src="{{url('uploads/'.$post->image)}}" alt="" style="height: 200px;" />
-                                <h4 style="text-transform:capitalize; !important; font-size: 20px; height: 100px;"><a href="/posts/{{$post->id}}">{!! strip_tags(\Illuminate\Support\Str::words($post->title, 20,'...')) !!}</a></h4>
+                                <h4 style="text-transform:capitalize; !important; font-size: 20px; height: 100px;"><a href="/post/{{$post->id}}">{!! strip_tags(\Illuminate\Support\Str::words($post->title, 20,'...')) !!}</a></h4>
                                 <p style="text-transform:inherit; font-size: 16px;">{!! strip_tags(\Illuminate\Support\Str::words($post->body, 25,'...')) !!}
                                 <button class="btn-success" style="width: 150px; color: white;"> <a href="/post/{{$post->id}}" style="color: white"> Read More</a></button>
                             </p>
