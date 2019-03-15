@@ -82,6 +82,78 @@
     .m-b-md {
         margin-bottom: 30px;
     }
+
+
+
+.collapse ul ul li
+{
+    position:relative;
+    margin:0;
+    padding:0
+}
+
+
+
+
+
+.collapse ul ul ul
+{
+    display:none;
+  position:absolute; 
+    top:100%;
+    left:0;
+  background:green; 
+    padding:0
+}
+
+.collapse ul ul ul li
+{
+/*  float:none; */
+    min-width:100px;
+    color: white;
+    margin-left: 20px;
+    font-size: 16px;
+    margin-top: 10px;
+    /*font-*/
+    text-transform: uppercase;
+
+}
+.collapse ul ul ul li a
+{
+/*  float:none; */
+    min-width:100px;
+    color: white;
+    margin-left: 20px;
+    font-size: 16px;
+    margin-top: 10px;
+    /*font-*/
+    text-transform: uppercase;
+
+}
+/*.collapse ul ul ul li a:hover >li{
+    border-bottom-style: groove;
+    border-bottom-width: 1px;
+    border-bottom-color:white;
+}*/
+
+
+
+
+.collapse ul ul li:hover > ul
+{
+    display:block;
+    /*text-decoration: underline;*/
+    color: white;
+    font-weight: 5px;
+    /*height: 80px;*/
+    border-bottom-style: groove;
+    border-bottom-width: 1px;
+    border-bottom-color:white;
+    /*background-color: */
+
+
+}
+
 </style>
 </head>
 <body>
@@ -108,11 +180,14 @@
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav navbar-right" style="color: white !important;">
                         <li><a href="/home" class="page-scroll" style="color: white !important;">Home</a></li>
-                        <li><a href="#features" class="page-scroll" style="color: white !important;">Features</a></li>
                         <li><a href="#about" class="page-scroll" style="color: white !important;">About</a></li>
-                        <li><a href="#services" class="page-scroll" style="color: white !important;">Services</a></li>
+                       <li><a href="#features" class="page-scroll" style="color: white !important;">services</a></li>
+
+                        {{-- <li><a href="#services" class="page-scroll" style="color: white !important;">Services</a></li> --}}
                         <li><a href="#contact" class="page-scroll" style="color: white !important;">Contact</a></li>
                         <li><a href="/blog" class="page-scroll" style="color: white !important;">Blog</a></li>
+                       <li><a href="/viewevents" class="page-scroll" style="color: white !important;">Events</a></li>
+
                         @if(auth()->user()->verifiedadmin == 'verified') 
                         {{-- a verified user --}}
                         <li><a href="/dashboard" style="color: white !important;">Dashboard</a></li>  
@@ -125,9 +200,26 @@
                         @else
 
                         @endif
+                        <li><a style="color: white!important;" >
+                                    {{ Auth::user()->f_name }} <span class="caret"></span>
+                                </a>
+                            <ul>
+                               
+                                <li>
+                                     <a class="dropdown-item" href="{{ route('logout') }}"
+                                    onclick="event.preventDefault();
+                                    document.getElementById('logout-form').submit();" style="color: white;font-weight:800; font-style: Arial;">
+                                    {{ __('Logout') }}
+                                </a>
+                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                    @csrf
+                                </form>
+                                </li>
+                            </ul>
+                        </li>
                      
                      
-                     <li class="nav-item dropdown">
+                    {{--  <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre style="color: white !important;">
                                     {{ Auth::user()->f_name }} <span class="caret"></span>
                                 </a>
@@ -143,7 +235,19 @@
                                     @csrf
                                 </form>
                             </div>
-                        </li>
+                        </li> --}}
+                        <li>
+                     <form action="/search" method="POST" >
+                        @csrf
+                  <div class="searchbar">
+                                        <input class="search_input" type="text" name="q" placeholder="Search...">
+                        <a href="/search" class="search_icon"><i class="" style="background-image:url({{url('/image/Searcha.ico')}}); background-size: ; background-repeat: no-repeat; color: #353b48; ">d</i></a>
+                        <button type="submit" style="display: none;"></button>
+
+                    </div>
+                    
+                </form>
+                </li>
                       
                        
          </ul>
@@ -154,11 +258,14 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="/home" class="page-scroll" style="color: white !important;">Home</a></li>
-                <li><a href="#features" class="page-scroll" style="color: white !important;">Features</a></li>
                 <li><a href="#about" class="page-scroll" style="color: white !important;">About</a></li>
-                <li><a href="#services" class="page-scroll" style="color: white !important;">Services</a></li>
+                <li><a href="#features" class="page-scroll" style="color: white !important;">Services</a></li>
+
+                {{-- <li><a href="#services" class="page-scroll" style="color: white !important;">Services</a></li> --}}
                 <li><a href="#contact" class="page-scroll" style="color: white !important;">Contact</a></li>
                 <li><a href="/blog" class="page-scroll" style="color: white !important;">Blog</a></li>
+                 <li><a href="/viewevents" class="page-scroll" style="color: white !important;">Events</a></li>
+
                 <li> <a href="{{ route('login') }}" style="color: white !important;">Login</a></li>
                 <li> <a href="{{ route('register') }}" style="color: white !important;">Register</a></li>
                  <li>
@@ -287,6 +394,7 @@ body{
 
 
 @yield('content')
+@include('layouts.footer')
 </body>
 </html>
 <script type="text/javascript">

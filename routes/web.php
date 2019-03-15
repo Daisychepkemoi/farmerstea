@@ -84,6 +84,12 @@ Route::post('/notificationsperdate', 'EventController@notificationsperday')->nam
 Route::post('/search', 'PostsController@search')->name('search');
 Route::post('/email', 'PostsController@email');
 
+Route::post('/post/{id}/comment', 'PostsController@commentstore');
+//contact us
+Route::post('/contactus', 'AdminsController@contactus');
+
+
+
 
 
 

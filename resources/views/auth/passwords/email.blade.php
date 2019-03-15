@@ -1,6 +1,5 @@
-
 @extends('layouts.master')
-
+@section('title','Reset Password email LTF')
 @section('content')
 <header id="header">
  <div class="landing-page">

@@ -4,18 +4,41 @@
 
 
 @section('content')
-<div id="global">
+<div id="global" onclick="openhead() ">
     <div class="container-fluid">
         <div class="panel panel-default">
-            <div class="panel-heading " id="panelhead">
+          <div class="panel-heading " id="panelhead">
+              <form action="/tea" method="GET">
+                @csrf
                 <h4>Period</h4>
                 <div class="start">
                     <label for="startdate" >Start Date</label>
-                    <input  type="text" name="startdate" placeholder="Start Date">
+                     <select  name="month" id="month" value="">
+                      <option>All</option>
+                      <option>January</option>
+                      <option>February 1</option>
+                      <option>March</option>
+                      <option>April</option>
+                      <option>May</option>
+                      <option>June</option>
+                      <option>july</option>
+                      <option>August</option>
+                      <option>September</option>
+                      <option>October</option>
+                      <option>November</option>
+                      <option>December</option>
+                    </select>
                 </div>
                 <div class="start">
                     <label for="enddate" >EndDate</label>
-                    <input type="text"  name="enddate" placeholder="End Date">
+                     <select  name="year" id="month" value="{{ old('month') }}">
+                      <option>2019</option>
+                      <option>2018</option>
+                      <option>2017</option>
+                      <option>2016</option>
+                      <option>2015</option>
+              
+            </select>
                 </div>
                 <div class="end">
 
@@ -27,9 +50,11 @@
 
                         </a>
                     </p>
-                    <p class="report"><button class="btn-success"><a href="">Generate Report</a></button></p>
+                    <button type="submit" class="btn-success" style="height: 50px; ">Generate Report</button>
                 </div>
+              </form>
             </div>
+           
             
             <div class="panel-body">
               <h5 class="panel-heading" id="panelhead">TEA REPORT

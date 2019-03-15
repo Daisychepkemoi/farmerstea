@@ -54,7 +54,7 @@
 
                                   <div class="col-md-6 inputGroupContainer">
                                      <div class="input-group">
-                                       <button class="btn-success" name="submit" style="width: 300px;margin-left: 20px; height: 70px;"> Post</button>
+                                       <button class="btn-success" name="submit" style="width: 300px;margin-left: 20px; height: 70px;" onclick="return confirm('Are You Sure You want to save Post?')"> Post</button>
                                        {{-- <button class="btn-danger"  style="width: 300px;margin-left: 20px; height: 70px;" onclick="closeForm()"">Close</button> --}}
 
                                      </div>
@@ -93,7 +93,7 @@
                                           <img class="card-img-top" src="{{url('uploads/'.$post->image)}}" alt="{{$post->image}}" style="height: 100px; width: 100%;">
                                           <div class="card-body">
                                               <p class="card-text">
-                                                  <h4 style="height: 100px; background:;">    {{$post->title}}</h4>
+                                                  <h4 style="min-height:50px; background:;"> <a href="/post/{{$post->id}}">{!! strip_tags(\Illuminate\Support\Str::words($post->title, 15,'...')) !!}</a>   </h4>
                                                   <p>{!! strip_tags(\Illuminate\Support\Str::words($post->body, 25,'...')) !!}<b>Created On {{$post->created_at->diffForHumans()}}</b> </p>
                                               </p>
                                           </div>
@@ -132,4 +132,5 @@
   </div>
  </div>
 </div>
+@include('layouts.footer')
 @endsection

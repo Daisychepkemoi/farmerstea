@@ -2,7 +2,7 @@
 @section('title','Profile.Litein Tea Factory')
 @section('head','Profile ')
 @section('content')
-<div id="global">
+<div id="global" onclick="openhead() ">
   <div class="container-fluid">
     <div class="panel panel-default">
 
@@ -58,7 +58,7 @@
 
               </tbody>
             </table>
-            <p><button class="btn-success" ><a href="/editprofile">Save</a> </button></p>
+            <p><button class="btn-success" onclick="return confirm('Are You Sure?')" ><a href="/editprofile">Save</a> </button></p>
         </form>
           </div>
         </div>

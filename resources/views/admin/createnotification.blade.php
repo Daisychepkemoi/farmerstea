@@ -2,7 +2,7 @@
 @section('title','CreateNotification.Litein Tea Factory')
 @section('head','Create Notification ')
 @section('content')
-<div id="global">
+<div id="global" onclick="openhead() ">
   <div class="container-fluid">
     <div class="panel panel-default" >
       <div class="panel-body">
@@ -47,7 +47,7 @@
 
                                   <div class="col-md-6 inputGroupContainer">
                                      <div class="input-group">
-                                       <button class="btn-success" name="submit" style="width: 300px;margin-left: 20px; height: 70px;"> Post</button>
+                                       <button class="btn-success" name="submit" style="width: 300px;margin-left: 20px; height: 70px;" onclick="return confirm('Are You Sure You Want To save?')"> Post</button>
                                        {{-- <button class="btn-danger"  style="width: 300px;margin-left: 20px; height: 70px;" onclick="closeForm()"">Close</button> --}}
 
                                      </div>

@@ -155,7 +155,7 @@ table .r td:first-child::before {
                                      @if($user->function == 'Admin' || ($user->function == 'user' && $user->created_by == 'user'))
                                     <li><a href="/admin/createnotification">Create Notification</a></li>
                                     @endif
-                                    <li><a href="/viewnotifications">View Notifications</a></li>
+                                    <li><a href="/notifications">View Notifications</a></li>
                                 </ul>
                             </li>
                             
@@ -184,14 +184,14 @@ table .r td:first-child::before {
 
                 {{-- <div class="btn btn-success   hidden-md hidden-lg" data-toggle="cm-menu" style="background-image: url({{asset('image/home.ico')}}); "></div> --}}
                 <div class="cm-flex"> 
-                       <h1 style="padding-left: 100px; color: white;">  @yield('head','placeholder') </h1>
+                       <h1 style="padding-left: 100px; color: white;" id="myhead">  @yield('head','placeholder') </h1>
                         <form id="cm-search" action="/search" method="POST">
                             @csrf
                         <input type="search" name="q" autocomplete="off" placeholder="Search...">
                     </form>
                 </div>
                 <div class="pull-right">
-                    <div id="cm-search-btn" class="btn btn-success " data-toggle="cm-search" style="background-image: url({{url('/image/searchh.ico')}}) ;"></div>
+                    <div id="cm-search-btn" class="btn btn-success " data-toggle="cm-search" style="background-image: url({{url('/image/searchh.ico')}}) ;" id="clicksearch" onclick="closehead()"></div>
                 </div>
                 @if($user->role == 'admin')
                 <div class="dropdown pull-right">
@@ -253,3 +253,14 @@ table .r td:first-child::before {
         @yield('content')
     </body>
     </html>
+        <script type="text/javascript">
+          function closehead() {
+                document.getElementById("myhead").style.display = "none";
+                // document.getElementById("lost").style.display = "none";
+                // document.getElementById("header").style.height = "100vh";
+            }
+            function openhead(){
+             document.getElementById("myhead").style.display = "block";
+
+            }
+        </script>

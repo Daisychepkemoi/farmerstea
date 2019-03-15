@@ -72,7 +72,7 @@ class UsersController extends Controller
         $teauser= Tea::where('user_id', $user->id)->pluck('tea_no');
           $db = DB::raw('YEAR(date_offered) as date');
         $year = Tea_Details::select($db)->orderBy('date', 'DESC')->pluck('date')->unique();
-        $teadetail = Tea_Details::whereIn('tea_no',$teauser)->orderBy('date_offered','DESC')->paginate(15);
+        $teadetail = Tea_Details::whereIn('tea_no',$teauser)->orderBy('date_offered','DESC')->paginate(60);
         $teadetaila = Tea_Details::whereIn('tea_no',$teauser)->pluck('net_weight')->sum();
          $notcount = Notification::get()->count();
                   $nots = Notification::latest()->paginate(3);
@@ -88,7 +88,7 @@ class UsersController extends Controller
         $year = Tea_Details::select($db)->orderBy('date', 'DESC')->pluck('date')->unique();
          $month = request('month');
         $nmonth = date('m',strtotime($month));
-        $teadetail = Tea_Details::whereIn('tea_no',$teauser)->whereYear('date_offered',request('year'))->whereMonth('date_offered',$nmonth)->orderBy('date_offered','DESC')->paginate(10);
+        $teadetail = Tea_Details::whereIn('tea_no',$teauser)->whereYear('date_offered',request('year'))->whereMonth('date_offered',$nmonth)->orderBy('date_offered','DESC')->paginate(31);
         $teadetaila = Tea_Details::whereIn('tea_no',$teauser)->whereYear('date_offered',request('year'))->whereMonth('date_offered',$nmonth)->pluck('net_weight')->sum();
          $notcount = Notification::get()->count();
                           $nots = Notification::latest()->paginate(3);

@@ -3,7 +3,7 @@
 @section('head',' Verify Farmers Details')
 
 @section('content')
-<div id="global">
+<div id="global" onclick="openhead() ">
     <div class="container-fluid">
         <div class="panel panel-default">
             <div class="panel-heading " id="panelhead">
@@ -18,7 +18,7 @@
 
                         </a>
                     </p> --}}
-                    <p class="report"><button class="btn-success"><a href="">Generate Report</a></button></p>
+                    <p class="report"><button class="btn-success"><a href="/farmers">Generate Report</a></button></p>
                 </div>
             </div>
             
@@ -52,8 +52,8 @@
                         <td >{{$farmer->email}}</td>
                         <td >{{$farmer->tea_no}}</td>
                         <td >{{$farmer->national_id}}</td>
-                         <td scope="col"> <a class="adddelete" href="/admin/verifyfarmer/{{$farmer->id}}"><button class="btn-primary">Asign Tea Number</button></a></td>
-                          <td scope="col"><a class="adddelete" href="/admin/notverifyfarmer/{{$farmer->id}}"> <button class="btn-danger">Deny Tea Number  </button> </a></td>
+                         <td scope="col"> <a class="adddelete" href="/admin/verifyfarmer/{{$farmer->id}}" onclick="return confirm('Are You Sure You want to assign Tea Number?')"><button class="btn-primary">Asign Tea Number</button></a></td>
+                          <td scope="col"><a class="adddelete" href="/admin/notverifyfarmer/{{$farmer->id}}" onclick="return confirm('Are You Sure you want to deny Tea Number?')"> <button class="btn-danger">Deny Tea Number  </button> </a></td>
                         
 
                        </tr>
@@ -109,9 +109,9 @@
                         <td >{{$farmerv->tea_no}}</td>
                         <td >{{$farmerv->national_id}}</td>
                        
-                          <td scope="col"> <a class="adddelete" href="/admin/revokefarmer/{{$farmerv->id}}"> <button class="btn-danger">Revoke Tea Number</button></a>  </td>
+                          <td scope="col"> <a class="adddelete" href="/admin/revokefarmer/{{$farmerv->id}}" onclick="return confirm('Are You Sure you want to revoke tea_no?')"> <button class="btn-danger"> Revoke Tea Number</button></a>  </td>
 
-                          <td scope="col"> <a class="adddelete" href="/admin/editfarmer/{{$farmerv->id}}"> <button class="btn-primary"> Edit Farmer Details  </button> </a></td>
+                          <td scope="col"> <a class="adddelete" href="/admin/editfarmer/{{$farmerv->id}}" onclick="return confirm('Are You Sure you want to edit farmer details?')"> <button class="btn-primary" > Edit Farmer Details  </button> </a></td>
                         
 
                        </tr>
@@ -135,7 +135,7 @@
               </div>
             </div>
             <div class="panel panel-default">
-              <div class="panel-heading " id="panelhead">Verification rejected Farmers
+              <div class="panel-heading " id="panelhead"> rejected Farmers
                  <a href="{{ route('generate',['download'=>'pdf']) }}" download >
                             <i> 
                                 <img src="{{ URL::to('image/Downloads.ico') }}" title="Download">
@@ -162,8 +162,8 @@
                         <td >{{$rejects->email}}</td>
                         <td >{{$rejects->tea_no}}</td>
                         <td >{{$rejects->national_id}}</td>
-                         <td scope="col"><a class="adddelete" href="/admin/verifyfarmer/{{$rejects->id}}"> <button class="btn-danger" style="">Asign Tea Number</button></a></td>
-                          <td scope="col"><a class="adddelete" href="/admin/notverifyfarmer/{{$rejects->id}}"> <button class="btn-danger">Deny Tea Number</button></a>  </td>
+                         <td scope="col"><a class="adddelete" href="/admin/verifyfarmer/{{$rejects->id}}" onclick="return confirm('Are You Sure You want to assign Tea Number?')"> <button class="btn-danger" style="">Asign Tea Number</button></a></td>
+                          {{-- <td scope="col"><a class="adddelete" href="/admin/notverifyfarmer/{{$rejects->id}}" onclick="return confirm('Are You Sure?')"> <button class="btn-danger">Deny Tea Number</button></a>  </td> --}}
                         
 
                        </tr>
@@ -214,7 +214,7 @@
                         <td >{{$revoked->tea_no}}</td>
                         <td >{{$revoked->national_id}}</td>
                        
-                          <td scope="col"><a class="adddelete" href="/admin/unrevokefarmer/{{$revoked->id}}" <button class="btn-danger">>Unrevoke Tea Number</button></a>  </td>
+                          <td scope="col"><a class="adddelete" href="/admin/unrevokefarmer/{{$revoked->id}}"onclick="return confirm('Are You Sure You want to Unrevoke Farmer?')" ><button class="btn-danger">Unrevoke Tea Number</button></a>  </td>
                         
 
                        </tr>

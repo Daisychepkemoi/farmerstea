@@ -3,7 +3,7 @@
 @section('head','Edit Daily Produce')
 
 @section('content')
-<div id="global">
+<div id="global"onclick="openhead() ">
   <div class="container-fluid">
     <div class="panel panel-default" >
       <div class="panel-body" id=" container" style="background: ; width: 100%;">
@@ -69,7 +69,7 @@
 
                                   <div class="col-md-6 inputGroupContainer">
                                      <div class="input-group">
-                                       <button class="btn-success" name="submit" style="width: 300px;margin-left: 20px; height: 70px;">Save Update</button>
+                                       <button class="btn-success" name="submit" style="width: 300px;margin-left: 20px; height: 70px;" onclick="return confirm('Are You Sure you want to update?')">Save Update</button>
                                        {{-- <button class="btn-danger"  style="width: 300px;margin-left: 20px; height: 70px;" onclick="closeForm()"">Close</button> --}}
 
                                      </div>

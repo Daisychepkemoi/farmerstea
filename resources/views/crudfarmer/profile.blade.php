@@ -3,7 +3,7 @@
 @section('head','Profile')
 
 @section('content')
-<div id="global">
+<div id="global" onclick="openhead() ">
   <div class="container-fluid">
     <div class="panel panel-default">
 
@@ -14,7 +14,7 @@
          <div class="image">
            <img src="{{ URL::to('image/profileimg.png') }}">
            <p>{{ $user->f_name}} {{$user->l_name}}</p>
-           <p><button class="btn-default" ><a href="/profile/edit/{{$user->id}}"> Edit
+           <p><button class="btn-default" ><a href="/profile/edit/{{$user->id}}" onclick="return confirm('Are You Sure You Want to Edit Profile?')"> Edit
   </a> </button></p>
 
          </div>

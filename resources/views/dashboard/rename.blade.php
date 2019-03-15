@@ -6,7 +6,7 @@
 <body>
 
 
-<div id="global">
+<div id="global" onclick="openhead() ">
     
                 <h4>Period</h4>
 

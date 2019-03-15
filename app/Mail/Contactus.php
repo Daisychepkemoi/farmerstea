@@ -6,6 +6,8 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use App\User;
+
 
 class Contactus extends Mailable
 {
@@ -16,10 +18,11 @@ class Contactus extends Mailable
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($notification,$email)
     {
-        //
-    }
+        $this->notification = $notification;  
+        $this->email = $email;  
+     }
 
     /**
      * Build the message.
@@ -28,6 +31,16 @@ class Contactus extends Mailable
      */
     public function build()
     {
-        return $this->view('view.name');
+         $users = User::where('role', 'admin')->where('created_by','user')->pluck('email')->toArray();
+        // $recipients = explode(',',$users);
+
+        $notification = $this->notification;
+        $email = $this->email;
+        return $this->from($email)
+                    ->subject('Contact Us form Field !!. Titled "'.$this->notification->title.' " Please reply to it')->to($users)->markdown('email.contactus')
+                    ->with([
+                    'body' => $this->notification->body,
+                    'title' => $this->notification->title,
+            ]); 
     }
 }

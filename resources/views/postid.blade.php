@@ -175,18 +175,24 @@ width: 75%;    }
                                 <p class="">Created {{ $posts->created_at->diffForHumans() }}</p>
                             </div>
                             <div class="row">
-                            <form class="form-control" method="POST" action="/comment">  
+                            <form class="form-control" method="POST" action="/post/{{$posts->id}}/comment/">
+                            @csrf  
                                 <label> Comment</label>
-                                <textarea class="form-control">  </textarea>
+                                <textarea class="form-control" name="body">  </textarea>
                                 <button class="btn-success"> Post </button>
                             </form>   
                             </div>
                             
                     </div>
                 </div>
-                @foreach($comments as $comment)
-                <div class="item col-xs-4 col-lg-4" ">
+                <br>
+                <br>
+                <br>
+                <br>
+                <div class="item col-xs-12 col-lg-12" ">
                 <div class="thumbnail text-center">
+                    <h1>Comments</h1>
+                   @foreach($comments as $comment)
                     <div class="caption">
                         <p class="mb-0">{{ $comment->body}}</p>
                         <div class="row">
@@ -194,8 +200,10 @@ width: 75%;    }
                             </div>
                             
                     </div>
+                    <hr>
+                   @endforeach
+
                 </div>
-                @endforeach
             </div>
 </div>
 

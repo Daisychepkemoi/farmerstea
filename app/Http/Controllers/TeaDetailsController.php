@@ -129,7 +129,7 @@ class TeaDetailsController extends Controller
             $username = User::where('id', $user_id)->first();
              $teadetails = Tea_Details::whereDate('created_at', Carbon::today())->orderBy('created_at','desc')->paginate(5);
              $pdf = PDF::loadView('docs.receipt', compact('user', 'notcount', 'teadetails','tea', 'nots','username'));     
-             // return [$pdf->download('DailyReceipt'.$tea->receipt_no.'pdf'), view('admin.addteaproduce')];  
+             
              return $pdf->download( 'DailyReceipt'.$tea->receipt_no.'pdf');
 
             return redirect('/addteaproduce')->with('success','tea details added successfully');
@@ -140,7 +140,9 @@ class TeaDetailsController extends Controller
         $user =auth()->user();
         $notcount = Notification::get()->count();
         $teaproduce = Tea_Details::find($id);
-        $teadetails = Tea_Details::whereDate('created_at', Carbon::today())->get();
+        // $teadetails = Tea_Details::whereDate('created_at', Carbon::today())->get();
+                $teadetails = Tea_Details::orderBy('date_offered','asc')->paginate(15);
+
         $nots = Notification::latest()->paginate(3);
 
 

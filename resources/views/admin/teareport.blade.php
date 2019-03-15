@@ -3,7 +3,7 @@
 @section('head','Tea Report')
 
 @section('content')
-<div id="global">
+<div id="global" onclick="openhead() ">
     <div class="container-fluid">
         <div class="panel panel-default">
             <div class="panel-heading " id="panelhead">
@@ -15,7 +15,7 @@
                      <select  name="month" id="month" value="">
                       <option>All</option>
                       <option>January</option>
-                      <option>February 1</option>
+                      <option>February </option>
                       <option>March</option>
                       <option>April</option>
                       <option>May</option>
@@ -41,14 +41,7 @@
                 </div>
                 <div class="end">
 
-                    <p>
-                        <a href="{{ route('generate',['download'=>'pdf']) }}" download >
-                            <i> 
-                                <img src="{{ URL::to('image/Downloads.ico') }}" title="Download">
-                            </i>
-
-                        </a>
-                    </p>
+                   
                     <button type="submit" class="btn-success" style="height: 50px; ">Generate Report</button>
                 </div>
               </form>

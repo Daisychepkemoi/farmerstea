@@ -2,11 +2,17 @@
 @section('title','Home.Litein Tea Factory')
 
 @section('content')
+
 <header id="header" style="background-image: url({{asset('image/desk.jpg')}}); height: 1400px; background-size: cover; opacity:;"  >
   
   <div class="landing-page">
     <div style="" id="page"></div>
     <div class="buttons-container" data-aos="slide-up" data-aos-duration="3000" style="padding-top: 0%">
+      @if (session()->has('success'))
+                     <div class="alert alert-success" id="alert" style="text-transform:normal; ">
+                      {{ session('success') }}
+                    </div>
+      @endif
         @auth
        @if ($user->verifiedadmin == 'notverified')
         @if ( $user->role == 'user')
@@ -106,61 +112,6 @@
 <!-- Services Section -->
 <div id="features" class="text-center">
   <div class="container">
-    <div class="col-md-10 col-md-offset-1 section-title">
-      <h2>Features</h2>
-    </div>
-    <div class="row">
-      <div class="col-xs-6 col-md-3"> <i class="fa fa-comments-o"></i>
-        <h3> Hello Litein!</h3>
-        <p>Tea Factory was founded by James Finlay and its foundation was laid on 9th April, 1965 by the then Minister of Home Affairs (Hon. Daniel T. Arap Moi). The Factory was commissioned a year later by the then</p>
-      </div>
-      <div class="col-xs-6 col-md-3"> <i class="fa fa-bullhorn"></i>
-        <h3> Hello Litein!</h3>
-        <p>Tea Factory was founded by James Finlay and its foundation was laid on 9th April, 1965 by the then Minister of Home Affairs (Hon. Daniel T. Arap Moi). The Factory was commissioned a year later by the then</p>
-      </div>
-      <div class="col-xs-6 col-md-3"> <i class="fa fa-group"></i>
-        <h3> Hello Litein!</h3>
-        <p>Tea Factory was founded by James Finlay and its foundation was laid on 9th April, 1965 by the then Minister of Home Affairs (Hon. Daniel T. Arap Moi). The Factory was commissioned a year later by the then</p>
-      </div>
-      <div class="col-xs-6 col-md-3"> <i class="fa fa-magic"></i>
-        <h3> Hello Litein!</h3>
-        <p>Tea Factory was founded by James Finlay and its foundation was laid on 9th April, 1965 by the then Minister of Home Affairs (Hon. Daniel T. Arap Moi). The Factory was commissioned a year later by the then</p>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- About Section -->
-<div id="about">
-  <div class="container">
-    <div class="row">
-      <div class="col-xs-12 col-md-6"> <img src="{{ URL('/image/desk.jpg')}}" class="img-responsive" alt=""> </div>
-      <div class="col-xs-12 col-md-6">
-        <div class="about-text">
-          <h2>About Us</h2>
-          <p></p>
-          <h3>Litein Tea Factory</h3>
-          <div class="list-style">
-            <div class="col-lg-6 col-sm-6 col-xs-12">
-              <ul>
-                <li>Mission</li>
-                    <p>To invest in tea and other related profitable ventures for the benefit of the shareholders and other stakeholders</p>
-              </ul>
-            </div>
-            <div class="col-lg-6 col-sm-6 col-xs-12">
-              <ul>
-                <li>Vision</li>
-              <p>To be the preferred investment vehicle for the small holder tea farmers in Eastern Africa.</p>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- Services Section -->
-<div id="services" class="text-center">
-  <div class="container">
     <div class="section-title">
       <h2>Our Services</h2>
     </div>
@@ -206,122 +157,43 @@
     </div>
   </div>
 </div>
-<!-- Gallery Section -->
-  <div id="portfolio" class="text-center">
-    <div class="container">
-      <div class="section-title">
-        <h2>Gallery</h2>
-      </div>
-      <div class="row">
-        <div class="portfolio-items">
-             <div class="col-sm-6 col-md-4 col-lg-4">
-            <div class="portfolio-item">
-              <div class="hover-bg"> <a href="/" title="Project Title" data-lightbox-gallery="galleryww">
-                <div class="hover-text">
-                  <h4>Litein</h4>
-                </div>
-                <img src="{{URL('/image/desk.jpg')}}" class="img-responsive" alt="Project Title"> </a> </div>
-              </div>
+<
+<!-- About Section -->
+<div id="about">
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12 col-md-6"> <img src="{{ URL('/image/desk.jpg')}}" class="img-responsive" alt=""> </div>
+      <div class="col-xs-12 col-md-6">
+        <div class="about-text">
+          <h2>About Us</h2>
+          <p></p>
+          <h3>Litein Tea Factory</h3>
+          <div class="list-style">
+            <div class="col-lg-6 col-sm-6 col-xs-12">
+              <ul>
+                <li>Mission</li>
+                    <p>To invest in tea and other related profitable ventures for the benefit of the shareholders and other stakeholders</p>
+              </ul>
             </div>
-               <div class="col-sm-6 col-md-4 col-lg-4">
-            <div class="portfolio-item">
-              <div class="hover-bg"> <a href="/" title="Project Title" data-lightbox-gallery="galleryw1">
-                <div class="hover-text">
-                  <h4>Tea Farm</h4>
-                </div>
-                <img src="{{URL('/image/desk.jpg')}}" class="img-responsive" alt="Project Title"> </a> </div>
-              </div>
-            </div>
-                <div class="col-sm-6 col-md-4 col-lg-4">
-            <div class="portfolio-item">
-              <div class="hover-bg"> <a href="/" title="Project Title" data-lightbox-gallery="gallerwy1">
-                <div class="hover-text">
-                  <h4>Tea Buying Center</h4>
-                </div>
-                <img src="{{URL('/image/desk.jpg')}}" class="img-responsive" alt="Project Title"> </a> </div>
-              </div>
-            </div>
-               <div class="col-sm-6 col-md-4 col-lg-4">
-            <div class="portfolio-item">
-              <div class="hover-bg"> <a href="/" title="Project Title" data-lightbox-gallery="gallery1">
-                <div class="hover-text">
-                  <h4>Tea Truck</h4>
-                </div>
-                <img src="{{URL('/image/desk.jpg')}}" class="img-responsive" alt="Project Title"> </a> </div>
-              </div>
-            </div>
-               <div class="col-sm-6 col-md-4 col-lg-4">
-            <div class="portfolio-item">
-              <div class="hover-bg"> <a href="/" title="Project Title" data-lightbox-gallery="gallery1">
-                <div class="hover-text">
-                  <h4>Factory</h4>
-                </div>
-                <img src="{{URL('/image/desk.jpg')}}" class="img-responsive" alt="Project Title"> </a> </div>
-              </div>
-            </div>
-             <div class="col-sm-6 col-md-4 col-lg-4">
-            <div class="portfolio-item">
-              <div class="hover-bg"> <a href="/" title="Project Title" data-lightbox-gallery="gallery1">
-                <div class="hover-text">
-                  <h4>Cup of Tea</h4>
-                </div>
-                <img src="{{URL('/image/tea3.jpg')}}" class="img-responsive" alt="Project Title" style="width: 100%; height: 360px;"> </a> </div>
-              </div>
+            <div class="col-lg-6 col-sm-6 col-xs-12">
+              <ul>
+                <li>Vision</li>
+              <p>To be the preferred investment vehicle for the small holder tea farmers in Eastern Africa.</p>
+              </ul>
             </div>
           </div>
         </div>
-       </div>
       </div>
+    </div>
+  </div>
+</div>
+<!-- Services Section -->
+
     
           
       {{-- footer --}}
-      <div id="footer" class="text-center" style="background:">
-        <div class="row" id="row">
-          {{-- <div class="row"> <i class="fa fa-wordpress"></i> --}}
-            <div class="section-title">
-              <h3>Online Tea Farmer Registration</h3>
-        <p>Tea Factory was founded by James Finlay and its foundation was laid on 9th April, 1965 by the then Minister of Home Affairs (Hon. Daniel T. Arap Moi). The Factory was commissioned a year later by the then</p>
-            </div>
-          {{-- </div> --}}
-          {{-- <div class="row"> <i class="fa fa-cart-arrow-down"></i> --}}
-            <div class="section-title">
-              <h3>Predictions on Bonus</h3>
-        <p>Tea Factory was founded by James Finlay and its foundation was laid on 9th April, 1965 by the then Minister of Home Affairs (Hon. Daniel T. Arap Moi). The Factory was commissioned a year later by the then</p>
-            </div>
-          {{-- </div> --}}
-        </div>
-        <div class="row" id="row2">
-          {{-- <div class="col-md-4"> <i class="fa fa-cloud-download"></i> --}}
-                  <div id="contact" class="text-center">
-                     <div class="container">
-                        <div class="section-title">
-                          <h2>contact us</h2>
-                           
-                                <form method="POST" action="/email">
-                                  <label>Email <strong>*</strong></label>
-                                  <input class="form-control" type="email" name="email" placeholder="Email..">
-                                  <label>Title <strong>*</strong></label>
-                                  <input class="form-control" type="text" name="title" placeholder="Title...">
-                                  <label>Body <strong>*</strong></label>
-                                  <textarea class="form-control"></textarea>
-                                  <button class="btn-custom" type="submit"> Submit</button>
-                                </form>
-                              </div>
-                               
-                             </div>
-                     </div>
-                  {{-- </div> --}}
-               </div>
-            <div class="col text-center" id="copy">
-            <div class="portfolio-item">
-               <h3>Copyright © 2019 Litein Tea Factory</h3>
-              <p style="padding-left: 150px; padding-right: 150px; display: none;">
-      All material, information, data, images or content on this website is subject to copyright or other applicable intellectual property laws and no part of it can be reproduced in any form (including paper or electronic form) without prior written consent and approval from LTF. Infringements are subject to prosecution under the applicable laws. For consent related queries and conditions, 
-      please write to <a href="www.gmail.com">liteinfeafactory.gmail.com</a></p>
-            
-             <p>&copy copyright 2019</p>
-            </div>
-        </div>
+      <br>
+    
        
           
      

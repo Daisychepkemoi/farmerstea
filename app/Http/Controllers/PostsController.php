@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
 use Illuminate\Pagination\Paginator;
 use PDF;
+use DB;
 
 
 class PostsController extends Controller
@@ -17,7 +18,7 @@ class PostsController extends Controller
     
     public function __construct()
     {
-        // $this->middleware('auth');
+        $this->middleware('auth')->except(['search', 'blog','postid']);
        
     }
     public function email()
@@ -44,7 +45,7 @@ class PostsController extends Controller
     if(count($user) > 0)
         // $count = 
         return view('welcome',compact('user','count','nots'));
-    else return view ('welcome',compact('user','count','nots'))->withMessage('No Details found. Try to search again !');
+    else return view ('welcome',compact('user','count','nots'))->withMessage('No Details found. Try to search again with different parameters !');
 
  }
     public function blog()
@@ -91,10 +92,28 @@ class PostsController extends Controller
     public function postid($id)
     {
         $posts = Posts::find($id);
-                          $nots = Notification::latest()->paginate(3);
+        $nots = Notification::latest()->paginate(3);
 
         $comments = Comments::where('post_id',$id)->orderBy('created_at','DESC')->get();
-        return view('postid',compact('posts','comments','nots'));
+        $joins = DB::table('users')->join('comments','users.id','=','comments.user_id')->select('users.*','comments.*')->get();
+        // dd($joins);
+        return view('postid',compact('posts','comments','nots','joins'));
+    }
+      public function commentstore(Request $request,$id)
+    {
+     $user = auth()->user();
+
+     $posts = Posts::find($id);
+    $comment = new Comments();
+    $comment->user_id = $user->id;
+
+    $comment->body = request('body'); //
+    $comment->post_id = $posts->id;
+    $comment->save();
+    $comments = Comments::where('post_id',$id)->orderBy('created_at','DESC')->get();
+
+    return view('postid',compact('posts','comments','nots'));
+
     }
 
    

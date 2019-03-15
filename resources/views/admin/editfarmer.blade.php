@@ -3,7 +3,7 @@
 @section('head','Edit Frmers Details')
 
 @section('content')
-<div id="global">
+<div id="global" onclick="openhead() ">
   <div class="container-fluid">
     <div class="panel panel-default">
 
@@ -72,7 +72,7 @@
                   {{-- @endforeach --}}
               </tbody>
             </table>
-            <p><button class="btn-success" type="submit" ><a href="">Save</a></button></p>
+            <p><button class="btn-success" type="submit" ><a href="" onclick="return confirm('Are You Sure you want to save?')">Save</a></button></p>
         </form>
           </div>
         </div>

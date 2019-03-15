@@ -3,7 +3,7 @@
 @section('head','Notification')
 
 @section('content')
-<div id="global">
+<div id="global" onclick="openhead() ">
   <div class="container-fluid">
     <div class="panel panel-default" >
       <div class="panel-body">

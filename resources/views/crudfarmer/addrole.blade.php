@@ -3,7 +3,7 @@
 @section('head','Add Admin')
 
 @section('content')
-<div id="global">
+<div id="global" onclick="openhead() ">
     <div class="container-fluid">
         <div class="panel panel-default">
             <div class="panel-heading " id="panelhead">
@@ -84,7 +84,7 @@
 
                             <div class="col-md-6 inputGroupContainer">
                                <div class="input-group">
-                                 <button class="btn-success" name="submit" style="width: 300px;margin-left: 20px; height: 70px;"> Submit</button>
+                                 <button class="btn-success" name="submit" style="width: 300px;margin-left: 20px; height: 70px;" onclick="return confirm('Are You Sure you want to save?')"> Submit</button>
                                  <button class="btn-danger"  style="width: 300px;margin-left: 20px; height: 70px;" onclick="closeForm()">Close</button>
 
                                </div>
@@ -142,7 +142,7 @@
                           @else
                           
                         
-                          <td scope="col"> <button class="btn-danger"><a class="adddelete" href="/admin/removepriviledge/{{$admin->id}}">Remove As Admin</a>  </button></td>
+                          <td scope="col"> <button class="btn-danger"><a class="adddelete" href="/admin/removepriviledge/{{$admin->id}}" onclick="return confirm('Are You Sure you want to remove as admin?')">Remove As Admin</a>  </button></td>
                           @endif
 
                        </tr>
@@ -201,7 +201,7 @@
                         <td >{{$denied->national_id}}</td>
                         @if($user->created_by == 'admin')
                         @else
-                          <td scope="col"> <button class="btn-danger"><a class="adddelete" href="/admin/addpriviledge/{{$denied->id}}">ReAdd To Admins</a>  </button></td>
+                          <td scope="col"> <button class="btn-danger"><a class="adddelete" href="/admin/addpriviledge/{{$denied->id}}" onclick="return confirm('Are You Sure? you want to readd as admin')">ReAdd To Admins</a>  </button></td>
                           @endif
                         
 

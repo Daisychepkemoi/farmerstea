@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Mail;
 use App\Mail\NewEvent;
 use App\Mail\VerifyFarmer;
 use App\Mail\NewNotification;
+use App\Mail\Contactus;
 use App\Mail\NewAdmin;
 
 
@@ -31,7 +32,7 @@ class AdminsController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth')->except(['viewevents','vieweventid','contactus']);
     }
     public function createevents()
     {
@@ -106,9 +107,9 @@ class AdminsController extends Controller
         $users =$user->id;
         $detail=$request->body;
  
-        $dom = new \domdocument();
-        $dom->loadHtml($detail, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
-        $detail = $dom->savehtml();
+        // $dom = new \domdocument();
+        // $dom->loadHtml($detail, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+        // $detail = $dom->savehtml();
         $notification = Notification::create([
                 'user_id'=>$users,
                 'title'=>request('title'),
@@ -117,6 +118,30 @@ class AdminsController extends Controller
         Mail::send(new NewNotification($notification));
         return redirect('/admin/createnotification');
     }
+    public function contactus( Request $request)
+    {
+
+        $user = User::where('email',$request->email)->first();
+        $email = $request->email;
+        if($user == null){
+             $contactus = contactus::create([
+                'user_id'=>70,
+                'title'=>request('title'),
+                'body'=>$request->body,
+        ]);
+         }
+         else {
+
+            $contactus = contactus::create([
+                'user_id'=>$user->id,
+                'title'=>request('title'),
+                'body'=>$request->body,
+        ]);
+         }
+          Mail::send(new Contactus($contactus,$email));
+          return redirect('/')->with('success', 'Message sent Successfully');
+    }
+
     public function viewnotifications()
     {
         $user = auth()->user();
