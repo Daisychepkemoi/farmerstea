@@ -118,7 +118,7 @@
                              <hr>
                              @endforeach
                             <fieldset>
-                              <a href="/report" class="btn btn-success" style="margin-left: 60px; width: 150px;"> View All</a>
+                              <a href="/viewdailyproducereport" class="btn btn-success" style="margin-left: 60px; width: 150px;"> View All</a>
                             </fieldset>
 
                       </td>

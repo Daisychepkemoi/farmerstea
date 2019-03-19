@@ -1,64 +1,190 @@
-@extends('layouts.dashboard')
-@section('title','Notification.Litein Tea Factory')
-@section('head','Notification')
+@extends('layouts.master')
+<!doctype html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-@section('content')
-<div id="global" onclick="openhead() ">
-  <div class="container-fluid">
-    <div class="panel panel-default" >
-      <div class="panel-body">
+    <title>Litein Tea Factory</title>
 
-        <div class="panel-body" id="eventids">
-         <h5 class="panel-heading" id="panelhead">Events</h5>
-         <div class="panel panel-success" id="" style="min-height: 20px; padding: 40px;">
-         <h5><a href="/notification/{{$notification->id}}" style="text-transform: uppercase; color: green; font-size: 20px; font-weight: bold;" >{{$notification->title}}</a></h5>
-         <p style="font-size: 16px; ">
-            {!! strip_tags($notification->body) !!}
-          </p>
-          <p style="float: right;">{{$notification->created_at->diffForHumans()}}</p>
-          <p style="float: right; margin-right: 40px;"> Posted by : <span style="font-style: italic;">{{$username->f_name}} </span> </p>
-          <br>
-          <br>
-          <a class="btn-primary" style="width:200px; height: 50px; color: white; text-align: center;padding-top: 15px; float: left; margin-left: 100px;   "> Back</a>
+    <!-- Fonts -->
+    {{-- <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet" type="text/css"> --}}
 
-        </div>
-      </div>
-        <div class="panel-body" id="eventdate">
-          <div class="panel-body" id="month">
-           <h5 class="panel-heading" id="panelhead">Time</h5>
-           <div class="time" >
-            <select>
-              <option>2018</option>
-              <option>2019</option>
-              <option>2020</option>
-              <option>2021</option>
-              <option>2022</option>
-              <option>2018</option>
-            </select>
-            <p><a href="">January</a></p>
-            <p><a href="">January</a></p>
-            <p><a href="">January</a></p>
-            <p><a href="">January</a></p>
-            <p><a href="">January</a></p>
-            <p><a href="">January</a></p>
-            <p><a href="">January</a></p>
-            <p><a href="">January</a></p>
-            <p><a href="">January</a></p>
-            <p><a href="">January</a></p>
-            <p><a href="">January</a></p>
+    <!-- Bootstrap -->
+            <link rel="stylesheet" type="text/css" href="{{asset('css/paginator.css')}}">
+
+        <script src="{{ asset('js/app.js') }}" defer></script>
+
+    <link rel="stylesheet" type="text/css"  href="{{asset('css/bootstrap.css')}}">
+   
+    
+
+    <!-- Styles -->
+  <style type="text/css">
+     
+     #blog {
+margin-top: 150px;  
+width: 75%;    }
+      #menu {
+    padding:0px 5px 5px 0px;
+        background: green;
+
+    transition: all 0.8s;
+}
+#menu .navbar-success {
+    /*background-color: #fff;*/
+    /*background-color: red;*/
+
+    border-color: rgba(231, 231, 231, 0);
+    box-shadow: 0 0 10px rgba(0,0,0,0.15)
+}
+#menu a.navbar-brand {
+    font-family: 'Raleway', sans-serif;
+    font-size: 24px;
+    font-weight: 700;
+    color: #333;
+    /*color: white;*/
+    text-transform: uppercase;
+}
+#bs-example-navbar-collapse-1 li a{
+    color: white !important;
+}
+.navbar-default .navbar-nav > .active > a:after, .navbar-default .navbar-nav > .active > a:hover:after, .navbar-default .navbar-nav > .active > a:focus:after {
+    display: block !important;
+    position: absolute !important;
+    left: 0 !important;
+    bottom: -1px !important;
+    width: 100% !important;
+    height: 2px !important;
+    background: linear-gradient(to right, white 0%, white 100%) !important;
+    content: "" !important;
+    transition: width 0.2s !important;
+}
+.caption p{
+    font-size: 16px !important;
+    font-weight: 5px !important;
+    font-family: arial;
+}
+  
+
+  </style>  
+{{-- </style> --}}
+</head>
+<body>
+  
+<!-- Navigation
+    ==========================================-->
+    <nav id="menu" class="navbar navbar-success navbar-fixed-top ">
+      <div class="container"> 
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+             <div class="logo">
+              <img class="" src="{{ URL::to('image/logo.jpg') }}">
           </div>
-        </div>
-        <div class="panel-body" id="blog">
-         <h5 class="panel-heading" id="panelhead">Latest News</h5>
-         <div class="blogid" >
-          <p>HELLO krnya</p>
-          <p><small>blah blah blahhhhhhhhh</small></p>
-        </div>
-      </div>  
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+       
+           </div>
+          
+          <!-- Collect the nav links, forms, and other content for toggling -->
+          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+              <ul class="nav navbar-nav navbar-right" id="navi">
+               @if (Route::has('login'))
+               <div class="top-right links">
+                @auth
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav navbar-right" id="navi">
+                        <li><a href="#features" class="page-scroll">Features</a></li>
+                        <li><a href="#about" class="page-scroll">About</a></li>
+                        <li><a href="#services" class="page-scroll">Services</a></li>
+                        <li><a href="#contact" class="page-scroll">Contact</a></li>
+                        <li><a href="/welcome" class="page-scroll">Blog</a></li>
+                        <li><a href="/dashboard">Dashboard</a></li>                        
+                     <li class="nav-item dropdown">
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                    {{ Auth::user()->f_name }} <span class="caret"></span>
+                                </a>
 
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="{{ route('logout') }}"
+                                    onclick="event.preventDefault();
+                                    document.getElementById('logout-form').submit();">
+                                    {{ __('Logout') }}
+                                </a>
+
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                    @csrf
+                                </form>
+                            </div>
+                        </li>
+                      
+                       
+         </ul>
+     </div>
+        
+        
+        @else
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-success navbar-right" id="navi" >
+                <li><a href="#features" class="page-scroll">Features</a></li>
+                <li><a href="#about" class="page-scroll">About</a></li>
+                <li><a href="#services" class="page-scroll">Services</a></li>
+                <li><a href="#contact" class="page-scroll">Contact</a></li>
+                <li><a href="/welcome" class="page-scroll">Blog</a></li>
+                <li> <a href="{{ route('login') }}">Login</a></li>
+                <li> <a href="{{ route('register') }}">Register</a></li>
+                {{-- @if (Route::has('register')) --}}
+           
+            </ul>
+        </div>
+
+        
     </div>
-  </div>
+    @endif
+    @endauth
+</ul>
+</div>
+<!-- /.navbar-collapse --> 
+</div>
+</nav>
+
+    {{-- <body> --}}
+{{-- @section('content') --}}
+
+        <div class="container" id="blog">
+            <div class="well well-sm">
+                <div class="form-group">
+                    <div class="input-group input-group-md">
+                     
+</div>
+            </div>
+            <div id="products" class="row list-group">
+
+                <div class="item col-xs-8 col-lg-8" ">
+                <div class="thumbnail text-center">
+                    <div class="caption">
+                        <h4 class="group inner list-group-item-heading text-justify">{{ ucfirst($notification->title) }}</h4>
+                        <p class="mb-0" style="text-align: justify;">{!! nl2br(e(ucfirst($notification->body))) !!}</p>
+                        {{-- <p class="group inner list-group-item-text">{!! Str::characters($notification->body, 9,'....')  !!}</p> --}}
+                        <div class="row">
+                            {{-- <div class="col-xs-12 col-md-6"> --}}
+                                <p class=" text-right">Created {{ $notification->created_at->diffForHumans() }}</p>
+                            </div>
+                            
+                            
+                </div>
+                <a href="/notifications"><button class="btn-primary" >Back</button></a>
+                <br>
+                <br>
+                <br>
+                <br>
+               
+              </div>
+
+            </div>
+        </div>
+         
 </div>
 </div>
-</div>
-@endsection
+</body>
+</html>
+

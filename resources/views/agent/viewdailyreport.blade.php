@@ -33,7 +33,7 @@
                                     </div>
                                     <div class="col-lg-3 col-md-2 col-sm-12 p-0">
                                             <select class="form-control search-slt" id="exampleFormControlSelect1" name="month">
-                                               <option>Select Month</option>
+                                               <option>All</option>
                                                <option>January</option>
                                                 <option>February </option>
                                                <option>March</option>
@@ -60,12 +60,7 @@
             </div>
             
               <div class="panel-heading " id="panelhead">Today's Summary   
-                        <a href="{{ route('generate',['download'=>'pdf']) }}" download >
-                            <i> 
-                                <img src="{{ URL::to('image/Downloads.ico') }}" title="Download">
-                            </i>
-
-                        </a>
+                        
                   </div>
               <div class="panel-body">
                 <table class="table table-bordered">

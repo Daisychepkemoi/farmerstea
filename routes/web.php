@@ -19,6 +19,10 @@ Auth::routes();
 //users
 
 Route::get('/download', 'PostsController@down');
+Route::get('/admin/contactus', 'ContactsController@index');
+Route::get('/admin/contactus/sort', 'ContactsController@sort');
+Route::get('/admin/contact/{id}', 'ContactsController@contactid');
+Route::post('/admin/contactus/reply', 'ContactsController@reply');
 
 Route::get('/blog', 'PostsController@blog');
 Route::get('/homeordash', 'UsersController@homeordash');
@@ -69,6 +73,7 @@ Route::get('/back', 'AdminsController@back');
 // Route::get('/admin/editprofile', 'AdminsController@editprofile');
 Route::get('/admin/farmersreport', 'ReportController@farmersreport')->name('farmersreport');
 Route::get('/farmers', 'ReportController@farmers');
+Route::post('/farmersort', 'ReportController@farmersort');
 
 Route::get('/admin/teareport', 'ReportController@teasreport')->name('teareport');
 Route::get('/tea', 'ReportController@tea');
@@ -80,8 +85,11 @@ Route::post('/eventsperdate', 'EventController@eventsperday')->name('eventsperda
 Route::get('/dashboard', 'TeaController@admindash')->name('admindash');
 Route::post('/admin/netperday', 'TeaController@netperday');
 Route::post('/admin/netpermonth', 'TeaController@netpermonth');
+Route::post('/farmersortline', 'TeaController@farmersline');
+Route::post('//farmersbaryear', 'TeaController@farmersbaryear');
 Route::post('/notificationsperdate', 'EventController@notificationsperday')->name('notificationsperday');
 Route::post('/search', 'PostsController@search')->name('search');
+Route::post('/back', 'PostsController@backa')->name('back');
 Route::post('/email', 'PostsController@email');
 
 Route::post('/post/{id}/comment', 'PostsController@commentstore');

@@ -21,6 +21,12 @@
              <table class="table table-striped" >
                 <tbody>
                    <tr>
+                    <style type="text/css">
+                      label{
+                        font-weight: 800 !important;
+                        font-size: 24px !important;
+                      }
+                    </style>
                       <td colspan="" class="" style="">
                          <form class="well form-horizontal" method="POST" action="{{route('createevent')}}" style=" background-image: url('{{asset('image/desk.jpg')}}'); background-size: cover;opacity: 0.9;color: white;">
                           @csrf
@@ -34,11 +40,11 @@
                                </div>
       
                                <div class="form-group">
-                                  <label class="col-md-4 control-label" style=" height: 50px;">Location</label>
+                                  <label class="col-md-4 control-label" style=" height: 50px;">Date to be Held</label>
                                   <div class="col-md-6 inputGroupContainer">
                                      <div class="input-group">
                                         <span class="input-group-addon" style="max-width: 100%; height: 50px;"><i class="glyphicon glyphicon-list"></i></span>
-                                      <input id="title" name="held_at" placeholder="Title" class="form-control" required="true" value="" type="date" style=" height: 50px;">
+                                      <input id="title" name="held_at" placeholder="Title" class="form-control" required="true" value="" type="date" min={{$mindate}} style=" height: 50px;">
 
                                      </div>
                                   </div>

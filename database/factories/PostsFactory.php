@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 
 
 $factory->define(App\Posts::class, function (Faker $faker) {
-		$user = User::where('function', 'Blogger')->pluck('f_name','l_name')->toArray();
+		$user = User::where('role','admin')->pluck('f_name','l_name')->toArray();
 	return [
 		'body' => $faker->paragraph(2),
 		'title' => $faker->sentence(50),

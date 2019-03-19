@@ -6,6 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Posts extends Model
 {
+	protected $dates = [
+    'created_at',
+    'updated_at',
+    // your other new column
+];
 	 protected $fillable = [
         'created_by','title' ,'body','image',
     ];

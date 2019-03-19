@@ -87,24 +87,24 @@
                      <thead>
                         <tr class="bg-success">
                          
-                          <th scope="col">Farmer Name</th>
                           <th scope="col">Tea Number</th>
                           <th scope="col"> Total Kg</th>
                           
-                          <th scope="col">Amount To Be earned(kg*20)</th>
+                          {{-- <th scope="col"> </th> --}}
+                          {{-- <th scope="col"></th> --}}
                           {{-- <th scope="col">Handle</th> --}}
                         </tr>
                       </thead>
                       <tbody>
-                      {{-- @foreach($teasum as $tean) --}}
+                      @foreach($teasum as $tean)
                        <tr>
-                        <td>Hello</td>
-                        <td>{{$tea_no}}</td>
-                        <td>{{$teasum}}</td>
-                        <td>{{$teasum * 20}}</td>
+                        <td>{{$tean->tea_no}}</td>
+                        <td>{{$tean->net_weight}}</td>
+                        <td>{{$tean->total_as_at_day}}</td>
+                        <td>{{$tean->total_as_at_day * 20}}</td>
 
                        </tr>
-                       {{-- @endforeach --}}
+                       @endforeach
                      
                       
                     

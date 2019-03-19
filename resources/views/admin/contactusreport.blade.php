@@ -1,14 +1,20 @@
 @extends('layouts.dashboard')
-@section('title','TeaReport.Litein Tea Factory')
-@section('head','Tea Report')
+@section('title','ContactUs.Litein Tea Factory')
+@section('head','Contact Us Report')
 
 @section('content')
 <div id="global" onclick="openhead() ">
     <div class="container-fluid">
         <div class="panel panel-default">
             <div class="panel-heading " id="panelhead">
-              <form action="/tea" method="GET">
+              @if (session()->has('success'))
+                     <div class="alert alert-success" id="alert" style="text-transform:normal; ">
+                      {{ session('success') }}
+                    </div>
+                    @endif
+              <form action="/admin/contactus/sort" method="GET">
                 @csrf
+
                 <h4>Period</h4>
                 <div class="start">
                     <label for="startdate" >Start Date</label>
@@ -42,69 +48,40 @@
                 <div class="end">
 
                    
-                    <button type="submit" class="btn-success" style="height: 50px; ">Generate Report</button>
+                    <button type="submit" class="btn-success" style="height: 50px; ">Sort</button>
                 </div>
               </form>
             </div>
             
             <div class="panel-body">
-              <h5 class="panel-heading" id="panelhead">TEA REPORT</h5>
-              <div class="panel-body" id="owner">
-                   <table class="table borderless" id="table">
-                  
-                      <tbody>
-                        <tr>
-                          <td class="label">Total No Of Farmers</td>
-                          <td class="detail">{{$farmer }}</td>
-                      </tr>
-                      <tr>
-                          <td class="label">Regions</td>
-                          <td class="detail">Kapkarin, America,Kapkarin,Cheborgei,Sosit
-                          </td>     
-                      </tr>
-                       <tr>
-                          <td class="label"><a href=""></a></td>
-                          <td class="detail">Chebwagan,America, Lalagin,Kiptewit, Kapsir
-                          </td>     
-                      </tr>
-                      <tr>
-                          <td class="label">Total produce to date</td>
-                          <td class="detail">{{ $totalkg}} Kgs</td>
-
-                      </tr>
-
-                    
-
-
-                    </tbody>
-                </table>
-              </div>
-            </div>
-              <div class="panel-heading " id="panelhead">Produce Summary</div>
+              <div class="panel-heading " id="panelhead">Contact Us Report</div>
               <div class="panel-body">
-                <table class="table table-bordered">
+                <table class="table table-bordered " style="border-color: black !important;">
                  
                      <thead>
                         <tr class="bg-success">
                          
-                          <th scope="col">Farmer Name</th>
-                          <th scope="col">Tea Number</th>
-                          <th scope="col"> Total Kg</th>
+                          <th scope="col">Date Sent</th>
+                          <th scope="col"> Email (Sender)</th>
                           
-                          <th scope="col">Amount To Be earned(kg*20)</th>
-                          {{-- <th scope="col">Handle</th> --}}
+                          <th scope="col"> Title</th>
+                          <th scope="col">Body</th>
+                          <th scope="col">Status</th>
+                          <th scope="col"></th>
                         </tr>
                       </thead>
                       <tbody>
-                      {{-- @foreach($teasum as $tean) --}}
+                      @foreach($contacts as $contact)
                        <tr>
-                        <td>Hello</td>
-                        <td>{{$tea_no}}</td>
-                        <td>{{$teasum}}</td>
-                        <td>{{$teasum * 20}}</td>
+                        <td>{{\Carbon\Carbon::parse($contact->created_at)->format('l   d M Y')}}</td>
+                        <td>{{$contact->email}}</td>
+                        <td>{!! ucfirst(strip_tags(\Illuminate\Support\Str::words($contact->title, 10,'...'))) !!}</td>
+                        <td>{!! ucfirst(strip_tags(\Illuminate\Support\Str::words($contact->body, 10,'...'))) !!}</td>
+                        <td><a href="/admin/contact/{{$contact->id}}"><BUTTON class="btn-success"  style="width: 100px">{{$contact->status}}</BUTTON></a></td>
+                        <td><a href="/admin/contact/{{$contact->id}}" ><BUTTON class="btn-primary"  style="width: 100px">View</BUTTON></a></td>
 
                        </tr>
-                       {{-- @endforeach --}}
+                       @endforeach
                      
                       
                     

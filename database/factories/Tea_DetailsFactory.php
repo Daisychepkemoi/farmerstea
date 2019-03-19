@@ -21,7 +21,7 @@ $factory->define(App\Tea_Details::class, function (Faker $faker) {
     return [
         // 'user_id' => $faker->randomElement($user),
         // 'tea_id' => $faker->number,
-        'tea_no' =>$faker->randomElement($teano),
+        'tea_no' =>4,
         'receipt_no' => $rand,
         'gross_weight' => $gross,
         'net_weight' => $net,

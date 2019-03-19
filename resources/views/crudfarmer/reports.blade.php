@@ -16,7 +16,7 @@
                      <select  name="month" id="month" value="">
                       <option>All</option>
                       <option>January</option>
-                      <option>February 1</option>
+                      <option>February </option>
                       <option>March</option>
                       <option>April</option>
                       <option>May</option>
@@ -43,12 +43,12 @@
                 <div class="end">
 
                     <p>
-                        <a href="{{ route('generate',['download'=>'pdf']) }}" download >
+                        {{-- <a href="{{ route('generate',['download'=>'pdf']) }}" download >
                             <i> 
                                 <img src="{{ URL::to('image/Downloads.ico') }}" title="Download">
                             </i>
 
-                        </a>
+                        </a> --}}
                     </p>
                     <button type="submit" class="btn-success" style="height: 50px; ">Generate Report</button>
                 </div>
@@ -58,12 +58,12 @@
             
             <div class="panel-body">
               <h5 class="panel-heading" id="panelhead">TEA REPORT
-               <a href="{{ route('generate',['download'=>'pdf']) }}" download >
+{{--                <a href="{{ route('generate',['download'=>'pdf']) }}" download >
                             <i> 
                                 <img src="{{ URL::to('image/Downloads.ico') }}" title="Download">
                             </i>
 
-                        </a></h5>
+                        </a> --}}</h5>
               <div class="panel-body" id="owner">
                    <table class="table borderless" id="table">
                       @foreach($tea as $teas)
@@ -119,12 +119,12 @@
               </div>
             </div>
               <div class="panel-heading " id="panelhead">Produce Summary
-                <a href="{{ route('generate',['download'=>'pdf']) }}" download >
+               {{--  <a href="{{ route('generate',['download'=>'pdf']) }}" download >
                             <i> 
                                 <img src="{{ URL::to('image/Downloads.ico') }}" title="Download">
                             </i>
 
-                        </a></div>
+                        </a> --}}</div>
               <div class="panel-body">
                 <table class="table table-bordered">
                      <thead>
@@ -177,12 +177,12 @@
               </div>
               <div class="panel panel-default">
               <div class="panel-heading " id="panelhead">Detailed Report
-                <a href="{{ route('generate',['download'=>'pdf']) }}" download >
+               {{--  <a href="{{ route('generate',['download'=>'pdf']) }}" download >
                             <i> 
                                 <img src="{{ URL::to('image/Downloads.ico') }}" title="Download">
                             </i>
 
-                        </a>
+                        </a> --}}
               </div>
                <div class="panel-body">
                 <table class="table table-bordered">

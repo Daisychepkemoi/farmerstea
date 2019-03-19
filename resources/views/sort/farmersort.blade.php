@@ -11,7 +11,7 @@
 
              <select  name="month" id="month" value="{{ old('month') }}">
               <option>January</option>
-              <option>February 1</option>
+              <option>February</option>
               <option>March</option>
               <option>April</option>
               <option>May</option>

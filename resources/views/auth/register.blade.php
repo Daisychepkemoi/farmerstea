@@ -73,7 +73,7 @@
       </div>
       <div class="ages">
        <label for="No_Acres"><b>{{ __('No_Acres') }}</b></label>
-       <input class="input" id="no_acres" type="number" {{ $errors->has('No_Acres') ? ' is-invalid' : '' }} placeholder="No_Acres" name="No_Acres" value="{{ old('No_Acres') }}" required autofocus>
+       <input class="input" id="no_acres" type="number" min="0" max="30" {{ $errors->has('No_Acres') ? ' is-invalid' : '' }} placeholder="No_Acres" name="No_Acres" value="{{ old('No_Acres') }}" required autofocus>
        @if ($errors->has('No_Acres'))
        <span class="invalid-feedback" role="alert">
         <strong>{{ $errors->first('No_Acres') }}</strong>

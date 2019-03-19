@@ -64,29 +64,49 @@ class TeaDetailsController extends Controller
 
 
         if (request('location') == 'All Regions') {
+            if(request('month') == 'All'){
+             $totalkg = Tea_Details::whereYear('date_offered', request('year'))->sum('net_weight');
+             $teaproduce=Tea_Details::whereYear('date_offered', request('year'))->orderBy('date_offered', 'asc')->get();
+            return view('agent.viewdailyreport', compact('user', 'notcount', 'teaproduce', 'totalkg', 'nots'));
+           } else{
             $totalkg = Tea_Details::whereYear('date_offered', request('year'))->whereMonth('date_offered', $nmonth)->sum('net_weight');
             $teaproduce=Tea_Details::whereYear('date_offered', request('year'))->whereMonth('date_offered', $nmonth)->orderBy('date_offered', 'asc')->get();
-            return view('agent.viewdailyreport', compact('user', 'notcount', 'teaproduce', 'totalkg', 'nots'));
+              return view('agent.viewdailyreport', compact('user', 'notcount', 'teaproduce', 'totalkg', 'nots'));
+           }
         } else {
+            if(request('month') == 'All'){
             $tea_no = Tea::where('location', request('location'))->where('tea_no', '!=', null)->pluck('tea_no');
+            $totalkg = Tea_Details::whereYear('date_offered', request('year'))->whereIn('tea_no', $tea_no)->sum('net_weight');
+            $teaproduce=Tea_Details::whereYear('date_offered', request('year'))->whereIn('tea_no', $tea_no)->orderBy('date_offered', 'asc')->get();
+            return view('agent.viewdailyreport', compact('user', 'notcount', 'teaproduce', 'totalkg', 'nots'));
+        }else{
+             $tea_no = Tea::where('location', request('location'))->where('tea_no', '!=', null)->pluck('tea_no');
             $totalkg = Tea_Details::whereYear('date_offered', request('year'))->whereMonth('date_offered', $nmonth)->whereIn('tea_no', $tea_no)->sum('net_weight');
             $teaproduce=Tea_Details::whereYear('date_offered', request('year'))->whereMonth('date_offered', $nmonth)->whereIn('tea_no', $tea_no)->orderBy('date_offered', 'asc')->get();
             return view('agent.viewdailyreport', compact('user', 'notcount', 'teaproduce', 'totalkg', 'nots'));
+
+          }  
         }
+
     }
     public function store(Request $request)
     {
         $teano = Tea::where('tea_no', $request->tea_no)->first();
-        // dd($teano);
+        // dd($status);
         if (($teano== null)) {
             return redirect('/addteaproduce')->with('warning', ' This Tea number does not exist in our records');
-        } else {
+        } else{
             $user= auth()->user();
             $users =$user->id;
             $notcount = Notification::get()->count();
             $total = Tea_Details::where('tea_no', $request->tea_no)->latest()->first();
+            $status = User::where('id',$teano->user_id)->first();
+
+          if($status->verifiedadmin == 'revoked'){
+            return redirect('/addteaproduce')->with('warning', ' This Tea number has been revoked');
+        }
             // dd($total->total_as_at_day);
-            if ($total == null) {
+             else if ($total == null) {
                 $date= date('Ymd');
                 $rand=strtoupper(substr(uniqid(sha1(time())), 0, 4));
 
@@ -141,7 +161,7 @@ class TeaDetailsController extends Controller
         $notcount = Notification::get()->count();
         $teaproduce = Tea_Details::find($id);
         // $teadetails = Tea_Details::whereDate('created_at', Carbon::today())->get();
-                $teadetails = Tea_Details::orderBy('date_offered','asc')->paginate(15);
+                $teadetails = Tea_Details::orderBy('created_at','desc')->paginate(15);
 
         $nots = Notification::latest()->paginate(3);
 
@@ -155,8 +175,21 @@ class TeaDetailsController extends Controller
         $user = auth()->user();
         $tea = Tea_Details::find($id);
         $tea_no = $request->get('tea_no');
-        if (!($tea_no == $tea->tea_no)) {
-            $date = Tea_Details::where('created_at', '<', $tea->created_at)->where('tea_no', $tea_no)->latest()->first();
+        $total = Tea_Details::where('tea_no', $request->tea_no)->latest()->first();
+         $teano = Tea::where('tea_no', $request->tea_no)->first();
+
+         if (($teano== null)) {
+            return redirect()->back()->with('warning', ' This Tea number does not exist in our records');
+        }
+        else{
+          $status = User::where('id',$teano->user_id)->first();
+
+            if ($status->verifiedadmin == 'revoked') {
+        return redirect()->back()->with('warning', ' This Tea number revoked !!');
+
+        }
+        else if (!($tea_no == $tea->tea_no)) {
+            $date = Tea_Details::where('created_at', '<', $tea->created_at)->where('tea_no', $tea_no)->orderBy('created_at','desc')->first();
 
             if ($date == null) {
                 $totalday =  $net;
@@ -208,7 +241,14 @@ class TeaDetailsController extends Controller
         } else {
             $date = Tea_Details::where('created_at', '<', $tea->created_at)->where('tea_no', $tea_no)->latest()->first();
             // dd($date);
-            $totalday = $date->total_as_at_day + $net;
+            if($date == null){
+                 $totalday =  $net;
+
+            }
+            else{
+              $totalday = $date->total_as_at_day + $net;
+
+            }
             $tea->tea_no = $tea_no;
             $tea->gross_weight = $request->get('gross_weight');
             $tea->net_weight = $net;
@@ -236,8 +276,9 @@ class TeaDetailsController extends Controller
              $pdf = PDF::loadView('docs.receipt', compact('user', 'notcount', 'teadetails','tea', 'nots','username')); 
              // dd($pdf);      
              return $pdf->download( $tea->receipt_no.'DailyReceipt.pdf');
-        return redirect('/addteaproduce');
+        return redirect('/addteaproduce')->with('success', 'Tea Details Edited Successfully');
     }
+}
 
     /**
      * Update the specified resource in storage.

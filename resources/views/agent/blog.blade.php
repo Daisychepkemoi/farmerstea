@@ -9,7 +9,11 @@
       <div class="panel-body">
 
         <div class="panel-heading " id="panelhead">
-               
+                @if (session()->has('success'))
+                     <div class="alert alert-success" id="alert">
+                      {{ session('success') }}
+                    </div>
+                    @endif
                 <div class="heading" style="height:;">
                    <div class="" style="margin-right: 10%;">
                     <p class="report"><button class="btn-success" style="width: 300px;">Create new Post </button></p>
@@ -23,6 +27,12 @@
              <table class="table table-striped" >
                 <tbody>
                    <tr>
+                    <style type="text/css">
+                      label{
+                        font-weight: 800 !important;
+                        font-size: 24px !important;
+                      }
+                    </style>
                       <td colspan="" class="" style="">
                          <form class="well form-horizontal" method="POST" action="/postcreate" style=" background-image: url('{{asset('image/desk.jpg')}}'); background-size: cover;opacity: 0.9;color: white;" enctype="multipart/form-data">
                           @csrf

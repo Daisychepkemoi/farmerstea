@@ -245,13 +245,13 @@ class TeaController extends Controller
                             ]);
             $tea_no = Tea::where('user_id', $user->id)->pluck('tea_no');
             // dd($tea_no);
-            $orderperday=DB::raw('DAY(date_offered)');
-            $day=DB::raw('day(date_offered) as day');
+            $orderperday=DB::raw('DATE(date_offered)');
+            $day=DB::raw('DATE(date_offered) as day');
             $netperday = DB::raw('sum(net_weight) as net');
             //get total produce per day = totalperyear
             $specificday=Tea_Details::where('tea_no', $tea_no)
                                 ->select($netperday, $day)
-                               ->groupby('day')
+                               ->groupby('date_offered')
                                ->orderBy($orderperday)
                                ->pluck('day');
             $netday=Tea_Details::where('tea_no', $tea_no)
@@ -259,6 +259,7 @@ class TeaController extends Controller
                                ->groupby('day')
                                ->orderBy($orderperday)
                                ->pluck('net');
+            // dd($tea_no);
             // dd($netmonth,$specificmonth);
             //specific farmers produce details
             $perdayproduce = new ProduceChart;
@@ -614,5 +615,262 @@ class TeaController extends Controller
 
 
         return view('charts.adminchart', compact('totalpermonth', 'totalperday', 'user', 'notcount', 'totalperyear', 'verifiedfarmer', 'adminratio', 'nots'));
+    }
+    public function farmersline()
+    {
+        $user= auth()->user();
+        $notcount = Notification::get()->count();
+        $nots = Notification::latest()->paginate(3);
+        $tea_no = Tea::where('user_id', $user->id)->pluck('tea_no');
+        $ordermonth=DB::raw('MONTH(date_offered)');
+        $month=DB::raw('MONTH(date_offered) as month');
+        $netpermonth = DB::raw('sum(net_weight) as net');
+        //get total produce per MONTH = totalperyear
+        $specificmonth=Tea_Details::where('tea_no', $tea_no)->whereYear('date_offered', now())
+                                ->select($netpermonth, $month)
+                               ->groupby('month')
+                               ->orderBy($ordermonth)
+                               ->pluck('month');
+        $netmonth=Tea_Details::where('tea_no', $tea_no)->whereYear('date_offered', now())
+                               ->select($netpermonth, $month)
+                               ->groupby('month')
+                               ->orderBy($ordermonth)
+                               ->pluck('net');
+        // dd($netmonth,$specificmonth);
+        //specific farmers produce details
+        $permonthproduce = new ProduceChart;
+        $permonthproduce->labels($specificmonth->values())->options([
+                            'legend' => ['display' => true],
+                            ])
+                            ->dataset('Farmer Monthly Produce', 'bar', $netmonth->values())
+                            ->options([
+                            'label' => '# of Votes',
+                            'borderColor' => '#ff0000',
+                            'borderWidth' => 1,
+                            'backgroundColor' => [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)',
+
+                            ],
+                            ]);
+        $tea_no = Tea::where('user_id', $user->id)->pluck('tea_no');
+        $orderyear=DB::raw('YEAR(date_offered)');
+        $year=DB::raw('year(date_offered) as year');
+        $netperyear = DB::raw('sum(net_weight) as net');
+        //get total produce per year = totalperyear
+        $specificyear=Tea_Details::where('tea_no', $tea_no)
+                                ->select($netperyear, $year)
+                               ->groupby('year')
+                               ->orderBy($orderyear)
+                               ->pluck('year');
+        $netyear=Tea_Details::where('tea_no', $tea_no)
+                               ->select($netperyear, $year)
+                               ->groupby('year')
+                               ->orderBy($orderyear)
+                               ->pluck('net');
+        // dd($netmonth,$specificmonth);
+        //specific farmers produce details
+        $peryearproduce = new ProduceChart;
+        $peryearproduce->labels($specificyear->values())->options([
+                            'legend' => ['display' => true],
+                            ])
+                            ->dataset('Farmers Yearly Produce', 'bar', $netyear->values())
+                            ->options([
+                            'label' => '# of Votes',
+                            'borderColor' => '#ff0000',
+                            'borderWidth' => 1,
+                            'backgroundColor' => [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)',
+
+                            ],
+                            ]);
+        $tea_no = Tea::where('user_id', $user->id)->pluck('tea_no');
+        // dd($tea_no);
+        //  $orderday=DB::raw('DAY(date_offered)');
+        // $ordermonth=DB::raw('MONTH(date_offered)');
+        // $day=DB::raw('DAY(date_offered) as day');
+        // $monthday=DB::raw('month(date_offered) as month');
+        // $monthentered = request('month');
+        // $nmonth = date('m', strtotime($monthentered));
+        // $yearentered = request('year');
+        // $nyear = date('y', strtotime($yearentered));
+        // $netperday = DB::raw('sum(net_weight) as net');
+        // //get total produce per day = totalperyear
+        // $netday=Tea_Details::whereYear('date_offered', request('year'))->whereMonth('date_offered', $nmonth)
+        //                 ->select($netperday, $day)
+        //                // ->groupby('month')
+        //                ->groupby('date_offered')
+                      
+                       // ->orderBy('date_offered', 'asc')
+                        // ->orderBy($orderday,'desc')
+                       // ->pluck('day');
+        //
+        $orderperday=DB::raw('DATE(date_offered)');
+        $day=DB::raw('DATE(date_offered) as day');
+        $netperday = DB::raw('sum(net_weight) as net');
+        $linemonth = DB::raw('month(net_weight)');
+        $monthentered = request('month');
+        $nmonth = date('m', strtotime($monthentered));
+        $yearentered = request('year');
+        // dd(Tea_Details::);
+        //get total produce per day = totalperyear
+        $specificday=Tea_Details::where('tea_no', $tea_no)->whereMonth('date_offered',$nmonth)->whereYear('date_offered',request('year'))
+                                ->select($netperday, $day)
+                               ->groupby('date_offered')
+                               ->orderBy($orderperday)
+                               ->pluck('day');
+        $netday=Tea_Details::where('tea_no', $tea_no)->whereMonth('date_offered',$nmonth)->whereYear('date_offered',request('year'))
+                               ->select($netperday, $day)
+                               ->groupby('day')
+                               ->orderBy($orderperday)
+                               ->pluck('net');
+        // dd($netday);
+        // dd($netmonth,$specificmonth);
+        //specific farmers produce details
+        $perdayproduce = new ProduceChart;
+        $perdayproduce->labels($specificday->values())->options([
+                            'legend' => ['display' => true],
+                            ])
+                            ->dataset('Farmers Yearly Produce for month of  '.$monthentered.' for the year '.request('year'), 'line', $netday->values())
+                            ->options([
+                            'label' => '# of Votes',
+                            'borderColor' => '#ff0000',
+                            'borderWidth' => 1,
+                            'backgroundColor' => [
+                            'rgba(0, 5, 6, 0.2)',
+                            
+
+                            ],
+                            ]);
+        return view('charts.farmerchart', compact('permonthproduce', 'user', 'notcount', 'peryearproduce', 'perdayproduce', 'nots'));
+    }
+    public function farmersbaryear()
+    {
+        $user= auth()->user();
+        $notcount = Notification::get()->count();
+        $nots = Notification::latest()->paginate(3);
+        $tea_no = Tea::where('user_id', $user->id)->pluck('tea_no');
+        $ordermonth=DB::raw('MONTH(date_offered)');
+        $month=DB::raw('MONTH(date_offered) as month');
+        $netpermonth = DB::raw('sum(net_weight) as net');
+        //get total produce per MONTH = totalperyear
+        $specificmonth=Tea_Details::where('tea_no', $tea_no)->whereYear('date_offered', request('year'))
+                                ->select($netpermonth, $month)
+                               ->groupby('month')
+                               ->orderBy($ordermonth)
+                               ->pluck('month');
+        $netmonth=Tea_Details::where('tea_no', $tea_no)->whereYear('date_offered', request('year'))
+                               ->select($netpermonth, $month)
+                               ->groupby('month')
+                               ->orderBy($ordermonth)
+                               ->pluck('net');
+        
+        $permonthproduce = new ProduceChart;
+        $permonthproduce->labels($specificmonth->values())->options([
+                            'legend' => ['display' => true],
+                            ])
+                            ->dataset('Farmer Monthly Produce for the year '.request('year'), 'bar', $netmonth->values())
+                            ->options([
+                            'label' => '# of Votes',
+                            'borderColor' => '#ff0000',
+                            'borderWidth' => 1,
+                            'backgroundColor' => [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)',
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)',
+
+                            ],
+                            ]);
+        $tea_no = Tea::where('user_id', $user->id)->pluck('tea_no');
+        $orderyear=DB::raw('YEAR(date_offered)');
+        $year=DB::raw('year(date_offered) as year');
+        $netperyear = DB::raw('sum(net_weight) as net');
+        //get total produce per year = totalperyear
+        $specificyear=Tea_Details::where('tea_no', $tea_no)
+                                ->select($netperyear, $year)
+                               ->groupby('year')
+                               ->orderBy($orderyear)
+                               ->pluck('year');
+        $netyear=Tea_Details::where('tea_no', $tea_no)
+                               ->select($netperyear, $year)
+                               ->groupby('year')
+                               ->orderBy($orderyear)
+                               ->pluck('net');
+        // dd($netmonth,$specificmonth);
+        //specific farmers produce details
+        $peryearproduce = new ProduceChart;
+        $peryearproduce->labels($specificyear->values())->options([
+                            'legend' => ['display' => true],
+                            ])
+                            ->dataset('Farmers Yearly Produce', 'bar', $netyear->values())
+                            ->options([
+                            'label' => '# of Votes',
+                            'borderColor' => '#ff0000',
+                            'borderWidth' => 1,
+                            'backgroundColor' => [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)',
+
+                            ],
+                            ]);
+        $tea_no = Tea::where('user_id', $user->id)->pluck('tea_no');
+       
+        $orderperday=DB::raw('DATE(date_offered)');
+        $day=DB::raw('DATE(date_offered) as day');
+        $netperday = DB::raw('sum(net_weight) as net');
+        $linemonth = DB::raw('month(net_weight)');
+        $monthentered = request('month');
+        $nmonth = date('m', strtotime($monthentered));
+        $yearentered = request('year');
+        // dd(Tea_Details::);
+        //get total produce per day = totalperyear
+        $specificday=Tea_Details::where('tea_no', $tea_no)
+                                ->select($netperday, $day)
+                               ->groupby('date_offered')
+                               ->orderBy($orderperday)
+                               ->pluck('day');
+        $netday=Tea_Details::where('tea_no', $tea_no)
+                               ->select($netperday, $day)
+                               ->groupby('day')
+                               ->orderBy($orderperday)
+                               ->pluck('net');
+        $perdayproduce = new ProduceChart;
+        $perdayproduce->labels($specificday->values())->options([
+                            'legend' => ['display' => true],
+                            ])
+                            ->dataset('Farmers Yearly Produce for month of  '.$monthentered.' for the year '.request('year'), 'line', $netday->values())
+                            ->options([
+                            'label' => '# of Votes',
+                            'borderColor' => '#ff0000',
+                            'borderWidth' => 1,
+                            'backgroundColor' => [
+                            'rgba(0, 5, 6, 0.2)',
+                            
+
+                            ],
+                            ]);
+        return view('charts.farmerchart', compact('permonthproduce', 'user', 'notcount', 'peryearproduce', 'perdayproduce', 'nots'));
     }
 }

@@ -13,7 +13,7 @@
          <div class="panel panel-success" id="eventid">
          <h5><a href="">{{$notification->title}}</a></h5>
          <p>
-            {!!$notification->body!!}
+            {!! nl2br(e($notification->body)) !!}
           </p>
           <p>Created By{{$users->f_name}} {{$users->l_name}}</p>
           {{-- <p> Held On{{$notification->held_at}}</p> --}}

@@ -4,9 +4,8 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Contactus extends Model
+class Contacts extends Model
 {
-    // protected $dates = [''];
      protected $fillable = [
         'status','title' ,'body','email',
     ];
@@ -14,5 +13,4 @@ class Contactus extends Model
 
         return $this->BelongsTo(User::class);
     }
-
 }

@@ -11,6 +11,6 @@ class TeasTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Tea::class, 31)->create();
+        factory(App\Tea::class, 100)->create();
     }
 }

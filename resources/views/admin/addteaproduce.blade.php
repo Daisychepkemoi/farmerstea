@@ -31,6 +31,12 @@
              <table class="table table-striped" >
                 <tbody>
                    <tr>
+                    <style type="text/css">
+                      label{
+                        font-weight: 800 !important;
+                        font-size: 24px !important;
+                      }
+                    </style>
                       <td colspan="" class="" style="">
                          <form class="well form-horizontal" method="POST" action="/addteaproduce" style=" background-image: url('{{asset('image/desk.jpg')}}'); background-size: cover;opacity: 0.9;color: white; height: 500px;">
                           @csrf
@@ -48,7 +54,7 @@
                                   <div class="col-md-6 inputGroupContainer">
                                      <div class="input-group">
                                         <span class="input-group-addon" style="max-width: 100%; height: 50px;"><i class="glyphicon glyphicon-list"></i></span>
-                                      <input id="gross_weight" name="gross_weight" placeholder="Gross Weight" class="form-control" required="true" value="" type="number" style=" height: 50px;" onmouseout="calculate()" onmouseenter="calculate()">
+                                      <input id="gross_weight" name="gross_weight" placeholder="Gross Weight" class="form-control" min="2" max="25" required="true" value="" type="number" style=" height: 50px;" onmouseout="calculate()" onmouseenter="calculate()">
 
                                      </div>
                                   </div>

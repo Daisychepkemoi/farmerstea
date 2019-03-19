@@ -12,16 +12,16 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-         $admin = factory(\App\User::class)->create([
-         	'f_name' => 'daisy',
-         	'l_name' => 'memo',
-         	'national_id' => '14595269',
-         	'phone_no' => '888056896',
-            'email' => 'daishgy@email.com',
-            'role' => 'user',
-            'password' => Hash::make('123456'),
-        ]);
-         $users=factory(App\User::class, 30)->create();
+        //  $admin = factory(\App\User::class)->create([
+        //  	'f_name' => 'daisy',
+        //  	'l_name' => 'memo',
+        //  	'national_id' => '14595269',
+        //  	'phone_no' => '888056896',
+        //     'email' => 'daishgy@email.com',
+        //     'role' => 'user',
+        //     'password' => Hash::make('123456'),
+        // ]);
+         $users=factory(App\User::class, 100)->create();
     
     }
 }

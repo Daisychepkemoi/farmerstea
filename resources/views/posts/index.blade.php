@@ -4,10 +4,43 @@
 @section('content')
 
 <header id="header" style="background-image: url({{asset('image/desk.jpg')}}); height: 1400px; background-size: cover; opacity:;"  >
+  <style type="text/css">
+     marquee #marq{
+      /*float: left;*/
+      /*background-color: red;*/
+      border-right: 2px solid black;
+      /*min-width: 100%;*/
+      display: inline-block;
+    }
+    #marq p
+    {
+      font-size: 26px !important;
+      color: black;
+
+    }
+    #marq a{
+      font-size: 28px;
+      color: black;
+    }
+    #marq a:hover{
+      font-size: 28px;
+      color: red;
+
+    }
+  </style>
   
   <div class="landing-page">
     <div style="" id="page"></div>
     <div class="buttons-container" data-aos="slide-up" data-aos-duration="3000" style="padding-top: 0%">
+      <div class=" bg-danger" style="height: 70px; margin-top: 80px; width: 100%;background-color: ;">
+        <marquee scrollamount="10" class=""> <p> 
+          @foreach($nots as $noti)
+          <div id="marq" > <p style="padding-left: 10px; font-size: 28px;"> <a href="/notification/{{$noti->id}}">{!! ucfirst(strip_tags(\Illuminate\Support\Str::words($noti->title, 10,'...'))) !!} </a></p></div>
+        @endforeach
+        </p>
+        </marquee>
+        
+      </div>
       @if (session()->has('success'))
                      <div class="alert alert-success" id="alert" style="text-transform:normal; ">
                       {{ session('success') }}
@@ -16,7 +49,8 @@
         @auth
        @if ($user->verifiedadmin == 'notverified')
         @if ( $user->role == 'user')
-       <div class="alert alert-success" id="alerta" style="background-color: red; height: 100px; margin-top: 100px; width: 80%; margin-left: 10%;">
+          @if($user->created_by == 'user')
+       <div class="alert alert-success" id="alerta" style="background-color: red; height: 100px; margin-top: 40px; width: 80%; margin-left: 10%;">
         <p style="color: black;">Your Account has not been activated!! <button class="button" style="padding-top: 0px; margin-top:-13px; float: right; background: red; font-size: 28px;height: 80px;width: 20px" onclick="closeForm()">&times;</button> </p>
         <script type="text/javascript">
           function closeForm() {
@@ -26,9 +60,21 @@
             }
         </script>
       </div>
+      @else
+      <div class="alert alert-success" id="alerta" style="background-color: red; height: 100px; margin-top: 40px; width: 80%; margin-left: 10%;">
+        <p style="color: black;">Your Account has been revoked !! <button class="button" style="padding-top: 0px; margin-top:-13px; float: right; background: red; font-size: 28px;height: 80px;width: 20px" onclick="closeForm()">&times;</button> </p>
+        <script type="text/javascript">
+          function closeForm() {
+                document.getElementById("alerta").style.display = "none";
+                document.getElementById("lost").style.display = "none";
+                document.getElementById("header").style.height = "100vh";
+            }
+        </script>
+      </div>
       @endif
-      @elseif($user->verifiedadmin == 'revoked')
-      <div class="alert alert-success" id="alerta" style="background-color: red; height: 100px; margin-top: 100px; width: 80%; margin-left: 10%;">
+      @endif
+      @elseif(($user->verifiedadmin == 'revoked'))
+      <div class="alert alert-success" id="alerta" style="background-color: red; height: 100px; margin-top: 40px; width: 80%; margin-left: 10%;">
         <p style="color: black;">Your Account has been revoked!! <button class="button" style="padding-top: 0px; margin-top:-13px; float: right; background: red; font-size: 28px;height: 80px;width: 20px" onclick="closeForm()">&times;</button> </p>
         <script type="text/javascript">
           function closeForm() {
@@ -39,7 +85,7 @@
         </script>
       </div>
       @elseif($user ->verifiedadmin == 'denied')
-      <div class="alert alert-success" id="alerta" style="background-color: red; height: 100px; margin-top: 100px; width: 80%; margin-left: 10%;">
+      <div class="alert alert-success" id="alerta" style="background-color: red; height: 100px; margin-top: 40px; width: 80%; margin-left: 10%;">
         <p style="color: black;">You have been denied a tea number please contact <a href="/contactus">Admin</a>!! <button class="button" style="padding-top: 0px; margin-top:-13px; float: right; background: red; font-size: 28px;height: 80px;width: 20px" onclick="closeForm()">&times;</button> </p>
         <script type="text/javascript">
           function closeForm() {

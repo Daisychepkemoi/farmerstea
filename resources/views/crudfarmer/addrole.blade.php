@@ -9,6 +9,21 @@
             <div class="panel-heading " id="panelhead">
                
                 <div class="heading" style="height:;">
+
+                    @if (session()->has('success'))
+                     <div class="alert alert-success" id="alert">
+                      {{ session('success') }}
+                    </div>
+                    @endif
+                    @if ($errors->any())
+                                <div class="alert alert-danger">
+                                    <ul>
+                                        @foreach ($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                               @endif
                    <div class="end">
                     <p class="report"><button class="btn-success" onclick="openForm()">Create new Admin </button></p>
                 </div>
@@ -23,6 +38,12 @@
        <table class="table table-striped" >
           <tbody>
              <tr>
+              <style type="text/css">
+                      label{
+                        font-weight: 800 !important;
+                        font-size: 24px !important;
+                      }
+                    </style>
                 <td colspan="" class="backg" style="">
                    <form class="well form-horizontal" method="POST" action="/admin/addadmin" style=" background-image: url('{{asset('image/desk.jpg')}}'); background-size: cover;opacity: 0.9;color: white;">
                     @csrf
@@ -30,13 +51,13 @@
                          <div class="form-group">
                             <label class="col-md-4 control-label" style=" height: 50px;">First Name</label>
                             <div class="col-md-6 inputGroupContainer">
-                               <div class="input-group"><span class="input-group-addon" style=" height: 50px;"><i class="glyphicon glyphicon-user"></i></span><input id="firstName" name="firstname" placeholder="First Name" class="form-control" required="true" value="" type="text" style=" height: 50px;"></div>
+                               <div class="input-group"><span class="input-group-addon" style=" height: 50px;"><i class="glyphicon glyphicon-user"></i></span><input id="firstName" name="f_name" placeholder="First Name" class="form-control" required="true" value="" type="text" style=" height: 50px;"></div>
                             </div>
                          </div>
                           <div class="form-group">
                             <label class="col-md-4 control-label" style=" height: 50px;">Last Name</label>
                             <div class="col-md-6 inputGroupContainer">
-                               <div class="input-group" style=" height: 50px;"><span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span><input id="lastName" name="lastname" placeholder="Last Name" class="form-control" required="true" value="" type="text" style=" height: 50px;"></div>
+                               <div class="input-group" style=" height: 50px;"><span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span><input id="lastName" name="l_name" placeholder="Last Name" class="form-control" required="true" value="" type="text" style=" height: 50px;"></div>
                             </div>
                          </div>
                          <div class="form-group">
@@ -79,6 +100,7 @@
                                <div class="input-group"><span class="input-group-addon" style=" height: 50px;"><i class="glyphicon glyphicon-lock"></i></span><input id="password" name="password" placeholder="" class="form-control" required="true" value="" type="password" style=" height: 50px;"></div>
                             </div>
                          </div>
+                          
                          <div class="form-group">
                             <label class="col-md-4 control-label" style=" height: 50px;"></label>
 
@@ -107,12 +129,12 @@
               <div class="container" style="width: 100%; ">
                 <div class="panel panel-default">
               <div class="panel-heading " id="panelhead">Admins
-                <a href="{{ route('generate',['download'=>'pdf']) }}" download >
+                {{-- <a href="{{ route('generate',['download'=>'pdf']) }}" download >
                             <i> 
                                 <img src="{{ URL::to('image/Downloads.ico') }}" title="Download">
                             </i>
 
-                        </a>
+                        </a> --}}
               </div>
                <div class="panel-body">
                 <table class="table table-bordered">
@@ -135,7 +157,7 @@
                        <tr>
                         <th scope="row">{{$admin->f_name}}  {{$admin->l_name}}</th>
                         <td >{{$admin->email}}</td>
-                        <td >{{$admin->updated_at}}</td>
+                        <td >{{\Carbon\Carbon::parse($admin->updated_at)->format('l   d M Y')}}</td>
                         <td >{{$admin->function}}</td>
                         <td >{{$admin->national_id}}</td>
                         @if($user->created_by=='admin')
@@ -171,18 +193,19 @@
             </div>
             <div class="panel panel-default">
               <div class="panel-heading " id="panelhead">Denied Priviledge As admin
-               <a href="{{ route('generate',['download'=>'pdf']) }}" download >
+              {{--  <a href="{{ route('generate',['download'=>'pdf']) }}" download >
                             <i> 
                                 <img src="{{ URL::to('image/Downloads.ico') }}" title="Download">
                             </i>
 
-                        </a></div>
+                        </a> --}}</div>
                <div class="panel-body">
                 <table class="table table-bordered">
                      <thead>
                         <tr class="bg-success">
                             <th scope="col">Name</th>
                           <th scope="col">Email</th>
+                          <th scope="col">Updated_at</th>
                           <th scope="col">Function</th>
                           <th scope="col"> National_ID</th>
                            @if($user->created_by=='admin')
@@ -197,6 +220,7 @@
                        <tr>
                         <th scope="row">{{$denied->f_name}}{{$denied->l_name}}</th>
                         <td >{{$denied->email}}</td>
+                        <td>{{\Carbon\Carbon::parse($denied->updated_at)->format('l   d M Y')}}</td>
                         <td >{{$denied->function}}</td>
                         <td >{{$denied->national_id}}</td>
                         @if($user->created_by == 'admin')

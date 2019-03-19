@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
@@ -22,7 +21,7 @@ class UsersController extends Controller
    
     public function __construct()
     {
-        $this->middleware('auth')->except('index');
+        $this->middleware('auth')->except('index','notificationid','notification');
        
     }
 
@@ -33,7 +32,7 @@ class UsersController extends Controller
 
          
 
-         $posts = Posts::latest()->paginate(2);
+         $posts = Posts::latest()->paginate(15);
          if(auth()->user()->verifiedadmin == 'verified' && $user->role == 'user' && $user->created_by == 'user'){
             return redirect('/dashboard'); //normal user/farmer
 
@@ -112,7 +111,7 @@ class UsersController extends Controller
          $notcount = Notification::get()->count();
          $notification = Notification::find($id);
          $username  = User:: where('id',$notification->user_id)->first();
-                          $nots = Notification::latest()->paginate(3);
+                          $nots = Notification::latest()->paginate(15);
 
         return view('dashboard.notificationid',compact('notcount','user','notification','username','nots'));
     }
@@ -153,7 +152,7 @@ class UsersController extends Controller
             'f_name' => 'required|max:120',
             'l_name' => 'required|max:120',
             'phone_no' => 'required|unique:users|min:10|max:11',
-            'national_id' => 'required|min:7|max:10',
+            'national_id' => 'required|unique:users|min:7|max:10',
             'email' => 'required|email|unique:users',
            ]);
 

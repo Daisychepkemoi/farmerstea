@@ -8,6 +8,7 @@ use App\User;
 use App\Notification;
 use App\Tea;
 use Redirect;
+use App\Contacts;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
@@ -16,8 +17,11 @@ use Illuminate\Support\Facades\Mail;
 use App\Mail\NewEvent;
 use App\Mail\VerifyFarmer;
 use App\Mail\NewNotification;
-use App\Mail\Contactus;
+use App\Mail\ContactForm;
 use App\Mail\NewAdmin;
+use App\Mail\RevokeAdmin;
+use Illuminate\Support\Facades\Validator;
+
 
 
 
@@ -39,9 +43,10 @@ class AdminsController extends Controller
         $user= auth()->user();
         $notcount = Notification::get()->count();
         $events = Event::orderBy('created_at','desc')->paginate(3);
-                          $nots = Notification::latest()->paginate(3);
+        $nots = Notification::latest()->paginate(3);
+        $mindate = now();
 
-        return view('admin.createevents', compact('user', 'notcount','events','nots'));
+        return view('admin.createevents', compact('user', 'notcount','events','nots','mindate'));
     }
     public function store()
     {
@@ -78,6 +83,8 @@ class AdminsController extends Controller
         $eventyear = Event::select($db)->orderBy('created','DESC')->pluck('created')->unique();
         $user = auth()->user();
         $event = Event::all();
+      $nots = Notification::latest()->paginate(3);
+
         $notcount = Notification::get()->count();
         if ($event->count() > 0) {
             $user_id = Event::pluck('user_id');
@@ -85,7 +92,7 @@ class AdminsController extends Controller
             $createdby= User::where('id', $user_id)->get();
                           $nots = Notification::latest()->paginate(3);
 
-            return view('admin.viewevents', compact('user', 'events', 'createdby', 'notcount','eventyear','nots'));
+            return view('admin.viewevents', compact('user', 'events', 'createdby', 'notcount','nots','eventyear','nots'));
         } else {
           
             return view('admin.emptyevent', compact('user', 'notcount','eventyear','nots'));
@@ -121,24 +128,15 @@ class AdminsController extends Controller
     public function contactus( Request $request)
     {
 
-        $user = User::where('email',$request->email)->first();
         $email = $request->email;
-        if($user == null){
-             $contactus = contactus::create([
-                'user_id'=>70,
+             $contactus = Contacts::create([
+                'email'=>request('email'),
                 'title'=>request('title'),
                 'body'=>$request->body,
         ]);
-         }
-         else {
 
-            $contactus = contactus::create([
-                'user_id'=>$user->id,
-                'title'=>request('title'),
-                'body'=>$request->body,
-        ]);
-         }
-          Mail::send(new Contactus($contactus,$email));
+           
+          Mail::send(new ContactForm($contactus));
           return redirect('/')->with('success', 'Message sent Successfully');
     }
 
@@ -287,6 +285,9 @@ class AdminsController extends Controller
         $notcount = Notification::get()->count();
         $farmerver = User::where('role', 'admin')->orderBy('updated_at', 'DESC')->paginate(15);
         DB::table('users')->where('id', $id)->update(['role' => 'user']);
+        $admin = User::find($id);
+        Mail::send(new RevokeAdmin($admin));
+
         return redirect('/admin/addrole');
     }
     public function addpriviledge($id, Request $request)
@@ -295,9 +296,12 @@ class AdminsController extends Controller
         $notcount = Notification::get()->count();
         $farmerver = User::where('role', 'admin')->orderBy('updated_at', 'DESC')->paginate(15);
         DB::table('users')->where('id', $id)->update(['role' => 'admin']);
+        $admin = User::find($id);
+        Mail::send(new RevokeAdmin($admin));
+
         return redirect('/admin/addrole');
     }
-    public function addadmin()
+    public function addadmin(request $request)
     {
         $user = auth()->user();
         $users =$user->f_name;
@@ -306,9 +310,24 @@ class AdminsController extends Controller
         $password = request('password');
         // dd($password);
         // $admin = User::where('id',20)->first();
+        $validator = Validator::make($request->all(), [
+            'f_name' => 'required|max:120',
+            'l_name' => 'required|max:120',
+            'phone_no' => 'required|unique:users|min:10|max:11',
+            'national_id' => 'required|unique:users|min:7|max:10',
+            'email' => 'required|email|unique:users',
+          'password' => 'required|string|min:6|confirmed',
+
+           ]);
+        if ($validator->fails()) {
+            return redirect('/admin/addrole')
+                        ->withErrors($validator)
+                        ->withInput();
+         }
+         else{
         $admin = User::create([
-            'f_name'=>request('firstname'),
-            'l_name'=>request('lastname'),
+            'f_name'=>request('f_name'),
+            'l_name'=>request('l_name'),
             'created_by'=>request('created_by'),
             'national_id'=>request('national_id'),
             'phone_no'=>request('phone_no'),
@@ -323,7 +342,8 @@ class AdminsController extends Controller
 
         DB::table('users')->where('id', $admin->id)->update(['created_by' => $users,'role'=>'admin','function' => request('function')]);
         Mail::send(new NewAdmin($admin,$password));
-        return redirect('/admin/addrole');
+        return redirect('/admin/addrole')->with('success','New Admin Added Successfully');
+    }
     }
     public function back()
     {

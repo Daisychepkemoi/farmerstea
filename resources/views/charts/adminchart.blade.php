@@ -8,12 +8,12 @@
         <div class="panel panel-default">
             <div class="panel-heading " id="panelhead">
               <div class="heading" style="height:;">
-                   <p><a href="{{ route('generate',['download'=>'pdf']) }}" download >
+                   <p>{{-- <a href="{{ route('generate',['download'=>'pdf']) }}" download >
                             <i> 
                                 <img src="{{ URL::to('image/Downloads.ico') }}" title="Download">
                             </i>
 
-                        </a>
+                        </a> --}}
                       </p>
                 </div>
             {{-- </div> --}}
@@ -72,7 +72,7 @@
           <label for="Month" style="padding-right: 10px; text-transform: none; color: black;">Month </label>
              <select name="month">
               <option>January</option>
-              <option>February 1</option>
+              <option>February </option>
               <option>March</option>
               <option>April</option>
               <option>May</option>

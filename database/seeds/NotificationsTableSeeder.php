@@ -11,6 +11,6 @@ class NotificationsTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Notification::class, 20)->create();
+        factory(App\Notification::class, 40)->create();
     }
 }

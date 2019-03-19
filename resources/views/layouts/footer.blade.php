@@ -27,12 +27,19 @@
                            
                                 <form method="POST" action="/contactus">
                                   @csrf
+
                                   <label>Email <strong>*</strong></label>
-                                  <input class="form-control" type="email" name="email" placeholder="Email..">
+                                  @auth
+                                  <input class="form-control" type="email" name="email" placeholder="Email.." value="{{auth()->user()->email}}" readonly>
+                                    @else
+                                   <input class="form-control" type="email" name="email" placeholder="Email..">
+                                   @endif
+
+
                                   <label>Title <strong>*</strong></label>
                                   <input class="form-control" type="text" name="title" placeholder="Title...">
                                   <label>Body <strong>*</strong></label>
-                                  <textarea class="form-control" name="body"></textarea>
+                                  <textarea class="form-control" name="body" style="color: black; font-weight: 800;"></textarea>
                                   <button class="btn-custom" type="submit"> Submit</button>
                                 </form>
                               </div>

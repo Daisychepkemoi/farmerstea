@@ -70,7 +70,7 @@
                   @if($user->role == 'admin')
                   <td class="detail" title="Not Editable"><input type="number" name="no_acres" value="{{ $tea->no_acres}}" required="" ></td>
                   @else
-                   <td class="detail" title="Not Editable"><input type="number" name="no_acres" value="{{ $tea->no_acres}}" required="" readonly=""></td>
+                   <td class="detail" title="Not Editable"><input type="number" name="no_acres" value="{{ $tea->no_acres}}" required="" ></td>
 
                   @endif
                 </tr>

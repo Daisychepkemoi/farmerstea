@@ -167,8 +167,8 @@ width: 75%;    }
                 <div class="thumbnail text-center">
                     <img class="group list-group-image" src="{{url('uploads/'.$posts->image)}}"  />
                     <div class="caption">
-                        {{-- <h4 class="group inner list-group-item-heading">@{{ posts.title }}</h4> --}}
-                        <p class="mb-0">{{ $posts->body}}</p>
+                        <h4 class="group inner list-group-item-heading text-justify">{{ ucfirst($posts->title) }}</h4>
+                        <p class="mb-0" style="text-align: justify;">{!! nl2br(e(ucfirst($posts->body))) !!}</p>
                         {{-- <p class="group inner list-group-item-text">{!! Str::characters($posts->body, 9,'....')  !!}</p> --}}
                         <div class="row">
                             {{-- <div class="col-xs-12 col-md-6"> --}}
@@ -179,7 +179,7 @@ width: 75%;    }
                             @csrf  
                                 <label> Comment</label>
                                 <textarea class="form-control" name="body">  </textarea>
-                                <button class="btn-success"> Post </button>
+                                <button class="btn-success" required> Post </button>
                             </form>   
                             </div>
                             
@@ -191,17 +191,41 @@ width: 75%;    }
                 <br>
                 <div class="item col-xs-12 col-lg-12" ">
                 <div class="thumbnail text-center">
-                    <h1>Comments</h1>
+                    <h1>Comment (s)</h1>
+                    <style type="text/css">
+                        #longpost{
+                            display: none;
+                        }
+                        #shortpost {
+                            display: block;
+                        }
+                    </style>
                    @foreach($comments as $comment)
-                    <div class="caption">
-                        <p class="mb-0">{{ $comment->body}}</p>
+                   
+                   <div style="background-color: ; float: left; width: 30%">
+                       <img src="{{ URL::to('image/profileimg.png') }}" style="width: 100px;height: 100px;border-radius: 50px !important; float: right">
+                   </div>
+                   <div class="caption" style="background-color: ">
+                     <p class="" style="padding-left: 250px !important;text-align: left; font-weight: 800;">{{ $comment->f_name}} {{$comment->l_name}}</p>
+                        <p class="mb-0 text-justify" id="shortpost">{!! ucfirst(nl2br(e(strip_tags(\Illuminate\Support\Str::words($comment->body, 100,'...'))))) !!} </p>
+                        @if(str_word_count($comment->body) > 100)
+                    <button class="btn-primary" onclick="openpost()"> Read More</button>
+                        @else
+                        @endif 
+                        <p class="mb-0 text-justify" id="longpost" style=" padding-left: 340px; font-weight: 400" > {!! ucfirst(nl2br(e($comment->body))) !!} </p>
                         <div class="row">
-                                <p class="">Commented  {{ $comment->created_at->diffForHumans() }}</p>
+                                <p class="text-right" style="margin-right: 100px; font-weight: 500;">Commented  {{ \Carbon\Carbon::parse($comment->created_at)->diffForHumans() }}</p>
                             </div>
                             
                     </div>
                     <hr>
                    @endforeach
+                   <script type="text/javascript">
+                       function openpost(){
+                        document.getElementById('shortpost').style.display = 'block';
+                        document.getElementById('longpost').style.display = 'none';
+                       }
+                   </script>
 
                 </div>
             </div>

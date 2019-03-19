@@ -25,12 +25,12 @@
            
           
               <div class="panel-heading " id="panelhead">Unverified Farmers
-                 <a href="{{ route('generate',['download'=>'pdf']) }}" download >
+                {{--  <a href="{{ route('generate',['download'=>'pdf']) }}" download >
                             <i> 
                                 <img src="{{ URL::to('image/Downloads.ico') }}" title="Download">
                             </i>
 
-                        </a>
+                        </a> --}}
               </div>
               <div class="panel-body">
                 <table class="table table-bordered">
@@ -80,12 +80,12 @@
               </div>
               <div class="panel panel-default">
               <div class="panel-heading " id="panelhead">Verified Farmers
-                 <a href="{{ route('generate',['download'=>'pdf']) }}" download >
+                {{--  <a href="{{ route('generate',['download'=>'pdf']) }}" download >
                             <i> 
                                 <img src="{{ URL::to('image/Downloads.ico') }}" title="Download">
                             </i>
 
-                        </a>
+                        </a> --}}
               </div>
                <div class="panel-body">
                 <table class="table table-bordered">
@@ -136,12 +136,12 @@
             </div>
             <div class="panel panel-default">
               <div class="panel-heading " id="panelhead"> rejected Farmers
-                 <a href="{{ route('generate',['download'=>'pdf']) }}" download >
+                {{--  <a href="{{ route('generate',['download'=>'pdf']) }}" download >
                             <i> 
                                 <img src="{{ URL::to('image/Downloads.ico') }}" title="Download">
                             </i>
 
-                        </a>
+                        </a> --}}
               </div>
                <div class="panel-body">
                 <table class="table table-bordered">
@@ -187,12 +187,12 @@
             </div>
              <div class="panel panel-default">
               <div class="panel-heading " id="panelhead">Revoked Farmers
-                 <a href="{{ route('generate',['download'=>'pdf']) }}" download >
+                {{--  <a href="{{ route('generate',['download'=>'pdf']) }}" download >
                             <i> 
                                 <img src="{{ URL::to('image/Downloads.ico') }}" title="Download">
                             </i>
 
-                        </a>
+                        </a> --}}
               </div>
                <div class="panel-body">
                 <table class="table table-bordered">

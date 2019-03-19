@@ -6,32 +6,52 @@
 <div id="global" onclick="openhead() ">
     <div class="container-fluid">
         <div class="panel panel-default">
-            <div class="panel-heading " id="panelhead">
-                {{-- <h4>Period</h4> --}}
-                {{-- <div class="start">
-                    <label for="startdate" >Start Date</label>
-                    <input  type="date" name="startdate" placeholder="Start Date">
+                 
+            <div class="panel-body"  style="background:; height: 150px;">
+               <section class="search-sec">
+                <div class="container">
+                    <form action="/farmersort" method="post" novalidate="novalidate">
+                      @csrf
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-2 col-sm-12 p-0">
+                                      <select class="form-control search-slt" id="exampleFormControlSelect1" name="location">
+                                            <option>All Regions</option>
+                                              <option>Kapkarin</option>
+                                                <option>Cheborgei</option>
+                                                <option>Chebwagan</option>
+                                                <option>America</option>
+                                                <option>Lalagin</option>
+                                                <option>Kiptewit</option>
+                                                <option>Kapsir</option>
+                                                <option>Sosit</option>
+                                        </select>
+                                    </div>
+                                    
+                                    <div class="col-lg-3 col-md-2 col-sm-12 p-0">
+                                            <select class="form-control search-slt" id="exampleFormControlSelect1" name="status" style="text-transform: initial;">
+                                               <option>All</option>
+                                               <option>verified</option>
+                                               <option>notverified</option>
+                                               <option>denied</option>
+                                               <option>rejected</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-lg-2 col-md-2 col-sm-12 p-0">
+                                        <button name="submit" type="submit" id="wrn-btn" class="btn btn-danger search-salt">Sort</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
                 </div>
-                <div class="start">
-                    <label for="enddate" >EndDate</label>
-                    <input type="date"  name="enddate" placeholder="End Date">
-                </div> --}}
-                <div class="end">
-
-                    <p>
-                        <a href="{{ route('generate',['download'=>'pdf']) }}" download >
-                            <i> 
-                                <img src="{{ URL::to('image/Downloads.ico') }}" title="Download">
-                            </i>
-
-                        </a>
-                    </p>
-                    <p class="report"><button class="btn-success"><a href="/farmers">Generate Report</a></button></p>
-                </div>
+            </section>     
             </div>
+                
             
             <div class="panel-body">
-              <h5 class="panel-heading" id="panelhead">TEA REPORT</h5>
+              <h5 class="panel-heading" id="panelhead">Farmers REPORT</h5>
               <div class="panel-body" id="owner">
                    <table class="table borderless" id="table">
                   

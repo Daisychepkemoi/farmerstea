@@ -22,6 +22,12 @@
              <table class="table table-striped" >
                 <tbody>
                    <tr>
+                    <style type="text/css">
+                      label{
+                        font-weight: 800 !important;
+                        font-size: 24px !important;
+                      }
+                    </style>
                       <td colspan="" class="" style="">
                          <form class="well form-horizontal" method="POST" action="/admin/createnotification" style=" background-image: url('{{asset('image/desk.jpg')}}'); background-size: cover;opacity: 0.9;color: white;">
                           @csrf

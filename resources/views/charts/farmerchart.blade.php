@@ -8,12 +8,38 @@
         <div class="panel panel-default">
             <div class="panel-heading " id="panelhead">
               <div class="heading" style="height:;">
-                   <p><a href="{{ route('generate',['download'=>'pdf']) }}" download >
-                            <i> 
-                                <img src="{{ URL::to('image/Downloads.ico') }}" title="Download">
-                            </i>
+                   <p> <form method="POST" action="/farmersortline">
+              @csrf
+              <label for="year" style="padding-right: 10px; text-transform: none; color: black;">Year </label>
+              <select name="year">
+              <option>2019</option>
+              <option>2018</option>
+              <option>2017</option>
+              <option>2016</option>
+              <option>2015</option>
+              <option>2014</option>
+              <option>2013</option>
+              <option>2012</option>
+              <option>2011</option>
+          </select>
+          <label for="Month" style="padding-right: 10px; text-transform: none; color: black;">Month </label>
+             <select name="month">
+              <option>January</option>
+              <option>February </option>
+              <option>March</option>
+              <option>April</option>
+              <option>May</option>
+              <option>June</option>
+              <option>july</option>
+              <option>August</option>
+              <option>September</option>
+              <option>October</option>
+              <option>November</option>
+              <option>December</option>
+            </select>
+             <button class="btn-success" style="margin-left:30px; width: 150px; height: 50px; color: black;" type="submit">Search</button>
+            </form>
 
-                        </a>
                       </p>
                 </div>
                 <div class="panel-body" id="text">Graphical Representation of the Tea Report
@@ -51,7 +77,7 @@
                          
                     </div>
                      
-                     <form method="POST" action="/admin/netperday">
+                     <form method="POST" action="/farmersbaryear">
               @csrf
               <label for="year" style="padding-right: 10px; text-transform: none; color: black;">Year </label>
               <select name="year">
@@ -65,22 +91,8 @@
               <option>2012</option>
               <option>2011</option>
           </select>
-          <label for="Month" style="padding-right: 10px; text-transform: none; color: black;">Month </label>
-             <select name="month">
-              <option>January</option>
-              <option>February 1</option>
-              <option>March</option>
-              <option>April</option>
-              <option>May</option>
-              <option>June</option>
-              <option>july</option>
-              <option>August</option>
-              <option>September</option>
-              <option>October</option>
-              <option>November</option>
-              <option>December</option>
-            </select>
-             <button class="btn-success" style="margin-left:30px; width: 150px; height: 50px; color: black;" type="submit">Search</button>
+          
+            <button class="btn-success" style="margin-left:30px; width: 150px; height: 50px; color: black;" type="submit">Search</button>
             </form>
 
                  </p>
@@ -106,22 +118,7 @@
 
                      <p class="more">
                      
-                     <form method="POST" action="/admin/netpermonth">
-              @csrf
-              <select name="year">
-              <option>Please Select Year</option>
-              <option>2019</option>
-              <option>2018</option>
-              <option>2017</option>
-              <option>2016</option>
-              <option>2015</option>
-              <option>2014</option>
-              <option>2013</option>
-              <option>2012</option>
-              <option>2011</option>
-         </select>
-             <button class="btn-success" type="submit">Search</button>
-            </form>
+                     
         </p>
 
 
@@ -131,7 +128,7 @@
                 </div>
                 <hr>
               
-                 <p class="more" style="color: black; text-transform: none; font-weight: normal;"> Please click here to   <a href="/admin/farmersreport"><b>  </b>  View Detailed Report</a></p>
+                 <p class="more" style="color: black; text-transform: none; font-weight: normal;"> Please click here to   <a href="/report"><b>  </b>  View Detailed Report</a></p>
 
                  
                

@@ -197,6 +197,7 @@
                          @elseif(auth()->user()->verifiedadmin == 'notverified' &&auth()->user()->role == 'admin' && auth()->user()->created_by == 'admin' )
                          {{-- other admins --}}
                           <li><a href="/dashboard" style="color: white !important;">Dashboard</a></li> 
+                        @elseif( auth()->user()->verifiedadmin == 'notverified' &&auth()->user()->role == 'user' && auth()->user()->created_by == 'admin' )
                         @else
 
                         @endif

@@ -169,6 +169,12 @@ table .r td:first-child::before {
                                     <!-- <li><a href="layouts-tabs.html">2nd nav tabs</a></li> -->
                                 </ul>
                             </li>
+                            @if($user->function == 'Admin' || ($user->function == 'user' && $user->created_by == 'user'))
+                             <li class="cm-submenu">
+                                <a class="sf-window-layout" href="/admin/contactus">ContactUs Report<span class="caret"></span></a>
+                               
+                            </li>
+                            @endif
                             
                            
                             @endif
@@ -193,7 +199,7 @@ table .r td:first-child::before {
                 <div class="pull-right">
                     <div id="cm-search-btn" class="btn btn-success " data-toggle="cm-search" style="background-image: url({{url('/image/searchh.ico')}}) ;" id="clicksearch" onclick="closehead()"></div>
                 </div>
-                @if($user->role == 'admin')
+               {{--  @if($user->role == 'admin')
                 <div class="dropdown pull-right">
                     <button class="btn btn-success"  style="background-image: url({{url('/image/Notification.ico')}}) ;" data-toggle="dropdown"> <span class="label label-danger">{{$notcount}}</span> </button>
                     <div class="popover cm-popover bottom">
@@ -216,7 +222,7 @@ table .r td:first-child::before {
                     </div>
                 </div>
                 @else
-                @endif
+                @endif --}}
                 <div class="dropdown pull-right" style="background:green;">
                      {{-- <button class="btn" data-toggle="dropdown">H</button> --}}
                     <button class="btn btn-success" style="background-image: url({{url('/image/User.ico')}}) ; " data-toggle="dropdown"></button>
