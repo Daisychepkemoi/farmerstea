@@ -2813,6 +2813,7 @@ th {
 	padding: 9px;
 	line-height: 1.428571429;
 	vertical-align: top;
+	font-weight: 800;
 	border-top: 1px solid #ddd
 }
 
@@ -8386,6 +8387,7 @@ header .cm-navbar:last-child {
 .cm-menu-items li {
 	position: relative;
 	display: block;
+	font-weight:800;
 	-webkit-transition: all 150ms;
 	-o-transition: all 150ms;
 	transition: all 150ms;
@@ -8396,7 +8398,7 @@ header .cm-navbar:last-child {
 	transform: translate3d(0, 0, 0);
 	position: relative;
 	color: #777;
-	font-weight: bold;
+	font-weight: 800;
 	font-size: 21px;
 	height: 80px;
 	background-color: #fff;
@@ -8475,7 +8477,7 @@ header .cm-navbar:last-child {
 .cm-submenu ul li a {
 	background: transparent;
 	line-height: 38px;
-	font-weight: normal;
+	font-weight: 800;
 	padding-left: 15px
 }
 

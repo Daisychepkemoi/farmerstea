@@ -35,7 +35,7 @@
                                                <option>verified</option>
                                                <option>notverified</option>
                                                <option>denied</option>
-                                               <option>rejected</option>
+                                               <option>revoked</option>
                                         </select>
                                     </div>
                                     <div class="col-lg-2 col-md-2 col-sm-12 p-0">
@@ -118,8 +118,12 @@
                      
                       @endforeach
                       <tr>
-                        <td colspan="3"></td>
-                        <td>{{$farmers->links()}}</td>
+                        <td colspan="1">Total</td>
+                        <td colspan="4">{{$total}}</td>
+                      </tr>
+                      <tr>
+                        <td colspan="1">Page No.</td>
+                        <td colspan="4">{{$farmers->links()}}</td>
                       </tr>
                     
                         </tbody>

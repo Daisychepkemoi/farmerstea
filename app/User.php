@@ -46,7 +46,7 @@ class User extends Authenticatable
     }
      public function teadetail() {
 
-        return $this->hasMany(Tea_Details::class);
+        return $this->belongsTo(Tea_Details::class);
     }
 
 

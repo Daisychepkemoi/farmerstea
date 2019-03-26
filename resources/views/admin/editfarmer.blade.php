@@ -1,6 +1,6 @@
 @extends('layouts.dashboard')
 @section('title','EditFarmerDetails.Litein Tea Factory')
-@section('head','Edit Frmers Details')
+@section('head','Edit Farmers Details')
 
 @section('content')
 <div id="global" onclick="openhead() ">
@@ -20,7 +20,7 @@
          <div class="profiledetails">
            <div class="profileone">
              <h5 class="panel-heading " id="panelhead">Farmers Details</h5>
-             <form method="POST" action="/admin/editfarmer/{{ $farmer->id}}">
+             <form method="POST" action="/admin/editfarmersave/{{ $farmer->id}}">
               @csrf
              <table class="table table-borderless" id="table">
               <tbody>

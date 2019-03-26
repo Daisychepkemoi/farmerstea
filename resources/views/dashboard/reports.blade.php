@@ -47,9 +47,10 @@
               </form>
             </div>
             <div class="panel-body">
-              <h5 class="panel-heading" id="panelhead">TEA REPORT</h5>
+              <h5 class="panel-heading" id="panelhead">TEA REPORT
+              </h5>
               <div class="panel-body" id="owner">
-                   <table class="table borderless" id="table">
+                   <table class="table borderless" id="table" style="background-color: ; float: left;">
                       @foreach($tea as $teas)
                       <tbody>
                         <tr>
@@ -101,9 +102,36 @@
                         
                    
                 </table>
+                <style type="text/css">
+                  #help{
+                    display: block;
+                    padding: 50px;
+
+                  }
+                  #help h4{
+                    font-size: 22px;
+                  }
+                  #help li{
+                    font-size: 20px;
+                  }
+                </style>
+                <div id="help" style="float: right; width: 600px;height: 300px; background-color: ;">
+                  <H4>How we make our Approximations In the Produce summary report below</H4>
+                  <ul>
+                    <li>Total Kg: Sum of all Net_weights.</li>
+                    <li>Expected Bonus : NUmber Of Acres *  911 * 28.80,</li>
+                    <i>911 = Mean Expected Kg per Acre Annually.</i>
+                    <i>28.80 = Last Years Bonus pais Per Kg.</i>
+                    <li>Number of ferterlizer bags : NUmber Of Acres * 8, </li>
+                    <i>8 = Mean Expected Number of fertilizer bags to be used per Acre.</i>
+                  
+                  </ul>
+              </div>
               </div>
             </div>
-              <div class="panel-heading " id="panelhead">Produce Summary</div>
+              <div class="panel-heading " id="panelhead">Produce Summary
+
+              </div>
               <div class="panel-body">
                 <table class="table table-bordered">
                      <thead>

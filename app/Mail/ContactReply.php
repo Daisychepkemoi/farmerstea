@@ -8,7 +8,7 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use App\User;
 
-class ReplyContact extends Mailable
+class ContactReply extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -17,10 +17,9 @@ class ReplyContact extends Mailable
      *
      * @return void
      */
-     public function __construct($title,$body,$email)
+   public function __construct($email)
     {
-        $this->title = $title;
-        $this->body = $body;
+        
         $this->email = $email;
     }
 
@@ -31,11 +30,10 @@ class ReplyContact extends Mailable
      */
     public function build()
     {
-        $user =auth()->user();
         $admin = User::where('role','admin')->where('created_by','user')->first();
-         return $this->from($user->email)
-                    ->subject($this->title)->to($admin->email)->markdown('email.replycontact')->with([
-                'message' => $this->body,
+         return $this->from($admin->email)
+                    ->subject('Litein Tea Factory Feedback')->to($this->email)->markdown('email.contactreply')->with([
+                'message' =>'Concern Received' ,
                 
             ]); 
     }

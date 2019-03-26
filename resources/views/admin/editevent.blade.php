@@ -1,6 +1,6 @@
 @extends('layouts.dashboard')
-@section('title','ProduceEntry.Litein Tea Factory')
-@section('head','Add Daily Produce')
+@section('title','CreateEvents.Litein Tea Factory')
+@section('head','Create Events')
 @section('content')
 <div id="global" onclick="openhead() ">
   <div class="container-fluid">
@@ -10,17 +10,7 @@
                
                 <div class="heading" style="height:;">
                    <div class="" style="margin-right: 10%;">
-                    @if (session()->has('warning'))
-                     <div class="alert alert-warning" id="alert" style="text-transform:normal; ">
-                      {{ session('warning') }}
-                    </div>
-                    @endif
-                    @if (session()->has('success'))
-                     <div class="alert alert-success" id="alert">
-                      {{ session('success') }}
-                    </div>
-                    @endif
-                    <p class="report"><button class="btn-success" style="min-width: 300px;">Enter Daily Produce Details </button></p>
+                    <p class="report"><button class="btn-success" style="width: 300px;">Create new Event </button></p>
                 </div>
                 </div>
             </div>
@@ -38,44 +28,43 @@
                       }
                     </style>
                       <td colspan="" class="" style="">
-                         <form class="well form-horizontal" method="POST" action="/addteaproduce" style=" background-image: url('{{asset('image/desk.jpg')}}'); background-size: cover;opacity: 0.9;color: white; height: 500px;">
+                         <form class="well form-horizontal" method="POST" action="/events/edit/{{$event->id}}" style=" background-image: url('{{asset('image/desk.jpg')}}'); background-size: cover;opacity: 0.9;color: white;">
                           @csrf
                             <fieldset>
                                <div class="form-group">
-                                  <label class="col-md-4 control-label" style=" height: 50px;"> Tea Number</label>
+                                  <label class="col-md-4 control-label" style=" height: 50px;"> Title</label>
                                   <div class="col-md-6 inputGroupContainer">
-                                     <div class="input-group"><span class="input-group-addon" style=" height: 50px;"><i class="glyphicon glyphicon-user"></i></span>
-                                      <input id="tea_no" name="tea_no" placeholder="Tea Number" class="form-control" required="true" value="" type="number" style=" height: 50px;"></div>
+                                     <div class="input-group"><span class="input-group-addon" style=" min-height: 50px;"><i class="glyphicon glyphicon-user"></i></span>
+                                      <input id="title" name="title" placeholder="Title" class="form-control" required="true" value="{{$event->title}}" type="text" style=" min-height: 50px;"></div>
                                   </div>
                                </div>
       
                                <div class="form-group">
-                                  <label class="col-md-4 control-label" style=" height: 50px;">Gross Weight</label>
+                                  <label class="col-md-4 control-label" style=" height: 50px;">Date to be Held</label>
                                   <div class="col-md-6 inputGroupContainer">
                                      <div class="input-group">
                                         <span class="input-group-addon" style="max-width: 100%; height: 50px;"><i class="glyphicon glyphicon-list"></i></span>
-                                      <input id="gross_weight" name="gross_weight" placeholder="Gross Weight" class="form-control" min="2" max="500" required="true" value="" type="number" style=" height: 50px;" onmouseout="calculate()" onmouseenter="calculate()">
+                                      {{-- <input id="title" name="held_at" placeholder="Title" class="form-control" required="true" value="{{$event->held_at->format("yyyy-mm-dd")}}" type="date" min={{$mindate}} style=" height: 50px;">// --}}
+                                  
+                                      <input id="title" name="held_at" placeholder="Title" class="form-control" required="true" type="date" value="{{ \Carbon\Carbon::createFromDate($event->held_at->year,$event->held_at->month,$event->held_at->day)->format('Y-m-d')}}">
 
                                      </div>
                                   </div>
                                </div>
-                                <div class="form-group">
-                                  <label class="col-md-4 control-label" style=" height: 50px;">Net Weight</label>
+                               <div class="form-group">
+                                  <label class="col-md-4 control-label" style=" height: 50px;">Body</label> <br> <br>
                                   <div class="col-md-6 inputGroupContainer">
-                                     <div class="input-group">
-                                        <span class="input-group-addon" style="max-width: 100%; height: 50px;"><i class="glyphicon glyphicon-list"></i></span>
-                                      <input id="net_weight" name="net_weight" placeholder="Net Weight" class="form-control" required="true" value="" type="name" style=" height: 50px;" readonly="">
-
-                                     </div>
+                                     <div class="input-group"><span class="input-group-addon" style=" height: 300px;"><i class="glyphicon glyphicon-text-height"></i></span><textarea id="fullName" name="body" placeholder="body" class=" form-control" required="true" value="" type="text" style=" height: 300px !important;">{{$event->body}}</textarea></div>
                                   </div>
                                </div>
+                               
+                               
                                <div class="form-group">
                                   <label class="col-md-4 control-label" style=" height: 50px;"></label>
 
                                   <div class="col-md-6 inputGroupContainer">
                                      <div class="input-group">
-                                       <button class="btn-success" name="submit" style="width: 300px;margin-left: 20px; height: 70px;" onclick="">Save</button>
-                                       {{-- <button class="btn-danger"  style="width: 300px;margin-left: 20px; height: 70px;" onclick="closeForm()"">Close</button> --}}
+                                       <button class="btn-success" name="submit" style="width: 300px;margin-left: 20px; height: 70px;" onclick="return confirm('Are You Sure You want to save?')"> Update</button>
 
                                      </div>
                                   </div>
@@ -101,29 +90,25 @@
                       <td colspan="" class="" style="">
                          
                             <fieldset>
-                              <h1 style="font-size: 24px; text-decoration: underline;">Todays Produce Records</h1>
+                              <h1>Recent Events</h1>
                             </fieldset>
                             <hr>
-                            @foreach($teadetails as $tea)
+                            @foreach($events as $event)
                             <fieldset>
                                <div class="form-group">
                                   <div class="col-md-12 inputGroupContainer">
                                      <div class="input-group" style=" height: ;">
-                                      <p style="font-size: 16px; font-weight: bold; color: red;">
-                                        <a href="" style="color: red !important;"> Tea Number : {{ $tea->tea_no}} </a>
-                                      </p>
-                                      <p>  Gross Weight : {{$tea->gross_weight}}, Net_Weight :  {{$tea->net_weight}}, Total as_at Today: {{$tea->total_as_at_day}}</p>
-                                      <p>Saved : {{$tea->created_at->diffForHumans()}} <b style="font-weight:normal; float:right; font-size: 16px;"><a href="/receipt/{{$tea->id}}"> View Receipt</a></b></p>
-
+                                      <p style="font-size: 16px; font-weight: bold; color: red;"><a href="/events/{{$event->id}}" style="color: red !important;">{!! strip_tags(\Illuminate\Support\Str::words($event->title, 20,'...')) !!}</a></p>
+                                       <p>{!! strip_tags(\Illuminate\Support\Str::words($event->title, 35,'...')) !!} <b>Created On {{$event->created_at->diffForHumans()}}</b> </p>
                                      </div>
                                   </div>
                              </div>
                             </fieldset>
                             <hr>
+                            @endforeach
                              <hr>
-                             @endforeach
                             <fieldset>
-                              <a href="/viewdailyproducereport" class="btn btn-success" style="margin-left: 60px; width: 150px;"> View All</a>
+                              <a href="/viewevents" class="btn btn-success" style="margin-left: 60px; width: 150px;"> View More</a>
                             </fieldset>
 
                       </td>
@@ -140,14 +125,4 @@
   </div>
 </div>
 </div>
-<script type="text/javascript">
-  
-function calculate() {
-  var gross = document.getElementById('gross_weight').value;
-  var one = 1;
-  var net = gross - one;
- return  document.getElementById('net_weight').value = net;
-}
-
-</script>
 @endsection

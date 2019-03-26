@@ -3,9 +3,14 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
-     
+             {{-- <link rel="stylesheet" type="text/css" href="{{asset('css/assets/bootstrap-clearmin.min.css')}}"> --}}
+
         <title>Litein Tea Factory Receipt </title>
         <style type="text/css">
+        #global{
+          background-color: ;
+
+        }
             h1{
                 /*float: left;*/
                 /*margin-left: 20px;*/
@@ -29,10 +34,14 @@
        <div id="global" style="width: 80%; background:;">
               <div class="container-fluid">
                 <div class="panel panel-default" >
+                   <p><a href="/addteaproduce" style="float: left; margin-left: 40px"> Back</a>
+                    <a href="/addteaproduce/edit/{{$tea->id}}" style="float: left; margin-left: 20px"> Edit</a></p>
                   <div class="panel-body">
+                   
+                    <a href="/printreceipt/{{$tea->id}}"><button style="float: right; margin-right: 200px; margin-top: 100px;">Print</button></a>
 
                     <div class="panel-body" id="receipt" style="background:; border-width: 2px; border-style: groove">
-                        <h1>Litein Tea Factory  Daily ProduceReceipt</h1> 
+                      <img src="{{ URL::to('image/logo.jpg') }}" style="width: 100px; height: 100px; margin-left: 5px; margin-top: 5px;">                        <h1>Litein Tea Factory  Daily ProduceReceipt</h1> 
                     <hr>
                         <div style="background:; border-width: 2px; border-style: groove" >
                         <table class="" style="width: 50%; margin: 20px;">

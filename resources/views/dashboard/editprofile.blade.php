@@ -20,7 +20,7 @@
          <div class="profiledetails">
            <div class="profileone">
              <h5 class="panel-heading " id="panelhead">Profile Details</h5>
-             <form method="POST" action="/profile/edit/{{ $user->id}}">
+             <form method="POST" action="/profile/editsave/{{ $user->id}}">
              	@csrf
              <table class="table table-borderless" id="table">
               <tbody>
@@ -28,7 +28,7 @@
                   <td  class="first">Name</td>
                   {{-- <td><button btn-primary><a href="/delete.php">delete</a></button></td> --}}
                   {{-- <td><button btn-danger>edit</button></td> --}}
-                  <td class="detail"><input type="text" name="f_name" value="{{ $user->f_name}}" required=""><input type="text" name="l_name" value="{{$user->l_name}}" required=""></td>
+                  <td class="detail"><input type="text" name="f_name" value="{{ $user->f_name}}" required=""  pattern="[A-Za-z]{3,}" title="First Name"><input type="text" name="l_name"  pattern="[A-Za-z]{3,}" title="First Name" value="{{$user->l_name}}" required=""></td>
                 </tr>
                 <tr>
                   <td  class="first">National Id</td>
@@ -36,7 +36,7 @@
                 </tr>
                 <tr>
                   <td  class="first">Phone Number</td>
-                  <td class="detail"><input type="number" name="phone_no" value="{{ $user->phone_no}}" required=""></td>
+                  <td class="detail"><input type="tel" pattern="\d{4}\d{3}\d{3}" title=" 'Phone Number(Formart: 0712345678) '" maxlength="10" name="phone_no" value="{{ $user->phone_no}}" required=""></td>
 
                 </tr>
                   @if($tea->tea_no == null)
@@ -56,14 +56,14 @@
                     <option>{{ $tea->location}}</option>
                     <option>Kapsir</option>
                     <option>America</option>
-                    <option>America</option>
-                    <option>America</option>
+                    <option>Sosit</option>
+                    <option>Kiptweit</option>
                     </select>
                   </td>     
                 </tr>
                 <tr>
                   <td scope="row" class="first">Email</td>
-                  <td scope="row" class="detail" ><input type="email" id="email" name="email" value="{{ $user->email}}" required=""></td>     
+                  <td scope="row" class="detail" ><input type="email" id="email" name="email" value="{{ $user->email}}" required="" readonly></td>     
                 </tr>
                 <tr>
                   <td scope="row" class="first">No Of Acres</td>

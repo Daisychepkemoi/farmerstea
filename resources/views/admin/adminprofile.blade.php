@@ -28,7 +28,7 @@
                   <td  class="first">Name</td>
                   {{-- <td><button btn-primary><a href="/delete.php">delete</a></button></td> --}}
                   {{-- <td><button btn-danger>edit</button></td> --}}
-                  <td class="detail"><input type="text" name="name" value="Daisy Chepkemoi" required=""></td>
+                  <td class="detail"><input type="text" pattern="[A-Za-z]{3,}" title="First Name" name="name" value="Daisy Chepkemoi" required=""></td>
                 </tr>
                 <tr>
                   <td  class="first">National Id</td>
@@ -36,7 +36,7 @@
                 </tr>
                 <tr>
                   <td  class="first">Phone Number</td>
-                  <td class="detail"><input type="number" name="phone_No" value="01223355" required=""></td>
+                  <td class="detail"><input type="number" pattern="\d{4}\d{3}\d{3}" title=" 'Phone Number(Formart: 0712345678) '" maxlength="10" name="phone_No" value="01223355" required=""></td>
 
                 </tr>
                 <tr>
@@ -49,7 +49,7 @@
                 </tr>
                 <tr>
                   <td scope="row" class="first">Email</td>
-                  <td scope="row" class="detail" ><input type="email" name="email" value="Daisy Chepkemoi" required=""></td>     
+                  <td scope="row" class="detail" ><input type="email" name="email" value="Daisy Chepkemoi" required="" readonly=""></td>     
                 </tr>
                 <tr>
                   <td scope="row" class="first">No Of Acres</td>

@@ -9,6 +9,11 @@
 
 
       <div class="panel-body">
+         @if (session()->has('success'))
+                     <div class="alert alert-success" id="alert" style="text-transform:normal; ">
+                      {{ session('success') }}
+                    </div>
+      @endif
         {{-- <h5 class="panel-heading" id="panelhead">TEA REPORT</h5> --}}
         <div class="panel-body" id="owner">
          <div class="image">
@@ -44,7 +49,7 @@
                 @else
                 <tr>
                   <td scope=" row" class="first">Tea Number</td>
-                  <td class="detail">{{ $user->tea_no}}</td>     
+                  <td class="detail">{{ $tea->tea_no}}</td>     
                 </tr>
                 @endif
                 <tr>

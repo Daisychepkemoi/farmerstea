@@ -15,8 +15,11 @@
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="row">
-                                    <div class="col-lg-3 col-md-2 col-sm-12 p-0">
-                                      <select class="form-control search-slt" id="exampleFormControlSelect1" name="location">
+                                  <div class="col-lg-2 col-md-2 col-sm-12 p-0">
+                                        <input type="text" class="form-control search-slt" placeholder="Tea Number" id="select1" name="tea_no">
+                                    </div>
+                                    <div class="col-lg-2 col-md-2 col-sm-12 p-0">
+                                      <select class="form-control search-slt" id="select2" name="location">
                                             <option>All Regions</option>
                                               <option>Kapkarin</option>
                                                 <option>Cheborgei</option>
@@ -28,8 +31,29 @@
                                                 <option>Sosit</option>
                                         </select>
                                     </div>
+
+
+<script type="text/javascript">
+  
+$('#select1').on('input', function() {
+
+   if($(this).val().length)
+      $('#select2').prop('disabled', true);
+   else
+      $('#select2').prop('disabled', false);
+});
+</script>
+
+
                                     <div class="col-lg-3 col-md-2 col-sm-12 p-0">
-                                        <input type="text" class="form-control search-slt" placeholder="Year" name="year">
+                                       <select class="form-control search-slt" id="exampleFormControlSelect1" name="year">
+                                               <option>2019</option>
+                                               <option>2018</option>
+                                               <option>2017</option>
+                                               <option>2016</option>
+                                               <option>2015</option>
+                                               
+                                        </select>
                                     </div>
                                     <div class="col-lg-3 col-md-2 col-sm-12 p-0">
                                             <select class="form-control search-slt" id="exampleFormControlSelect1" name="month">
@@ -59,7 +83,9 @@
             </section>     
             </div>
             
-              <div class="panel-heading " id="panelhead">Today's Summary   
+              <div class="panel-heading " id="panelhead">
+
+                Summary for  {{$day}}    
                         
                   </div>
               <div class="panel-body">
@@ -74,8 +100,8 @@
                           <th scope="col"> Receipt Number</th>
                           <th scope="col"> Gross Weight (Kg)</th>
                           <th scope="col"> Net Weight (kg) </th>
-                          <th scope="col"> Total as of today (kg) </th>
-                          {{-- <th scope="col"> Total (kg) </th> --}}
+                          {{-- <th scope="col"> Total as of today (kg) </th> --}}
+                          <th scope="col">  </th>
                          
                         </tr>
                       </thead>
@@ -88,14 +114,18 @@
                         <td>{{$tean->receipt_no}}</td>
                         <td>{{$tean->gross_weight}}</td>
                         <td>{{$tean->net_weight}}</td>
-                        <td>{{$tean->total_as_at_day}}</td>
+                        {{-- <td>{{$tean->total_as_at_day}}</td> --}}
+                        @if(\Carbon\Carbon::parse($tean->created_at)->month != now()->month)
+                        @else
+                        <td><a href="/addteaproduce/edit/{{$tean->id}}"><button>Edit</button></a></td>
+                        @endif
 
                        </tr>
                        @endforeach
                         <tr>
                           {{-- <td colspan="5" style="" hidden>hey</td> --}}
                           <td colspan="1">Total Kg</td>
-                        <td colspan="6" >{{$totalkg}}</td>
+                        <td colspan="7" >{{$totalkg}}</td>
                         
                         </tr>
                      

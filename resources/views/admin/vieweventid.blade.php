@@ -93,12 +93,13 @@ width: 75%;    }
                 @auth
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav navbar-right" id="navi">
-                        <li><a href="#features" class="page-scroll">Features</a></li>
-                        <li><a href="#about" class="page-scroll">About</a></li>
-                        <li><a href="#services" class="page-scroll">Services</a></li>
+                         <li><a href="/dashboard">Dashboard</a></li>                        
+
+                        {{-- <li><a href="#features" class="page-scroll">Features</a></li> --}}
+                        {{-- <li><a href="#about" class="page-scroll">About</a></li> --}}
+                        {{-- <li><a href="#services" class="page-scroll">Services</a></li> --}}
                         <li><a href="#contact" class="page-scroll">Contact</a></li>
                         <li><a href="/welcome" class="page-scroll">Blog</a></li>
-                        <li><a href="/dashboard">Dashboard</a></li>                        
                      <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->f_name }} <span class="caret"></span>
@@ -125,9 +126,9 @@ width: 75%;    }
         @else
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-success navbar-right" id="navi" >
-                <li><a href="#features" class="page-scroll">Features</a></li>
-                <li><a href="#about" class="page-scroll">About</a></li>
-                <li><a href="#services" class="page-scroll">Services</a></li>
+                {{-- <li><a href="#features" class="page-scroll">Features</a></li> --}}
+                {{-- <li><a href="#about" class="page-scroll">About</a></li> --}}
+                {{-- <li><a href="#services" class="page-scroll">Services</a></li> --}}
                 <li><a href="#contact" class="page-scroll">Contact</a></li>
                 <li><a href="/welcome" class="page-scroll">Blog</a></li>
                 <li> <a href="{{ route('login') }}">Login</a></li>
@@ -158,7 +159,12 @@ width: 75%;    }
 </div>
             </div>
             <div id="products" class="row list-group">
-
+                <a href="/viewevents" style="float: right; margin-right: 20px; width: 150px;"><button class="btn-primary">Back</button></a>
+                @auth
+               @if(auth()->user()->id == $auth->user_id)
+                <a href="/vieweventid/edit/{{$event->id}}" style="float: right; margin-right: 20px; width: 150px;"><button class="btn-danger">Edit</button></a>
+                @endif
+                @endauth
                 <div class="item col-xs-8 col-lg-8" ">
                 <div class="thumbnail text-center">
                     <div class="caption">
@@ -172,7 +178,7 @@ width: 75%;    }
                             
                             
                 </div>
-                <a href="/viewevents"><button class="btn-primary">Back</button></a>
+                
                 <br>
                 <br>
                 <br>

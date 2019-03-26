@@ -1,119 +1,138 @@
 @extends('layouts.dashboard')
 @section('title','TeaReport.Litein Tea Factory')
-@section('head','Tea Report')
+@section('head','Tea Produce Report')
 
 @section('content')
 <div id="global" onclick="openhead() ">
     <div class="container-fluid">
         <div class="panel panel-default">
-            <div class="panel-heading " id="panelhead">
-              <form action="/tea" method="GET">
-                @csrf
-                <h4>Period</h4>
-                <div class="start">
-                    <label for="startdate" >Start Date</label>
-                     <select  name="month" id="month" value="">
-                      <option>All</option>
-                      <option>January</option>
-                      <option>February </option>
-                      <option>March</option>
-                      <option>April</option>
-                      <option>May</option>
-                      <option>June</option>
-                      <option>july</option>
-                      <option>August</option>
-                      <option>September</option>
-                      <option>October</option>
-                      <option>November</option>
-                      <option>December</option>
-                    </select>
-                </div>
-                <div class="start">
-                    <label for="enddate" >EndDate</label>
-                     <select  name="year" id="month" value="{{ old('month') }}">
-                      <option>2019</option>
-                      <option>2018</option>
-                      <option>2017</option>
-                      <option>2016</option>
-                      <option>2015</option>
-              
-            </select>
-                </div>
-                <div class="end">
+            <hr>
+            <div class="panel-body"  style="background:; min-height: 150px;">
+               <section class="search-sec">
+                <div class="container">
+                    <form action="/admin/teareport/sort" method="post" novalidate="novalidate">
+                      @csrf
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="row">
+                                
+                                  <div class="col-lg-2 col-md-2 col-sm-12 p-0">
+                                        <input type="text" class="form-control search-slt" placeholder="Tea Number" id="select1" name="tea_no">
+                                    </div>
+                                    <div class="col-lg-2 col-md-2 col-sm-12 p-0">
+                                      <select class="form-control search-slt" id="select2" name="location">
+                                            <option>All Regions</option>
+                                              <option>Kapkarin</option>
+                                                <option>Cheborgei</option>
+                                                <option>Chebwagan</option>
+                                                <option>America</option>
+                                                <option>Lalagin</option>
+                                                <option>Kiptewit</option>
+                                                <option>Kapsir</option>
+                                                <option>Sosit</option>
+                                        </select>
+                                    </div>
+  <script type="text/javascript">
+  
+$('#select1').on('input', function() {
 
-                   
-                    <button type="submit" class="btn-success" style="height: 50px; ">Generate Report</button>
+   if($(this).val().length)
+      $('#select2').prop('disabled', true);
+   else
+      $('#select2').prop('disabled', false);
+});
+</script>
+                                    <div class="col-lg-3 col-md-2 col-sm-12 p-0">
+                                       <select class="form-control search-slt" id="exampleFormControlSelect1" name="year">
+                                               <option>2019</option>
+                                               <option>2018</option>
+                                               <option>2017</option>
+                                               <option>2016</option>
+                                               <option>2015</option>
+                                               
+                                        </select>
+                                    </div>
+                                    <div class="col-lg-3 col-md-2 col-sm-12 p-0">
+                                            <select class="form-control search-slt" id="exampleFormControlSelect1" name="month">
+                                               <option>All</option>
+                                               <option>January</option>
+                                                <option>February </option>
+                                               <option>March</option>
+                                                 <option>April</option>
+                                                  <option>May</option>
+                                                   <option>June</option>
+                                                    <option>july</option>
+                                                    <option>August</option>
+                                                  <option>September</option>
+                                           <option>October</option>
+                                        <option>November</option>
+                                       <option>December</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-lg-2 col-md-2 col-sm-12 p-0">
+                                        <button name="submit" type="submit" id="wrn-btn" class="btn btn-danger search-salt">Sort</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
                 </div>
-              </form>
+            </section>     
             </div>
+            <hr>
             
-            <div class="panel-body">
-              <h5 class="panel-heading" id="panelhead">TEA REPORT</h5>
-              <div class="panel-body" id="owner">
-                   <table class="table borderless" id="table">
-                  
-                      <tbody>
-                        <tr>
-                          <td class="label">Total No Of Farmers</td>
-                          <td class="detail">{{$farmer }}</td>
-                      </tr>
-                      <tr>
-                          <td class="label">Regions</td>
-                          <td class="detail">Kapkarin, America,Kapkarin,Cheborgei,Sosit
-                          </td>     
-                      </tr>
-                       <tr>
-                          <td class="label"><a href=""></a></td>
-                          <td class="detail">Chebwagan,America, Lalagin,Kiptewit, Kapsir
-                          </td>     
-                      </tr>
-                      <tr>
-                          <td class="label">Total produce to date</td>
-                          <td class="detail">{{ $totalkg}} Kgs</td>
+              <div class="panel-heading " id="panelhead">
 
-                      </tr>
-
-                    
-
-
-                    </tbody>
-                </table>
-              </div>
-            </div>
-              <div class="panel-heading " id="panelhead">Produce Summary</div>
+                Summary for  {{$day}}    
+                        
+                  </div>
               <div class="panel-body">
                 <table class="table table-bordered">
                  
                      <thead>
                         <tr class="bg-success">
                          
-                          <th scope="col">Farmer Name</th>
                           <th scope="col">Tea Number</th>
-                          <th scope="col"> Total Kg</th>
-                          
-                          <th scope="col">Amount To Be earned(kg*20)</th>
-                          {{-- <th scope="col">Handle</th> --}}
+                          <th scope="col">Date Offered</th>
+                          <th scope="col">Agent Name</th>
+                          <th scope="col"> Receipt Number</th>
+                          <th scope="col"> Gross Weight (Kg)</th>
+                          <th scope="col"> Net Weight (kg) </th>
+                          <th scope="col"> Total as of today (kg) </th>
+                          {{-- <th scope="col">  </th> --}}
+                         
                         </tr>
                       </thead>
                       <tbody>
-                      {{-- @foreach($teasum as $tean) --}}
+                      @foreach($teaproduce as $tean)
                        <tr>
-                        <td>Hello</td>
-                        <td>{{$tea_no}}</td>
-                        <td>{{$teasum}}</td>
-                        <td>{{$teasum * 20}}</td>
+                        {{-- <td>{{$tean->id}}</td> --}}
+                        <td>{{$tean->tea_no}}</td>
+                        <td>{{\Carbon\Carbon::parse($tean->created_at)->format('l   d M Y')}}</td>
+                        <td>{{$tean->offered_by}}</td>
+                        <td>{{$tean->receipt_no}}</td>
+                        <td>{{$tean->gross_weight}}</td>
+                        <td>{{$tean->net_weight}}</td>
+                        <td>{{$tean->total_as_at_day}}</td>
+                        
 
                        </tr>
-                       {{-- @endforeach --}}
+                       @endforeach
+                        <tr>
+                          {{-- <td colspan="5" style="" hidden>hey</td> --}}
+                          <td colspan="1">Total Kg</td>
+                        <td colspan="7" >{{$totalkg}}</td>
+                        
+                        </tr>
                      
                       
                     
                         </tbody>
                         </table>
                         
-                        
+
               </div>
-              
+
 
        </div>
    </div>

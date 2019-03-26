@@ -1,6 +1,6 @@
 @extends('layouts.dashboard')
 @section('title','FarmersChartReport.Litein Tea Factory')
-@section('head','Dashboar')
+@section('head','Dashboard')
 
 @section('content')
 <div id="global" onclick="openhead() ">

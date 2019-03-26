@@ -10,7 +10,7 @@
                
                 <div class="heading" style="height:;">
                    <div class="" style="margin-right: 10%;">
-                    <p class="report"><button class="btn-success" style="width: 300px;">Create new Event </button></p>
+                    <p class="report"><button class="btn-success" style="width: 300px;">Edit Notification</button></p>
                 </div>
                 </div>
             </div>
@@ -28,31 +28,20 @@
                       }
                     </style>
                       <td colspan="" class="" style="">
-                         <form class="well form-horizontal" method="POST" action="{{route('createevent')}}" style=" background-image: url('{{asset('image/desk.jpg')}}'); background-size: cover;opacity: 0.9;color: white;">
+                         <form class="well form-horizontal" method="POST" action="/notification/edit/{{$notification->id}}" style=" background-image: url('{{asset('image/desk.jpg')}}'); background-size: cover;opacity: 0.9;color: white;">
                           @csrf
                             <fieldset>
                                <div class="form-group">
                                   <label class="col-md-4 control-label" style=" height: 50px;"> Title</label>
                                   <div class="col-md-6 inputGroupContainer">
-                                     <div class="input-group"><span class="input-group-addon" style=" height: 50px;"><i class="glyphicon glyphicon-user"></i></span>
-                                      <input id="title" name="title" placeholder="Title" class="form-control" required="true" value="" type="text" style=" height: 50px;"></div>
-                                  </div>
-                               </div>
-      
-                               <div class="form-group">
-                                  <label class="col-md-4 control-label" style=" height: 50px;">Date to be Held</label>
-                                  <div class="col-md-6 inputGroupContainer">
-                                     <div class="input-group">
-                                        <span class="input-group-addon" style="max-width: 100%; height: 50px;"><i class="glyphicon glyphicon-list"></i></span>
-                                      <input id="title" name="held_at" placeholder="Title" class="form-control" required="true" value="" type="date" min={{$mindate}} style=" height: 50px;">
-
-                                     </div>
+                                     <div class="input-group"><span class="input-group-addon" style=" min-height: 50px;"><i class="glyphicon glyphicon-user"></i></span>
+                                      <input id="title" name="title" placeholder="Title" class="form-control" required="true" value="{{$notification->title}}" type="text" style=" min-height: 50px;"></div>
                                   </div>
                                </div>
                                <div class="form-group">
                                   <label class="col-md-4 control-label" style=" height: 50px;">Body</label> <br> <br>
                                   <div class="col-md-6 inputGroupContainer">
-                                     <div class="input-group"><span class="input-group-addon" style=" height: 300px;"><i class="glyphicon glyphicon-text-height"></i></span><textarea id="fullName" name="body" placeholder="body" class=" form-control" required="true" value="" type="text" style=" height: 300px !important;"></textarea></div>
+                                     <div class="input-group"><span class="input-group-addon" style=" height: 300px;"><i class="glyphicon glyphicon-text-height"></i></span><textarea id="fullName" name="body" placeholder="body" class=" form-control" required="true" value="" type="text" style=" height: 300px !important;">{{$notification->body}}</textarea></div>
                                   </div>
                                </div>
                                
@@ -62,8 +51,7 @@
 
                                   <div class="col-md-6 inputGroupContainer">
                                      <div class="input-group">
-                                       <button class="btn-success" name="submit" style="width: 300px;margin-left: 20px; height: 70px;" onclick="return confirm('Are You Sure You want to save?')"> Post</button>
-                                       {{-- <button class="btn-danger"  style="width: 300px;margin-left: 20px; height: 70px;" onclick="closeForm()"">Close</button> --}}
+                                       <button class="btn-success" name="submit" style="width: 300px;margin-left: 20px; height: 70px;" onclick="return confirm('Are You Sure You want to save?')"> Update</button>
 
                                      </div>
                                   </div>
@@ -92,13 +80,13 @@
                               <h1>Recent Events</h1>
                             </fieldset>
                             <hr>
-                            @foreach($events as $event)
+                            @foreach($nots as $noti)
                             <fieldset>
                                <div class="form-group">
                                   <div class="col-md-12 inputGroupContainer">
                                      <div class="input-group" style=" height: ;">
-                                      <p style="font-size: 16px; font-weight: bold; color: red;"><a href="/events/{{$event->id}}" style="color: red !important;">{!! strip_tags(\Illuminate\Support\Str::words($event->title, 20,'...')) !!}</a></p>
-                                       <p>{!! strip_tags(\Illuminate\Support\Str::words($event->body, 35,'...')) !!} <b>Created On {{$event->created_at->diffForHumans()}}</b> </p>
+                                      <p style="font-size: 16px; font-weight: bold; color: red;"><a href="/noti/{{$noti->id}}" style="color: red !important;">{!! strip_tags(\Illuminate\Support\Str::words($noti->title, 20,'...')) !!}</a></p>
+                                       <p>{!! strip_tags(\Illuminate\Support\Str::words($noti->title, 35,'...')) !!} <b>Created On {{$noti->created_at->diffForHumans()}}</b> </p>
                                      </div>
                                   </div>
                              </div>
@@ -107,7 +95,7 @@
                             @endforeach
                              <hr>
                             <fieldset>
-                              <a href="/viewevents" class="btn btn-success" style="margin-left: 60px; width: 150px;"> View More</a>
+                              <a href="/notifications" class="btn btn-success" style="margin-left: 60px; width: 150px;"> View More</a>
                             </fieldset>
 
                       </td>

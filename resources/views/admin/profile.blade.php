@@ -36,9 +36,16 @@
                   <td class="detail">{{ $user->phone_no}}</td>
 
                 </tr>
+
                 <tr>
                   <td scope=" row" class="first">Tea Number</td>
-                  <td class="detail">{{ $user->tea_no}}</td>     
+                  @if($tea->tea_no == 'null')
+                  <td class="detail">Not Allocate</td> 
+                  @else
+                  <td class="detail">{{ $tea->tea_no}}</td> 
+                  @endif
+
+
                 </tr>
                 <tr>
                   <td scope=" row" class="first">Location</td>

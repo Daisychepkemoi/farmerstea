@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use App\Mail\NewUser;
+use App\Mail\RegisterReply;
 use Illuminate\Support\Facades\Mail;
 
 class RegisterController extends Controller
@@ -55,9 +56,10 @@ class RegisterController extends Controller
             'firstname' => 'required|string|max:255',
             'lastname' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
-            'national_id' => 'required|string|min:6|unique:users',
-            'phone_no' => 'required|string|min:9|unique:users',
+            'national_id' => 'required|string|min:6|max:9|unique:users',
+            'phone_no' => 'required|string|min:10|max:14|unique:users',
             'password' => 'required|string|min:6|confirmed',
+            // 'no_acres' => 'required|string|max:2',
         ]);
     }
 
@@ -81,7 +83,7 @@ class RegisterController extends Controller
         $bonus= $expected_produce * 28.80;
         $fert=   8 * request('No_Acres');
          $users= $user->id;
-         $ferta = 6.0;
+         // $ferta = 6.0;
         $tea= Tea::create([
             'no_acres' => request('No_Acres'),
             'user_id' => $users,
@@ -91,12 +93,13 @@ class RegisterController extends Controller
             'location' =>request('Location'),
             
         ]);
-        $admins = User::where('role','admin')->get();
+        $admins = User::where('role','admin')->where('created_by', 'user')->get();
         foreach($admins as $admin){
 
         \Mail::to($admin->email)->send(new NewUser($user));
+        
         }
-
+        Mail::send(new RegisterReply($user));
         // $pr= array()
         return ($user);
         // dd($user);

@@ -49,7 +49,7 @@
                                   <div class="col-md-6 inputGroupContainer">
                                      <div class="input-group">
                                         <span class="input-group-addon" style="max-width: 100%; height: 50px;"><i class="glyphicon glyphicon-list"></i></span>
-                                      <input id="gross_weight" name="gross_weight" placeholder="Gross Weight" class="form-control" required="true" value="{{$teaproduce->gross_weight}}" type="number" style=" height: 50px;" onmouseout="calculate()" onmouseenter="calculate()" readonly="">
+                                      <input id="gross_weight" name="gross_weight" placeholder="Gross Weight" class="form-control" required="true" value="{{$teaproduce->gross_weight}}" max="500" type="number" style=" height: 50px;" onmouseout="calculate()" onmouseenter="calculate()" readonly="">
 
                                      </div>
                                   </div>

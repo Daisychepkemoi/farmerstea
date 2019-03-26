@@ -19,7 +19,7 @@
       <div class="age">
 
         <label for="firstname"><b>{{ __('First Name') }}</b></label> 
-        <input class="input" id="firstname" type="text" {{ $errors->has('firstname') ? ' is-invalid' : '' }} placeholder="First Name" name="firstname" value="{{ old('firstname') }}" required autofocus>
+        <input class="input" id="firstname" type="text" {{ $errors->has('firstname') ? ' is-invalid' : '' }} placeholder="First Name" pattern="[A-Za-z]{3,}" title="First Name" name="firstname" value="{{ old('firstname') }}" required autofocus>
         @if ($errors->has('firstname'))
         <span class="invalid-feedback" role="alert">
           <strong>{{ $errors->first('firstname') }}</strong>
@@ -29,7 +29,7 @@
       <div class="ages">
         {{-- <h1>nbvc</h1> --}}
         <label for="lastname" ><b>{{ __('Lastname') }}</b></label>
-        <input class="input" id="lastname" type="text" {{ $errors->has('lastname') ? ' is-invalid' : '' }} placeholder="last Name" name="lastname" value="{{ old('lastname') }}" required autofocus>
+        <input class="input" id="lastname" type="text" {{ $errors->has('lastname') ? ' is-invalid' : '' }} placeholder="last Name" name="lastname" pattern="[A-Za-z]{3,}" title="Last Name" value="{{ old('lastname') }}" required autofocus>
         @if ($errors->has('lastname'))
         <span class="invalid-feedback" role="alert">
           <strong>{{ $errors->first('lastname') }}</strong>
@@ -41,7 +41,7 @@
       <br>
       <div class="age">
         <label for="NationalID"><b>{{ __('National ID') }}</b></label>
-        <input class="input" id="national_id" type="number" {{ $errors->has('national_id') ? ' is-invalid' : '' }} placeholder="National ID" name="national_id" value="{{ old('national_id') }}" required autofocus>
+        <input class="input" id="national_id" minlength="6" type="number" {{ $errors->has('national_id') ? ' is-invalid' : '' }} placeholder="National ID" name="national_id" value="{{ old('national_id') }}" required autofocus>
         @if ($errors->has('national_id'))
         <span class="invalid-feedback" role="alert">
           <strong>{{ $errors->first('national_id') }}</strong>
@@ -50,7 +50,7 @@
       </div>
       <div class="ages">
         <label for="phone_no"><b>{{ __('Phone Number') }}</b></label>
-        <input class="input" id="phone_no" type="number" {{ $errors->has('phone_no') ? ' is-invalid' : '' }} placeholder="Phone Number" name="phone_no" value="{{ old('phone_no') }}" required autofocus>
+        <input class="input" id="phoneno" type="tel" pattern="\d{4}\d{3}\d{3}" title=" 'Phone Number(Formart: 0712345678) '" maxlength="10" {{ $errors->has('phone_no') ? ' is-invalid' : '' }} placeholder="Phone Number" name="phone_no" value="{{ old('phone_no') }}" required autofocus>
         @if ($errors->has('phone_no'))
         <span class="invalid-feedback" role="alert">
           <strong>{{ $errors->first('phone_no') }}</strong>
@@ -101,7 +101,7 @@
        <label for="password-confirm"><b>{{ __('Confirm Password') }}</b></label>
          <input id="password_confirm" type="password" class="input" name="password_confirmation" required>
   </div>
-    <button class="button" type="submit"> {{ __('Register') }}</button>
+    <button class="button" type="submit" style="margin-top: 60px;"> {{ __('Register') }}</button>
     <span><h6>Already have an account? <strong class="small"><a href="{{ route('login') }}">Login</a></strong></h6></span>
     <br> <br>
   </div>
@@ -125,83 +125,83 @@
 </header>
 
 <script type="text/javascript">
-function validatte()
-{
+// function validatte()
+// {
     
-        var firstname = document.form.firstname;
-        var lastname = document.form.lastname;
-        var national_id = document.form.national_id;
-        var phone_no = document.form.phone_no;
-        var location = document.form.location;
-        var email = document.form.email;
-        var password = document.form.password;
-        var no_acres = document.form.no_acres;
-        var password-confirm = document.form.password-confirm;
+//         var firstname = document.form.firstname;
+//         var lastname = document.form.lastname;
+//         var national_id = document.form.national_id;
+//         var phone_no = document.form.phone_no;
+//         var location = document.form.location;
+//         var email = document.form.email;
+//         var password = document.form.password;
+//         var no_acres = document.form.no_acres;
+//         var password-confirm = document.form.password-confirm;
        
-        var isnum = /^\d+$/.test(val);
+//         var isnum = /^\d+$/.test(val);
 
        
-   // if(!(ch>='a' && ch<='z') || (!(ch>='A' && ch<='Z'))){
+//    // if(!(ch>='a' && ch<='z') || (!(ch>='A' && ch<='Z'))){
             
-   if((national_id||phone_no||no_acres)!==isnum){
-alert("only a digit is required");
-national_id.focus();
-phone_no.focus();
-no_acres.focus();
-return false;
-   }
+//    if((national_id||phone_no||no_acres)!==isnum){
+// alert("only a digit is required");
+// national_id.focus();
+// phone_no.focus();
+// no_acres.focus();
+// return false;
+//    }
    
-}
+// }
    
-    if (email.value.indexOf("@", 0) < 0)
-    {
-        window.alert("Please enter a valid e-mail address.");
-        email.focus();
-        return false;
-    }
-    if (email.value.indexOf(".", 0) < 0)
-    {
-        window.alert("Please enter a valid e-mail address.");
-        email.focus();
-        return false;
-    }
-     if (national_id.value.length < 7 )
-    {
-        window.alert("Please enter a national_id of more than 8 characters");
-       national_id.focus();
-        return false;
-    }
-    if (phone_no.value.length < 10 )
-    {
-        window.alert("Please enter a phone_no of more than 10 characters");
-       phone_no.focus();
-        return false;
-    }
-    if (no_acres.value.length >3 )
-    {
-        window.alert("Please enter a no_acres of more than 3 characters");
-       no_acres.focus();
-        return false;
-    }
-    if (password.value.length < 6 )
-    {
-        window.alert("Please enter a password of more than 6 characters");
-       password.focus();
-        return false;
-    }
-    if (firstname.value.indexOf("<", 0)>1){
-        window.alert("Please enter a valid username address.");
-    firstname.focus();
-        return false;
-    }
-    if (lastname.value.indexOf("<", 0)>1){
-        window.alert("Please enter a valid username address.");
-    lastname.focus();
-        return false;
-    }
+//     if (email.value.indexOf("@", 0) < 0)
+//     {
+//         window.alert("Please enter a valid e-mail address.");
+//         email.focus();
+//         return false;
+//     }
+//     if (email.value.indexOf(".", 0) < 0)
+//     {
+//         window.alert("Please enter a valid e-mail address.");
+//         email.focus();
+//         return false;
+//     }
+//      if (national_id.value.length < 7 )
+//     {
+//         window.alert("Please enter a national_id of more than 8 characters");
+//        national_id.focus();
+//         return false;
+//     }
+//     if (phone_no.value.length < 10 )
+//     {
+//         window.alert("Please enter a phone_no of more than 10 characters");
+//        phone_no.focus();
+//         return false;
+//     }
+//     if (no_acres.value.length >3 )
+//     {
+//         window.alert("Please enter a no_acres of more than 3 characters");
+//        no_acres.focus();
+//         return false;
+//     }
+//     if (password.value.length < 6 )
+//     {
+//         window.alert("Please enter a password of more than 6 characters");
+//        password.focus();
+//         return false;
+//     }
+//     if (firstname.value.indexOf("<", 0)>1){
+//         window.alert("Please enter a valid username address.");
+//     firstname.focus();
+//         return false;
+//     }
+//     if (lastname.value.indexOf("<", 0)>1){
+//         window.alert("Please enter a valid username address.");
+//     lastname.focus();
+//         return false;
+//     }
     
-   return true;
-  }
+//    return true;
+//   }
 
 
 </script>

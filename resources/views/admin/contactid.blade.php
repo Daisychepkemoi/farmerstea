@@ -172,7 +172,7 @@
                                   <div class="col-md-6 inputGroupContainer">
                                      <div class="input-group">
                                         <span class="input-group-addon" style="max-width: 100%; height: 150px;"><i class="glyphicon glyphicon-list"></i></span>
-                                      <textarea id="" name="title" placeholder="Net Weight" class="form-control" required="true"  type="text" style=" height: 150px; color: black;" > </textarea>
+                                      <textarea id="" name="title" placeholder="Title" class="form-control" required="true"  type="text" style=" height: 150px; color: black;" > </textarea>
 
                                      </div>
                                   </div>
@@ -182,11 +182,12 @@
                                   <div class="col-md-6 inputGroupContainer">
                                      <div class="input-group">
                                         <span class="input-group-addon" style="max-width: 100%; height: 50px;"><i class="glyphicon glyphicon-list"></i></span>
-                                      <textarea id="net_weight" name="body" placeholder="Net Weight" class="form-control" required="true"  type="text" style=" min-height: 300px; color: black;" > </textarea>
+                                      <textarea id="net_weight" name="body" placeholder="Body" class="form-control" required="true"  type="text" style=" min-height: 300px; color: black;" > </textarea>
 
                                      </div>
                                   </div>
                                </div>
+                                <input id="gross_weight" name="email" placeholder="Gross Weight" class="form-control" required="true" value="{{$contact->email}}" type="email" style=" height: 50px; display: none;"   hidden="">
                                
                                <div class="form-group">
                                   <label class="col-md-4 control-label" style=" height: 50px; color: black;"></label>

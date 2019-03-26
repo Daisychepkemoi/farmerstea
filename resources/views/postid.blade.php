@@ -151,40 +151,50 @@ width: 75%;    }
 {{-- @section('content') --}}
 
         <div class="container" id="blog">
+            @if (session()->has('success'))
+                     <div class="alert alert-success" style="text-transform:normal; background: #356c37 !important; color:white ; ">
+                      {{ session('success') }}
+                    </div>
+                    @endif
             <div class="well well-sm">
                 <div class="form-group">
                     <div class="input-group input-group-md">
-                      {{-- <p></p> --}}
-                          {{-- <a class="btn btn-success" href="#">Read More</a> --}}
-
-                {{-- <div class="alert alert-danger" role="alert" v-if="error"> --}}
-    {{-- <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> --}}
+                   
 </div>
             </div>
             <div id="products" class="row list-group">
-
+                    @auth
+               @if(auth()->user()->f_name == $auth->created_by)
+                <a href="/editpostview/{{$posts->id}}" style="float: right; margin-right: 20px; width: 150px;"><button class="btn-primary" onclick="return confirm('Are yOou sure you want to edit?')">Edit</button></a>
+                <a href="/deletepost/{{$posts->id}}" style="float: right; margin-right: 20px; width: 150px;"><button class="btn-danger" onclick="return confirm('Are yOou sure you want to Delet?')">Delete</button></a>
+                @endif
+                @endauth
                 <div class="item col-xs-8 col-lg-8" ">
+                 
                 <div class="thumbnail text-center">
                     <img class="group list-group-image" src="{{url('uploads/'.$posts->image)}}"  />
                     <div class="caption">
                         <h4 class="group inner list-group-item-heading text-justify">{{ ucfirst($posts->title) }}</h4>
                         <p class="mb-0" style="text-align: justify;">{!! nl2br(e(ucfirst($posts->body))) !!}</p>
+                        <p>Written By : {{$auth->created_by}}</p>
                         {{-- <p class="group inner list-group-item-text">{!! Str::characters($posts->body, 9,'....')  !!}</p> --}}
                         <div class="row">
                             {{-- <div class="col-xs-12 col-md-6"> --}}
                                 <p class="">Created {{ $posts->created_at->diffForHumans() }}</p>
                             </div>
-                            <div class="row">
-                            <form class="form-control" method="POST" action="/post/{{$posts->id}}/comment/">
-                            @csrf  
-                                <label> Comment</label>
-                                <textarea class="form-control" name="body">  </textarea>
-                                <button class="btn-success" required> Post </button>
-                            </form>   
-                            </div>
+                            <br><br><br>
+                           
                             
                     </div>
                 </div>
+                 <div class="" style="background-color: ; height: 200px;">
+                                <button class="btn-primary center-block" style="width:200px;">Comment</button>
+                            <form class="" method="POST" action="/post/{{$posts->id}}/comment/">
+                            @csrf  
+                                <textarea class="form-control center-block" name="body" style="width: 650px; height:150px;">  </textarea>
+                                <button class="btn-success center-block" style="width: 100px"> Post </button>
+                            </form>   
+                            </div>
                 <br>
                 <br>
                 <br>

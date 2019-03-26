@@ -14,7 +14,7 @@
                            .container .hello{
                                 float: left;
                                 width:22%;
-                                height: 600px;
+                                min-height: 600px;
                                 border-width: 1px;
                                 border-style: ridge;
                                 margin-left: 3%;
@@ -44,7 +44,7 @@
                                 border-bottom-color: black;
                             }
                             .hello .body{
-                                height:300px;
+                                min-height:500px;
                                 border-bottom-width: 1px;
                                 border-bottom-color: black;
                             }
@@ -58,11 +58,11 @@
                                 text-transform: initial;
                                 padding-left: 15px !important;
                                 padding-right: 15px !important;
-                                height: 100px; 
+                                min-height: 100px; 
                                 /*background-color: yellow;*/
                             }
                              .hello .body h4{
-                                height: 80px;
+                                min-height: 80px;
                                 padding-left:  15px; 
                                 padding-right:  15px; 
                                 /*background-color: red;*/
@@ -84,7 +84,11 @@
                         </style>  
 
                 <div class = "container">
-                                        
+                            @if (session()->has('success'))
+                     <div class="alert alert-success" style="text-transform:normal; background: #356c37 !important; color:white ; ">
+                      {{ session('success') }}
+                    </div>
+                    @endif            
                           @foreach($posts as $post)
 
                         <div class="hello">

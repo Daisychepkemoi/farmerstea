@@ -17,7 +17,7 @@
 
                 <h4>Period</h4>
                 <div class="start">
-                    <label for="startdate" >Start Date</label>
+                    <label for="startdate" >Month</label>
                      <select  name="month" id="month" value="">
                       <option>All</option>
                       <option>January</option>
@@ -35,7 +35,7 @@
                     </select>
                 </div>
                 <div class="start">
-                    <label for="enddate" >EndDate</label>
+                    <label for="enddate" >Year</label>
                      <select  name="year" id="month" value="{{ old('month') }}">
                       <option>2019</option>
                       <option>2018</option>
@@ -48,7 +48,7 @@
                 <div class="end">
 
                    
-                    <button type="submit" class="btn-success" style="height: 50px; ">Sort</button>
+                    <button type="submit" class="btn-success" style="height: 50px; width: 150px; ">Sort</button>
                 </div>
               </form>
             </div>

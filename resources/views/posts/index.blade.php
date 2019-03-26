@@ -32,7 +32,11 @@
   <div class="landing-page">
     <div style="" id="page"></div>
     <div class="buttons-container" data-aos="slide-up" data-aos-duration="3000" style="padding-top: 0%">
-      <div class=" bg-danger" style="height: 70px; margin-top: 80px; width: 100%;background-color: ;">
+         <div class="bg-danger" style="height: 70px; float: right; margin-top: 80px; width: 5%;background-color: ; ">
+           <a href="/notifications" class="" style="background-image: url({{url('/image/Notification.png')}}); background-size: cover; height:60px;width: 60px; color: #f9f9f9;" >o</a>
+         </div>
+
+      <div class=" bg-danger" style="height: 70px; float: left; margin-top: 80px; width: 95%;background-color: ;">
         <marquee scrollamount="10" class=""> <p> 
           @foreach($nots as $noti)
           <div id="marq" > <p style="padding-left: 10px; font-size: 28px;"> <a href="/notification/{{$noti->id}}">{!! ucfirst(strip_tags(\Illuminate\Support\Str::words($noti->title, 10,'...'))) !!} </a></p></div>
@@ -50,7 +54,7 @@
        @if ($user->verifiedadmin == 'notverified')
         @if ( $user->role == 'user')
           @if($user->created_by == 'user')
-       <div class="alert alert-success" id="alerta" style="background-color: red; height: 100px; margin-top: 40px; width: 80%; margin-left: 10%;">
+       <div class="alert alert-success" id="alerta" style="background-color: red; height: 100px; margin-top: 40px; width: 80%; clear: both; margin-left: 10%;">
         <p style="color: black;">Your Account has not been activated!! <button class="button" style="padding-top: 0px; margin-top:-13px; float: right; background: red; font-size: 28px;height: 80px;width: 20px" onclick="closeForm()">&times;</button> </p>
         <script type="text/javascript">
           function closeForm() {
@@ -61,7 +65,7 @@
         </script>
       </div>
       @else
-      <div class="alert alert-success" id="alerta" style="background-color: red; height: 100px; margin-top: 40px; width: 80%; margin-left: 10%;">
+      <div class="alert alert-success" id="alerta" style="background-color: red; height: 100px; margin-top: 40px; width: 80%; clear: both; margin-left: 10%;">
         <p style="color: black;">Your Account has been revoked !! <button class="button" style="padding-top: 0px; margin-top:-13px; float: right; background: red; font-size: 28px;height: 80px;width: 20px" onclick="closeForm()">&times;</button> </p>
         <script type="text/javascript">
           function closeForm() {
@@ -74,7 +78,7 @@
       @endif
       @endif
       @elseif(($user->verifiedadmin == 'revoked'))
-      <div class="alert alert-success" id="alerta" style="background-color: red; height: 100px; margin-top: 40px; width: 80%; margin-left: 10%;">
+      <div class="alert alert-success" id="alerta" style="background-color: red; height: 100px; margin-top: 40px; width: 80%;clear: both; margin-left: 10%;">
         <p style="color: black;">Your Account has been revoked!! <button class="button" style="padding-top: 0px; margin-top:-13px; float: right; background: red; font-size: 28px;height: 80px;width: 20px" onclick="closeForm()">&times;</button> </p>
         <script type="text/javascript">
           function closeForm() {
@@ -85,7 +89,7 @@
         </script>
       </div>
       @elseif($user ->verifiedadmin == 'denied')
-      <div class="alert alert-success" id="alerta" style="background-color: red; height: 100px; margin-top: 40px; width: 80%; margin-left: 10%;">
+      <div class="alert alert-success" id="alerta" style="background-color: red; height: 100px; margin-top: 40px; width: 80%; clear: both; margin-left: 10%;">
         <p style="color: black;">You have been denied a tea number please contact <a href="/contactus">Admin</a>!! <button class="button" style="padding-top: 0px; margin-top:-13px; float: right; background: red; font-size: 28px;height: 80px;width: 20px" onclick="closeForm()">&times;</button> </p>
         <script type="text/javascript">
           function closeForm() {
@@ -114,7 +118,7 @@
             </div>
             <div class="imageback2">
               <h1>Litein Tea Factory</h1>
-                      <p class="text-left" style="float: left; margin-left: 100px; font-size: 16px;font-weight: normal; color: grey; margin-right: 100px; line-height: 2;">Litein Tea Factory was founded by James Finlay and its foundation was laid on 9th April, 1965 by the then Minister of Home Affairs (Hon. Daniel T. Arap Moi). The Factory was commissioned a year later by the then Vice President (Hon. Oginga Odinga) in 11th March, 1966 with a design capacity of 5 million kilograms annually. The factory has since been expanded to the current capacity of 15 million kilograms. <a class="btn-success" style="width: 200px; height: 50px;">Read More</a></p>
+                      <p class="text-left" style="float: left; margin-left: 100px; font-size: 16px;font-weight: normal; color: grey; margin-right: 100px; line-height: 2;">Litein Tea Factory was founded by James Finlay and its foundation was laid on 9th April, 1965 by the then Minister of Home Affairs (Hon. Daniel T. Arap Moi). The Factory was commissioned a year later by the then Vice President (Hon. Oginga Odinga) in 11th March, 1966 with a design capacity of 5 million kilograms annually. The factory has since been expanded to the current capacity of 15 million kilograms. <a class="btn-success" href="/readmore" style="width: 200px; height: 50px;">Read More</a></p>
 
             </div>
           </div>

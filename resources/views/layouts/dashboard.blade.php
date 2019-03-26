@@ -77,8 +77,10 @@ table .r td:first-child::before {
     </head>
     <body class="cm-no-transition cm-2-navbar">
         <div id="cm-menu">
-             <nav class="cm-navbar cm-navbar" style="background-color: green;">
-                <div class="cm-flex" style="background-image: url({{asset('image/logo.jpg')}});width: 150px; height: 70px; margin-left: 5px; margin-top: 5px;" ><a href="index.html" class="" ></a></div>
+             <nav class="cm-navbar cm-navbar" style="background-color:green;">
+                <div class="cm-flex" style="" ><a href="/" class="" >
+                    <img src="{{ URL::to('image/logoo.jpg') }}" style="background-image:;width: 200px; background-color: ; height:60px; margin-left: 5px; margin-top:-5px; background-color:;">
+                </a></div>
                 <div class="btn btn-success " data-toggle="cm-menu" style="background-image: url({{asset('image/home.ico')}})"></div>
             </nav>
             {{-- <nav class="cm-navbar " style="background: green;"> --}}
@@ -93,12 +95,13 @@ table .r td:first-child::before {
                     <div id="cm-menu-scroller" >
                         <ul class="cm-menu-items">
                             @if($user->role == 'user')
-                            <li ><a href="{{ url('/')}}" class="glyphicon " >Home</a></li>
+                            <li ><a href="{{ url('/')}}" class="s " >Home</a></li>
                              @if($user->verifiedadmin == "verified"  )
                             <li class="active"><a href="/dashboard" class="sf-dashboard">Dashboard</a></li>
                             <li><a href="{{ route('report') }}" class="sf-brick">Reports</a></li>
                             <li><a href="/viewevents" class="sf-brick">Events</a></li>
                             <li><a href="/blog" class="sf-brick">Blog</a></li>
+                            <li><a href="/notifications" class="sf-brick">Notifications</a></li>
                                 @else
                                 @endif
                             @else

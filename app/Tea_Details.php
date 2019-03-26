@@ -17,6 +17,6 @@ class Tea_Details extends Model
     }
      public function users() {
 
-        return $this->BelongsTo(Users::class);
+        return $this->hasMany(Users::class);
     }
 }

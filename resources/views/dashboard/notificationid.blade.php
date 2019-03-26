@@ -158,7 +158,12 @@ width: 75%;    }
 </div>
             </div>
             <div id="products" class="row list-group">
-
+                {{-- <a href="/viewevents" style="float: right; margin-right: 20px; width: 150px;"><button class="btn-primary">Back</button></a> --}}
+                @auth
+               @if(auth()->user()->id == $auth->user_id)
+                <a href="/notificationview/edit/{{$notification->id}}" style="float: right; margin-right: 20px; width: 150px;"><button class="btn-danger">Edit</button></a>
+                @endif
+                @endauth
                 <div class="item col-xs-8 col-lg-8" ">
                 <div class="thumbnail text-center">
                     <div class="caption">

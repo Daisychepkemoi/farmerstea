@@ -46,7 +46,7 @@
       
       @if (Route::has('password.request'))
          
-                 <h6><a href="{{ route('password.request') }}">Forgot your Password?</a></h6>
+                 <h6><a href="{{ route('register') }}">Register?</a><a href="{{ route('password.request') }}">Forgot your Password?</a></h6>
           
       @endif
     </div>

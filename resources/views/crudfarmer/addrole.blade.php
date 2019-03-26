@@ -69,7 +69,7 @@
                           <div class="form-group">
                             <label class="col-md-4 control-label" style=" height: 50px;">Phone Number</label>
                             <div class="col-md-6 inputGroupContainer">
-                               <div class="input-group"><span class="input-group-addon" style=" height: 50px;"><i class="glyphicon glyphicon-earphone"></i></span><input id="phoneNumber" name="phone_no" placeholder="Phone Number" class="form-control" required="true" value="" type="text" style=" height: 50px;"></div>
+                               <div class="input-group"><span class="input-group-addon" style=" height: 50px;"><i class="glyphicon glyphicon-earphone"></i></span><input id="phoneNumber" name="phone_no" placeholder="Phone Number" class="form-control" required="true" value="" type="number" style=" height: 50px;"></div>
                             </div>
                          </div>
                         

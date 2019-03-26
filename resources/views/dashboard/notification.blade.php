@@ -126,13 +126,18 @@
                                 
                                 <button class="btn-danger" style="width: 150px; color: white; background: ; color: white; background-color: ;" onclick="openForm()"> Contact Us</button>
                                 <form method="POST" action="/contactus" name="form" style="margin: 50px; border-style: groove;border-color: orange; padding: 40px; font-size: 20px;       background: #356c37; color: white; display: ; width: 100% !important;">
+                                  @csrf
                                   <label>Email <strong>*</strong></label>
-                                  <input class="form-control" name="email" type="email" name="email" placeholder="Email..">
+                                  @auth
+                                  <input class="form-control" type="email" name="email" placeholder="Email.." value="{{auth()->user()->email}}" readonly>
+                                    @else
+                                   <input class="form-control" type="email" name="email" placeholder="Email.." required="">
+                                   @endif
                                   <label>Title <strong>*</strong></label>
                                   <input class="form-control" name="title" type="text" name="title" placeholder="Title...">
                                   <label>Body <strong>*</strong></label>
-                                  <textarea class="form-control" style="height: 150px;"></textarea>
-                                  <button class="btn-custom" name="body" type="submit" style="margin-top: 20px;" > Submit</button>
+                                  <textarea class="form-control" name="body" style="height: 150px;color: black;font-weight: 400" ></textarea>
+                                  <button class="btn-custom"  type="submit" style="margin-top: 20px;" > Submit</button>
                                 </form>
 
                             

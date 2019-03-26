@@ -4,7 +4,7 @@
 |--------------------------------------------------------------------------
 | Web Routes
 |--------------------------------------------------------------------------
-|
+|contact
 | Here is where you can register web routes for your application. These
 | routes are loaded by the RouteServiceProvider within a group which
 | contains the "web" middleware group. Now create something great!
@@ -18,7 +18,7 @@ Route::get('/', function () {
 Auth::routes();
 //users
 
-Route::get('/download', 'PostsController@down');
+Route::get('/readmore', 'UsersController@readmore');
 Route::get('/admin/contactus', 'ContactsController@index');
 Route::get('/admin/contactus/sort', 'ContactsController@sort');
 Route::get('/admin/contact/{id}', 'ContactsController@contactid');
@@ -28,7 +28,8 @@ Route::get('/blog', 'PostsController@blog');
 Route::get('/homeordash', 'UsersController@homeordash');
 Route::get('/addteaproduce', 'TeaDetailsController@index')->name('addteaproduce');
 Route::get('/addteaproduce/edit/{id}', 'TeaDetailsController@editteaproduce');
-Route::get('/receipt', 'TeaDetailsController@receipt');
+Route::get('/receipt/{id}', 'TeaDetailsController@receipt');
+Route::get('/printreceipt/{id}', 'TeaDetailsController@printreceipt');
 Route::get('/viewdailyproducereport', 'TeaDetailsController@dailyreport');
 Route::post('/editteaproduce/edit/{id}', 'TeaDetailsController@edit');
 Route::post('/agentsort', 'TeaDetailsController@sort');
@@ -38,12 +39,17 @@ Route::post('/addteaproduce', 'TeaDetailsController@store');
 Route::get('/report', 'UsersController@report')->name('report');
 Route::get('/createpost', 'PostsController@post')->name('welcome');
 Route::get('/post/{id}', 'PostsController@postid')->name('postid');
+Route::get('/editpostview/{id}', 'PostsController@editpostview')->name('postid');
+Route::post('/editpost/{id}', 'PostsController@editpost')->name('editpost');
+Route::get('/deletepost/{id}', 'PostsController@destroy')->name('deletepost');
 Route::post('/postcreate', 'PostsController@store')->name('store');
 Route::get('/sortreport', 'UsersController@sortreport')->name('sortreport');
 Route::get('/notifications', 'UsersController@notification');
 Route::get('/notification/{id}', 'UsersController@notificationid');
+Route::get('/notificationview/edit/{id}', 'AdminsController@editnotificationview');
+Route::post('/notification/edit/{id}', 'AdminsController@editnotificationid');
 Route::get('/profile', 'UsersController@profile');
-Route::post('/profile/edit/{id}', 'UsersController@edit');
+Route::post('/profile/editsave/{id}', 'UsersController@editsave');
 Route::get('/profile/edit/{id}', 'UsersController@editprofile');
 Route::get('/pdfgenerate', 'UsersController@generate')->name('generate');
 //admin
@@ -52,6 +58,8 @@ Route::get('/admin/createevents', 'AdminsController@createevents');
 Route::post('/admin/createevents', 'AdminsController@store')->name('createevent');
 Route::get('/viewevents', 'AdminsController@viewevents');
 Route::get('/events/{id}', 'AdminsController@vieweventid');
+Route::get('/vieweventid/edit/{id}', 'AdminsController@editeventview')->name('editevent');
+Route::post('/events/edit/{id}', 'AdminsController@editevent')->name('editevent');
 Route::get('/admin/createnotification', 'AdminsController@createnotification');
 Route::post('/admin/createnotification', 'AdminsController@storenotification');
 Route::get('/admin/viewnotification/{id}', 'AdminsController@viewnotificationid');
@@ -68,7 +76,7 @@ Route::post('/admin/addadmin', 'AdminsController@addadmin');
 Route::get('/admin/removepriviledge/{id}', 'AdminsController@removepriviledge');
 Route::get('/admin/addpriviledge/{id}', 'AdminsController@addpriviledge');
 Route::get('/admin/editfarmer/{id}', 'AdminsController@editfarmer');
-Route::post('/admin/editfarmer/{id}', 'AdminsController@saveeditfarmer');
+Route::post('/admin/editfarmersave/{id}', 'AdminsController@saveeditfarmer');
 Route::get('/back', 'AdminsController@back');
 // Route::get('/admin/editprofile', 'AdminsController@editprofile');
 Route::get('/admin/farmersreport', 'ReportController@farmersreport')->name('farmersreport');
@@ -76,6 +84,7 @@ Route::get('/farmers', 'ReportController@farmers');
 Route::post('/farmersort', 'ReportController@farmersort');
 
 Route::get('/admin/teareport', 'ReportController@teasreport')->name('teareport');
+Route::post('/admin/teareport/sort', 'ReportController@teasreportsort')->name('teareportsort');
 Route::get('/tea', 'ReportController@tea');
 
 

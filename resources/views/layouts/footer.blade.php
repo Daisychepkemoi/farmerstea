@@ -32,14 +32,14 @@
                                   @auth
                                   <input class="form-control" type="email" name="email" placeholder="Email.." value="{{auth()->user()->email}}" readonly>
                                     @else
-                                   <input class="form-control" type="email" name="email" placeholder="Email..">
+                                   <input class="form-control" type="email" name="email" placeholder="Email.." required="">
                                    @endif
 
 
                                   <label>Title <strong>*</strong></label>
-                                  <input class="form-control" type="text" name="title" placeholder="Title...">
+                                  <input class="form-control" type="text" name="title" placeholder="Title..." required="">
                                   <label>Body <strong>*</strong></label>
-                                  <textarea class="form-control" name="body" style="color: black; font-weight: 800;"></textarea>
+                                  <textarea class="form-control" name="body" style="color: black; font-weight: 800;" required=""></textarea>
                                   <button class="btn-custom" type="submit"> Submit</button>
                                 </form>
                               </div>

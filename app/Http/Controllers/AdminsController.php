@@ -20,6 +20,7 @@ use App\Mail\NewNotification;
 use App\Mail\ContactForm;
 use App\Mail\NewAdmin;
 use App\Mail\RevokeAdmin;
+use App\Mail\ContactReply;
 use Illuminate\Support\Facades\Validator;
 
 
@@ -69,12 +70,55 @@ class AdminsController extends Controller
         $user = auth()->user();
         $event= Event::where('id', $id)->first();
         $notcount = Notification::get()->count();
+         $events = Event::orderBy('created_at','desc')->paginate(3);
+         $auth = Event::where('id',$id)->first();
+
          $db = DB::raw('YEAR(held_at) as created');
         $eventyear = Event::select($db)->orderBy('created','DESC')->pluck('created')->unique();
         $users = User::where('id', $event->user_id)->first();
                           $nots = Notification::latest()->paginate(3);
 
-        return view('admin.vieweventid', compact('user', 'event', 'users', 'notcount','eventyear','nots'));
+        return view('admin.vieweventid', compact('user', 'event', 'users','auth', 'notcount','eventyear','nots'));
+    }
+    public function editeventview($id)
+    {
+        $user = auth()->user();
+        $event= Event::find($id);
+       
+        $notcount = Notification::get()->count();
+         $db = DB::raw('YEAR(held_at) as created');
+        $eventyear = Event::select($db)->orderBy('created','DESC')->pluck('created')->unique();
+        $users = User::where('id', $event->user_id)->first();
+         $nots = Notification::latest()->paginate(3);
+       $mindate = now();
+         $events = Event::orderBy('created_at','desc')->paginate(3);
+         // $date = Event::where('id',$id)->pluck('held_at');
+         // $cform = $date->format('y-m-d');
+         // dd(cform);
+
+
+
+        return view('admin.editevent', compact('user','mindate', 'event','events', 'users', 'notcount','eventyear','nots'));
+    }
+
+    
+    public function editevent($id, Request $request)
+    {
+        $user = auth()->user();
+        $event= Event::find($id);
+        $event->title=$request->get('title');
+        $event->held_at=$request->get('held_at');
+        $event->body=$request->get('body');
+        $event->user_id=$user->id;
+            
+        $event->save();
+        $notcount = Notification::get()->count();
+         $db = DB::raw('YEAR(held_at) as created');
+        $eventyear = Event::select($db)->orderBy('created','DESC')->pluck('created')->unique();
+        $users = User::where('id', $event->user_id)->first();
+                          $nots = Notification::latest()->paginate(3);
+
+        return redirect('/viewevents')->with('success', 'Event Edited successfully');
     }
     public function viewevents()
     {
@@ -137,6 +181,8 @@ class AdminsController extends Controller
 
            
           Mail::send(new ContactForm($contactus));
+         Mail::send(new ContactReply($email));
+
           return redirect('/')->with('success', 'Message sent Successfully');
     }
 
@@ -164,12 +210,32 @@ class AdminsController extends Controller
         $notification= Notification::where('id', $id)->first();
         $users = User::where('id', $notification->user_id)->first();
         $notcount = Notification::get()->count();
-                          $nots = Notification::latest()->paginate(3);
-
-        // dd($notification);
-
-        // DB::table('notifications')->where('id',$id)->update(['viewed' => true]);
+        $nots = Notification::latest()->paginate(3);
         return view('admin.viewnotificationid', compact('user', 'users', 'notification', 'notcount','nots'));
+    }
+     public function editnotificationid($id, Request $request)
+    {
+        $user = auth()->user();
+        $notification= Notification::find($id);
+        $notification->title=$request->get('title');
+        $notification->body=$request->get('body');
+        $notification->user_id=$user->id;
+            
+        $notification->save();
+        
+
+        return redirect('/notifications')->with('success', 'Event Edited successfully');
+    }
+    public function editnotificationview($id)
+    {
+        $user = auth()->user();
+        $notification= Notification::where('id', $id)->first();
+        $users = User::where('id', $notification->user_id)->first();
+        $notcount = Notification::get()->count();
+        $nots = Notification::latest()->paginate(3);
+        $auth = Notification::where('id',$id)->first();
+
+        return view('admin.editnotification', compact('user', 'users','auth', 'notification', 'notcount','nots'));
     }
     public function profile()
     {
@@ -316,7 +382,7 @@ class AdminsController extends Controller
             'phone_no' => 'required|unique:users|min:10|max:11',
             'national_id' => 'required|unique:users|min:7|max:10',
             'email' => 'required|email|unique:users',
-          'password' => 'required|string|min:6|confirmed',
+          'password' => 'required|string|min:6',
 
            ]);
         if ($validator->fails()) {
@@ -374,7 +440,7 @@ class AdminsController extends Controller
             
         $users->save();
          // $tea= Tea::where('user_id', $id)->first();
-         // dd($users);
+         // dd/($users);
 
         // dd($request->get('lastname'));
         $expected_produce=  911* request('no_acres');
@@ -389,8 +455,9 @@ class AdminsController extends Controller
         // dd($farmer);
         $tea= Tea::where('user_id', $farmer->id)->first();
                           $nots = Notification::latest()->paginate(3);
+        return redirect('/admin/upgradefarmer')->with('success','Farmers details editted successfully');
 
-       return view('admin.editfarmer',compact('user','farmer','tea','notcount','nots'));
+       // return view('admin.editfarmer',compact('user','farmer','tea','notcount','nots'));
 
     }
 }

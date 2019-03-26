@@ -21,9 +21,14 @@ class UsersController extends Controller
    
     public function __construct()
     {
-        $this->middleware('auth')->except('index','notificationid','notification');
+        $this->middleware('auth')->except('index','notificationid','notification','readmore');
        
     }
+    public function readmore(){
+         $user = auth()->user();
+         $notcount = Notification::get()->count();
+         return view('image',compact('user'));
+        }
 
   
       public function homeordash(){
@@ -111,9 +116,12 @@ class UsersController extends Controller
          $notcount = Notification::get()->count();
          $notification = Notification::find($id);
          $username  = User:: where('id',$notification->user_id)->first();
-                          $nots = Notification::latest()->paginate(15);
+                  $auth = Notification::where('id',$id)->first();
 
-        return view('dashboard.notificationid',compact('notcount','user','notification','username','nots'));
+                          $nots = Notification::latest()->paginate(15);
+                          // dd($nots);
+
+        return view('dashboard.notificationid',compact('notcount','user','auth','notification','username','nots'));
     }
     public function profile()
     {
@@ -142,27 +150,27 @@ class UsersController extends Controller
         // Finally, you can download the file using download function
         return $pdf->download('customers.pdf');
     }
-    public function edit(tea $tea, $id, Request $request)
+    public function editsave(tea $tea, $id, Request $request)
     {
 
         $users = User::find($id);
-        if(!($users->phone_no == $request->phone_no && $users->email == $request->email) ) {
+//         if(!( $users->phone_no == $request->phone_no) ) {
+// // $users->phone_no == $request->phone_no 
+//            $validator = Validator::make($request->all(), [
+//             'f_name' => 'required|max:120',
+//             'l_name' => 'required|max:120',
+//             'phone_no' => 'required|unique:users|min:10|max:11',
+//             // 'national_id' => 'required|unique:users|min:7|max:10',
+//             // 'email' => 'required|email|unique:users',
+//            ]);
 
-           $validator = Validator::make($request->all(), [
-            'f_name' => 'required|max:120',
-            'l_name' => 'required|max:120',
-            'phone_no' => 'required|unique:users|min:10|max:11',
-            'national_id' => 'required|unique:users|min:7|max:10',
-            'email' => 'required|email|unique:users',
-           ]);
-
-        if ($validator->fails()) {
-            return redirect('/profile/edit/'.$id)
-                        ->withErrors($validator)
-                        ->withInput();
-         }
-        }
-      else{
+//         if ($validator->fails()) {
+//             return redirect('/profile/edit/'.$id)
+//                         ->withErrors($validator)
+//                         ->withInput();
+//          }
+//         }
+//       else{
          $users->f_name = $request->get('f_name');
         $users->l_name = $request->get('l_name');
         $users->phone_no = $request->get('phone_no');
@@ -181,6 +189,6 @@ class UsersController extends Controller
         $teas->bonus = $bonus;
         $teas->save();
         return redirect('/profile');
-      }
+      // }
     }
 }

@@ -180,13 +180,7 @@
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav navbar-right" style="color: white !important;">
                         <li><a href="/home" class="page-scroll" style="color: white !important;">Home</a></li>
-                        <li><a href="#about" class="page-scroll" style="color: white !important;">About</a></li>
-                       <li><a href="#features" class="page-scroll" style="color: white !important;">services</a></li>
-
-                        {{-- <li><a href="#services" class="page-scroll" style="color: white !important;">Services</a></li> --}}
-                        <li><a href="#contact" class="page-scroll" style="color: white !important;">Contact</a></li>
-                        <li><a href="/blog" class="page-scroll" style="color: white !important;">Blog</a></li>
-                       <li><a href="/viewevents" class="page-scroll" style="color: white !important;">Events</a></li>
+                        
 
                         @if(auth()->user()->verifiedadmin == 'verified') 
                         {{-- a verified user --}}
@@ -201,7 +195,14 @@
                         @else
 
                         @endif
-                        <li><a style="color: white!important;" >
+                        <li><a href="#about" class="page-scroll" style="color: white !important;">About</a></li>
+                       <li><a href="#features" class="page-scroll" style="color: white !important;">services</a></li>
+
+                        {{-- <li><a href="#services" class="page-scroll" style="color: white !important;">Services</a></li> --}}
+                        <li><a href="#contact" class="page-scroll" style="color: white !important;">Contact</a></li>
+                        <li><a href="/blog" class="page-scroll" style="color: white !important;">Blog</a></li>
+                       <li><a href="/viewevents" class="page-scroll" style="color: white !important;">Events</a></li>
+                        <li><a style="color: white!important;" href="/profile" >
                                     {{ Auth::user()->f_name }} <span class="caret"></span>
                                 </a>
                             <ul>
@@ -259,13 +260,14 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="/home" class="page-scroll" style="color: white !important;">Home</a></li>
-                <li><a href="#about" class="page-scroll" style="color: white !important;">About</a></li>
+               
+                <li><a href="/blog" class="page-scroll" style="color: white !important;">Blog</a></li>
+                 <li><a href="/viewevents" class="page-scroll" style="color: white !important;">Events</a></li>
+                  <li><a href="#about" class="page-scroll" style="color: white !important;">About</a></li>
                 <li><a href="#features" class="page-scroll" style="color: white !important;">Services</a></li>
 
                 {{-- <li><a href="#services" class="page-scroll" style="color: white !important;">Services</a></li> --}}
                 <li><a href="#contact" class="page-scroll" style="color: white !important;">Contact</a></li>
-                <li><a href="/blog" class="page-scroll" style="color: white !important;">Blog</a></li>
-                 <li><a href="/viewevents" class="page-scroll" style="color: white !important;">Events</a></li>
 
                 <li> <a href="{{ route('login') }}" style="color: white !important;">Login</a></li>
                 <li> <a href="{{ route('register') }}" style="color: white !important;">Register</a></li>

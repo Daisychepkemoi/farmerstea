@@ -20,24 +20,48 @@ class TeaDetailsController extends Controller
         $this->middleware('auth');
     }
    
-    public function receipt()
+    public function receipt($id)
     {
         $user = auth()->user();
+        $tea = Tea_Details::find($id);
+        // dd($tea);
+
         $notcount = Notification::get()->count();
         $nots = Notification::latest()->paginate(3);
+        $user_id = Tea::where('tea_no', $tea->tea_no)->pluck('user_id');
+        $username = User::where('id', $user_id)->first();
+        $teadetails = Tea_Details::whereDate('created_at', Carbon::today())->orderBy('created_at', 'desc')->paginate(5);
 
-        $teadetails = Tea_Details::whereDate('created_at', Carbon::today())->orderBy('created_at','desc')->paginate(5);
-         $pdf = PDF::loadView('docs.receipt', compact('user', 'notcount', 'teadetails', 'nots')); ;       
-         return $pdf->download( 'DailyReceipt.pdf');
-         return redirect('/addteaproduce');
-        }
+        // $pdf = PDF::loadView('docs.receipt', compact('user', 'notcount', 'teadetails','tea', 'nots','username'));
+        return view('docs.receipt', compact('user', 'notcount', 'teadetails', 'tea', 'nots', 'username'));
+        // return redirect('/addteaproduce');
+    }
+    public function printreceipt($id)
+    {
+        $user = auth()->user();
+        $tea = Tea_Details::find($id);
+        // dd($tea);
+
+        $notcount = Notification::get()->count();
+        $nots = Notification::latest()->paginate(3);
+        $user_id = Tea::where('tea_no', $tea->tea_no)->pluck('user_id');
+        $username = User::where('id', $user_id)->first();
+        $teadetails = Tea_Details::whereDate('created_at', Carbon::today())->orderBy('created_at', 'desc')->paginate(5);
+        // dd('hae');
+
+        $pdf = PDF::loadView('docs.receipt', compact('user', 'notcount', 'teadetails', 'tea', 'nots', 'username'));
+        return $pdf->download('DailyReceipt'.$tea->receipt_no.'pdf');
+  
+        // return view( 'docs.receipt', compact('user', 'notcount', 'teadetails','tea', 'nots','username'));
+         // return redirect('/addteaproduce');
+    }
     public function index()
     {
         $user = auth()->user();
         $notcount = Notification::get()->count();
         $nots = Notification::latest()->paginate(3);
 
-        $teadetails = Tea_Details::whereDate('created_at', Carbon::today())->latest()->paginate(5);
+        $teadetails = Tea_Details::whereDate('created_at', Carbon::today())->where('offered_by',$user->f_name)->latest()->paginate(5);
         return view('admin.addteaproduce', compact('user', 'notcount', 'teadetails', 'nots'));
     }
 
@@ -45,11 +69,12 @@ class TeaDetailsController extends Controller
     {
         $user = auth()->user();
         $notcount = Notification::get()->count();
-        $teaproduce = Tea_Details::whereDate('created_at', Carbon::today())->paginate(31);
-        $totalkg = Tea_Details::whereDate('created_at', Carbon::today())->sum('net_weight');
+        $teaproduce = Tea_Details::whereDate('created_at', Carbon::today())->where('offered_by', $user->f_name)->paginate(31);
+        $totalkg = Tea_Details::whereDate('created_at', Carbon::today())->where('offered_by', $user->f_name)->sum('net_weight');
         $nots = Notification::latest()->paginate(3);
+        $day = Carbon::today();
 
-        return view('agent.viewdailyreport', compact('user', 'notcount', 'teaproduce', 'totalkg', 'nots'));
+        return view('agent.viewdailyreport', compact('user', 'notcount', 'day', 'teaproduce', 'totalkg', 'nots'));
     }
     public function sort()
     {
@@ -62,32 +87,67 @@ class TeaDetailsController extends Controller
         $nyear = date('y', strtotime($yearentered));
         $nots = Notification::latest()->paginate(3);
 
-
         if (request('location') == 'All Regions') {
-            if(request('month') == 'All'){
-             $totalkg = Tea_Details::whereYear('date_offered', request('year'))->sum('net_weight');
-             $teaproduce=Tea_Details::whereYear('date_offered', request('year'))->orderBy('date_offered', 'asc')->get();
-            return view('agent.viewdailyreport', compact('user', 'notcount', 'teaproduce', 'totalkg', 'nots'));
-           } else{
-            $totalkg = Tea_Details::whereYear('date_offered', request('year'))->whereMonth('date_offered', $nmonth)->sum('net_weight');
-            $teaproduce=Tea_Details::whereYear('date_offered', request('year'))->whereMonth('date_offered', $nmonth)->orderBy('date_offered', 'asc')->get();
-              return view('agent.viewdailyreport', compact('user', 'notcount', 'teaproduce', 'totalkg', 'nots'));
-           }
+            if (request('month') == 'All') {
+                if (request('tea_no') == '') {
+                    $totalkg = Tea_Details::whereYear('date_offered', request('year'))->where('offered_by', $user->f_name)->sum('net_weight');
+                    // dd($totalkg);
+                    $day = 'All regions for the year : '.request('year');
+
+                    $teaproduce=Tea_Details::whereYear('date_offered', request('year'))->where('offered_by', $user->f_name)->orderBy('created_at', 'desc')->get();
+                    // dd($teaproduce);
+                    return view('agent.viewdailyreport', compact('user', 'notcount', 'day', 'teaproduce', 'totalkg', 'nots'));
+                } else {
+                    $day = ' Tea Number : '.request('tea_no'). '  for the year : '.request('year');
+
+                    $totalkg = Tea_Details::whereYear('date_offered', request('year'))->where('offered_by', $user->f_name)->where('tea_no', request('tea_no'))->sum('net_weight');
+                    // dd($totalkg);
+
+                    $teaproduce=Tea_Details::whereYear('date_offered', request('year'))->where('tea_no', request('tea_no'))->where('offered_by', $user->f_name)->orderBy('created_at', 'desc')->get();
+                    return view('agent.viewdailyreport', compact('user', 'notcount', 'day', 'teaproduce', 'totalkg', 'nots'));
+                }
+            } else {
+                if (request('tea_no') == '') {
+                    $day = 'All regions for the year : '.request('year'). ' and Month : '.request('month');
+                    $totalkg = Tea_Details::whereYear('date_offered', request('year'))->whereMonth('date_offered', $nmonth)->where('offered_by', $user->f_name)->sum('net_weight');
+                    $teaproduce=Tea_Details::whereYear('date_offered', request('year'))->whereMonth('date_offered', $nmonth)->where('offered_by', $user->f_name)->orderBy('created_at', 'desc')->get();
+                    return view('agent.viewdailyreport', compact('user', 'notcount', 'day', 'teaproduce', 'totalkg', 'nots'));
+                } else {
+                    $day = ' Tea Number : '.request('tea_no'). '  for the year : '.request('year').'  and Month: '.request('month');
+
+                    $totalkg = Tea_Details::whereYear('date_offered', request('year'))->whereMonth('date_offered', $nmonth)->where('offered_by', $user->f_name)->sum('net_weight');
+                    $teaproduce=Tea_Details::whereYear('date_offered', request('year'))->whereMonth('date_offered', $nmonth)->where('offered_by', $user->f_name)->orderBy('created_at', 'desc')->get();
+                    return view('agent.viewdailyreport', compact('user', 'notcount', 'day', 'teaproduce', 'totalkg', 'nots'));
+                }
+            }
         } else {
-            if(request('month') == 'All'){
-            $tea_no = Tea::where('location', request('location'))->where('tea_no', '!=', null)->pluck('tea_no');
-            $totalkg = Tea_Details::whereYear('date_offered', request('year'))->whereIn('tea_no', $tea_no)->sum('net_weight');
-            $teaproduce=Tea_Details::whereYear('date_offered', request('year'))->whereIn('tea_no', $tea_no)->orderBy('date_offered', 'asc')->get();
-            return view('agent.viewdailyreport', compact('user', 'notcount', 'teaproduce', 'totalkg', 'nots'));
-        }else{
-             $tea_no = Tea::where('location', request('location'))->where('tea_no', '!=', null)->pluck('tea_no');
-            $totalkg = Tea_Details::whereYear('date_offered', request('year'))->whereMonth('date_offered', $nmonth)->whereIn('tea_no', $tea_no)->sum('net_weight');
-            $teaproduce=Tea_Details::whereYear('date_offered', request('year'))->whereMonth('date_offered', $nmonth)->whereIn('tea_no', $tea_no)->orderBy('date_offered', 'asc')->get();
-            return view('agent.viewdailyreport', compact('user', 'notcount', 'teaproduce', 'totalkg', 'nots'));
+            if (request('month') == 'All') {
+                if (request('tea_no') == '') {
+                    $day = request('location').'  for the year : '.request('year');
 
-          }  
+                    $tea_no = Tea::where('location', request('location'))->where('tea_no', '!=', null)->pluck('tea_no');
+                    // dd($tea_no);
+                    $totalkg = Tea_Details::whereYear('date_offered', request('year'))->whereIn('tea_no', $tea_no)->where('offered_by', $user->f_name)->sum('net_weight');
+                    $teaproduce=Tea_Details::whereYear('date_offered', request('year'))->whereIn('tea_no', $tea_no)->where('offered_by', $user->f_name)->orderBy('created_at', 'desc')->get();
+                    // dd($teaproduce);
+                    return view('agent.viewdailyreport', compact('user', 'day', 'notcount', 'teaproduce', 'totalkg', 'nots'));
+                } else {
+                    // $tea_no = Tea::where('location', request('location'))->where('tea_no', '!=', null)->pluck('tea_no');
+                     $day = request('location').'  for the year : '.request('year').'  and tea number = '.request('tea_no') ;
+
+                    $totalkg = Tea_Details::whereYear('date_offered', request('year'))->where('tea_no', request('tea_no'))->where('offered_by', $user->f_name)->sum('net_weight');
+                    $teaproduce=Tea_Details::whereYear('date_offered', request('year'))->where('tea_no', request('tea_no'))->where('offered_by', $user->f_name)->orderBy('created_at', 'desc')->get();
+                    return view('agent.viewdailyreport', compact('user', 'notcount','day', 'teaproduce', 'totalkg', 'nots'));
+                }
+            } else {
+                // $tea_no = Tea::where('location', request('location'))->where('tea_no', '!=', null)->pluck('tea_no');
+                $day = request('location').'  for the year : '.request('year').' '.request('month').'   and tea number = '.request('tea_no') ;
+
+                $totalkg = Tea_Details::whereYear('date_offered', request('year'))->whereMonth('date_offered', $nmonth)->where('tea_no', request('tea_no'))->where('offered_by', $user->f_name)->sum('net_weight');
+                $teaproduce=Tea_Details::whereYear('date_offered', request('year'))->whereMonth('date_offered', $nmonth)->where('tea_no', request('tea_no'))->where('offered_by', $user->f_name)->orderBy('created_at', 'desc')->get();
+                return view('agent.viewdailyreport', compact('user', 'notcount','day', 'teaproduce', 'totalkg', 'nots'));
+            }
         }
-
     }
     public function store(Request $request)
     {
@@ -95,18 +155,18 @@ class TeaDetailsController extends Controller
         // dd($status);
         if (($teano== null)) {
             return redirect('/addteaproduce')->with('warning', ' This Tea number does not exist in our records');
-        } else{
+        } else {
             $user= auth()->user();
             $users =$user->id;
             $notcount = Notification::get()->count();
-            $total = Tea_Details::where('tea_no', $request->tea_no)->latest()->first();
-            $status = User::where('id',$teano->user_id)->first();
+            $total = Tea_Details::where('tea_no', $request->tea_no)->whereMonth('date_offered', Carbon::now()->month)->latest()->first();
+            $status = User::where('id', $teano->user_id)->first();
 
-          if($status->verifiedadmin == 'revoked'){
-            return redirect('/addteaproduce')->with('warning', ' This Tea number has been revoked');
-        }
+            if ($status->verifiedadmin == 'revoked') {
+                return redirect('/addteaproduce')->with('warning', ' This Tea number has been revoked');
+            }
             // dd($total->total_as_at_day);
-             else if ($total == null) {
+            elseif ($total == null) {
                 $date= date('Ymd');
                 $rand=strtoupper(substr(uniqid(sha1(time())), 0, 4));
 
@@ -145,14 +205,13 @@ class TeaDetailsController extends Controller
             
         ]);
             }
-            $user_id = Tea::where('tea_no', $tea->tea_no)->pluck('user_id');
-            $username = User::where('id', $user_id)->first();
-             $teadetails = Tea_Details::whereDate('created_at', Carbon::today())->orderBy('created_at','desc')->paginate(5);
-             $pdf = PDF::loadView('docs.receipt', compact('user', 'notcount', 'teadetails','tea', 'nots','username'));     
+            // $user_id = Tea::where('tea_no', $tea->tea_no)->pluck('user_id');
+            // $username = User::where('id', $user_id)->first();
+            //  $teadetails = Tea_Details::whereDate('created_at', Carbon::today())->orderBy('created_at','desc')->paginate(5);
+            //  // $pdf = PDF::loadView('docs.receipt', compact('user', 'notcount', 'teadetails','tea', 'nots','username'));
              
-             return $pdf->download( 'DailyReceipt'.$tea->receipt_no.'pdf');
 
-            return redirect('/addteaproduce')->with('success','tea details added successfully');
+            return redirect('/addteaproduce')->with('success', 'tea details added successfully');
         }
     }
     public function editteaproduce($id)
@@ -161,7 +220,7 @@ class TeaDetailsController extends Controller
         $notcount = Notification::get()->count();
         $teaproduce = Tea_Details::find($id);
         // $teadetails = Tea_Details::whereDate('created_at', Carbon::today())->get();
-                $teadetails = Tea_Details::orderBy('created_at','desc')->paginate(15);
+        $teadetails = Tea_Details::orderBy('created_at', 'desc')->paginate(15);
 
         $nots = Notification::latest()->paginate(3);
 
@@ -176,47 +235,73 @@ class TeaDetailsController extends Controller
         $tea = Tea_Details::find($id);
         $tea_no = $request->get('tea_no');
         $total = Tea_Details::where('tea_no', $request->tea_no)->latest()->first();
-         $teano = Tea::where('tea_no', $request->tea_no)->first();
+        $teano = Tea::where('tea_no', $request->tea_no)->first();
 
-         if (($teano== null)) {
-            return redirect()->back()->with('warning', ' This Tea number does not exist in our records');
-        }
-        else{
-          $status = User::where('id',$teano->user_id)->first();
+        if (($teano== null)) {
+            return redirect()->back()->with('warning', ' The Tea number: '.request('tea_no').' does not exist in our records');
+        } else {
+            $status = User::where('id', $teano->user_id)->first();
 
             if ($status->verifiedadmin == 'revoked') {
-        return redirect()->back()->with('warning', ' This Tea number revoked !!');
+                return redirect()->back()->with('warning', ' This Tea number revoked !!');
+            } elseif (!($tea_no == $tea->tea_no)) {
+                $date = Tea_Details::where('created_at', '<', $tea->created_at)->where('tea_no', $tea_no)->whereMonth('date_offered', Carbon::now()->month)->orderBy('created_at', 'desc')->first();
 
-        }
-        else if (!($tea_no == $tea->tea_no)) {
-            $date = Tea_Details::where('created_at', '<', $tea->created_at)->where('tea_no', $tea_no)->orderBy('created_at','desc')->first();
+                if ($date == null) {
+                    $totalday =  $net;
+                    $tea->tea_no = $tea_no;
+                    $tea->gross_weight = $request->get('gross_weight');
+                    $tea->net_weight = $net;
+                    $tea->total_as_at_day = $totalday;
+                    $tea->offered_by = auth()->user()->f_name;
+                    $tea->save();
+                    $teas = Tea_Details::groupBy('tea_no')->pluck('tea_no');
+                    // dd($teas);
+                    $netmonth=Tea_Details::whereIn('tea_no', $teas)->get();
+                    // dd($netmonth);
+                    foreach ($netmonth as $net) {
+                        $total = Tea_Details::where('id', $net->id)->first();
+                        $totalprev = Tea_Details::where('id', '<', $net->id)->whereMonth('date_offered', Carbon::now()->month)->where('tea_no', $net->tea_no)->latest()->first();
+                        if ($totalprev == null) {
+                            $total_as_at_day = $total->net_weight + 0;
+                            DB::table('tea__details')->whereMonth('date_offered', Carbon::now()->month)->where('id', $net->id)->update(['total_as_at_day' => $total_as_at_day,'updated_at' => now()]);
+                        } else {
+                            $total_as_at_day = $total->net_weight + $totalprev->total_as_at_day;
 
-            if ($date == null) {
-                $totalday =  $net;
-                $tea->tea_no = $tea_no;
-                $tea->gross_weight = $request->get('gross_weight');
-                $tea->net_weight = $net;
-                $tea->total_as_at_day = $totalday;
-                $tea->offered_by = auth()->user()->f_name;
-                $tea->save();
-                $teas = Tea_Details::groupBy('tea_no')->pluck('tea_no');
-                // dd($teas);
-                $netmonth=Tea_Details::whereIn('tea_no', $teas)->get();
-                // dd($netmonth);
-                foreach ($netmonth as $net) {
-                    $total = Tea_Details::where('id', $net->id)->first();
-                    $totalprev = Tea_Details::where('id', '<', $net->id)->where('tea_no', $net->tea_no)->latest()->first();
-                    if ($totalprev == null) {
-                        $total_as_at_day = $total->net_weight + 0;
-                        DB::table('tea__details')->where('id', $net->id)->update(['total_as_at_day' => $total_as_at_day,'updated_at' => now()]);
-                    } else {
-                        $total_as_at_day = $total->net_weight + $totalprev->total_as_at_day;
+                            DB::table('tea__details')->where('id', $net->id)->whereMonth('date_offered', Carbon::now()->month)->update(['total_as_at_day' => $total_as_at_day,'updated_at' => now()]);
+                        }
+                    }
+                } else {
+                    $totalday = $date->total_as_at_day + $net;
+                    $tea->tea_no = $tea_no;
+                    $tea->gross_weight = $request->get('gross_weight');
+                    $tea->net_weight = $net;
+                    $tea->total_as_at_day = $totalday;
+                    $tea->offered_by = auth()->user()->f_name;
+                    $tea->save();
+                    $teas = Tea_Details::groupBy('tea_no')->pluck('tea_no');
+                    $netmonth=Tea_Details::whereIn('tea_no', $teas)->get();
+                    foreach ($netmonth as $net) {
+                        $total = Tea_Details::where('id', $net->id)->first();
+                        $totalprev = Tea_Details::where('id', '<', $net->id)->whereMonth('date_offered', Carbon::now()->month)->where('tea_no', $net->tea_no)->latest()->first();
+                        if ($totalprev == null) {
+                            $total_as_at_day = $total->net_weight + 0;
+                            DB::table('tea__details')->where('id', $net->id)->whereMonth('date_offered', Carbon::now()->month)->update(['total_as_at_day' => $total_as_at_day,'updated_at' => now()]);
+                        } else {
+                            $total_as_at_day = $total->net_weight + $totalprev->total_as_at_day;
 
-                        DB::table('tea__details')->where('id', $net->id)->update(['total_as_at_day' => $total_as_at_day,'updated_at' => now()]);
+                            DB::table('tea__details')->where('id', $net->id)->whereMonth('date_offered', Carbon::now()->month)->update(['total_as_at_day' => $total_as_at_day,'updated_at' => now()]);
+                        }
                     }
                 }
             } else {
-                $totalday = $date->total_as_at_day + $net;
+                $date = Tea_Details::where('created_at', '<', $tea->created_at)->whereMonth('date_offered', Carbon::now()->month)->where('tea_no', $tea_no)->latest()->first();
+                // dd($date);
+                if ($date == null) {
+                    $totalday =  $net;
+                } else {
+                    $totalday = $date->total_as_at_day + $net;
+                }
                 $tea->tea_no = $tea_no;
                 $tea->gross_weight = $request->get('gross_weight');
                 $tea->net_weight = $net;
@@ -227,58 +312,25 @@ class TeaDetailsController extends Controller
                 $netmonth=Tea_Details::whereIn('tea_no', $teas)->get();
                 foreach ($netmonth as $net) {
                     $total = Tea_Details::where('id', $net->id)->first();
-                    $totalprev = Tea_Details::where('id', '<', $net->id)->where('tea_no', $net->tea_no)->latest()->first();
+                    $totalprev = Tea_Details::where('id', '<', $net->id)->whereMonth('date_offered', Carbon::now()->month)->where('tea_no', $net->tea_no)->latest()->first();
                     if ($totalprev == null) {
                         $total_as_at_day = $total->net_weight + 0;
-                        DB::table('tea__details')->where('id', $net->id)->update(['total_as_at_day' => $total_as_at_day,'updated_at' => now()]);
+                        DB::table('tea__details')->where('id', $net->id)->whereMonth('date_offered', Carbon::now()->month)->update(['total_as_at_day' => $total_as_at_day,'updated_at' => now()]);
                     } else {
                         $total_as_at_day = $total->net_weight + $totalprev->total_as_at_day;
 
-                        DB::table('tea__details')->where('id', $net->id)->update(['total_as_at_day' => $total_as_at_day,'updated_at' => now()]);
+                        DB::table('tea__details')->where('id', $net->id)->whereMonth('date_offered', Carbon::now()->month)->update(['total_as_at_day' => $total_as_at_day,'updated_at' => now()]);
                     }
                 }
             }
-        } else {
-            $date = Tea_Details::where('created_at', '<', $tea->created_at)->where('tea_no', $tea_no)->latest()->first();
-            // dd($date);
-            if($date == null){
-                 $totalday =  $net;
-
-            }
-            else{
-              $totalday = $date->total_as_at_day + $net;
-
-            }
-            $tea->tea_no = $tea_no;
-            $tea->gross_weight = $request->get('gross_weight');
-            $tea->net_weight = $net;
-            $tea->total_as_at_day = $totalday;
-            $tea->offered_by = auth()->user()->f_name;
-            $tea->save();
-            $teas = Tea_Details::groupBy('tea_no')->pluck('tea_no');
-            $netmonth=Tea_Details::whereIn('tea_no', $teas)->get();
-            foreach ($netmonth as $net) {
-                $total = Tea_Details::where('id', $net->id)->first();
-                $totalprev = Tea_Details::where('id', '<', $net->id)->where('tea_no', $net->tea_no)->latest()->first();
-                if ($totalprev == null) {
-                    $total_as_at_day = $total->net_weight + 0;
-                    DB::table('tea__details')->where('id', $net->id)->update(['total_as_at_day' => $total_as_at_day,'updated_at' => now()]);
-                } else {
-                    $total_as_at_day = $total->net_weight + $totalprev->total_as_at_day;
-
-                    DB::table('tea__details')->where('id', $net->id)->update(['total_as_at_day' => $total_as_at_day,'updated_at' => now()]);
-                }
-            }
+            // $user_id = Tea::where('tea_no', $tea->tea_no)->pluck('user_id');
+            //     $username = User::where('id', $user_id)->first();
+            //      $teadetails = Tea_Details::whereDate('created_at', Carbon::today())->orderBy('created_at','desc')->paginate(5);
+            //      $pdf = PDF::loadView('docs.receipt', compact('user', 'notcount', 'teadetails','tea', 'nots','username'));
+            //      // dd($pdf);
+            return redirect('/addteaproduce')->with('success', 'Tea Details Edited Successfully');
         }
-        $user_id = Tea::where('tea_no', $tea->tea_no)->pluck('user_id');
-            $username = User::where('id', $user_id)->first();
-             $teadetails = Tea_Details::whereDate('created_at', Carbon::today())->orderBy('created_at','desc')->paginate(5);
-             $pdf = PDF::loadView('docs.receipt', compact('user', 'notcount', 'teadetails','tea', 'nots','username')); 
-             // dd($pdf);      
-             return $pdf->download( $tea->receipt_no.'DailyReceipt.pdf');
-        return redirect('/addteaproduce')->with('success', 'Tea Details Edited Successfully');
     }
-}
 
     /**
      * Update the specified resource in storage.
