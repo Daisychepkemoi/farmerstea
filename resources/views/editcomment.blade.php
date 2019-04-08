@@ -156,11 +156,6 @@ width: 75%;    }
                       {{ session('success') }}
                     </div>
                     @endif
-                     @if (session()->has('danger'))
-                     <div class="alert alert-danger" style="text-transform:normal; background: red !important; color:white ; ">
-                      {{ session('danger') }}
-                    </div>
-                    @endif
             <div class="well well-sm">
                 <div class="form-group">
                     <div class="input-group input-group-md">
@@ -194,10 +189,10 @@ width: 75%;    }
                 </div>
                  <div class="" style="background-color: ; height: 200px;">
                                 <button class="btn-primary center-block" style="width:200px;">Comment</button>
-                            <form class="" method="POST" action="/post/{{$posts->id}}/comment/">
+                            <form class="" method="POST" action="/post/{{$posts->id}}/comment/edit/{{$comment->id}}">
                             @csrf  
-                                <textarea class="form-control center-block" name="body" style="width: 650px; height:150px;">  </textarea>
-                                <button class="btn-success center-block" style="width: 100px"> Post </button>
+                                <textarea class="form-control center-block" name="body" style="width: 650px; height:150px;"> {{$comment->body}} </textarea>
+                                <button class="btn-success center-block" style="width: 100px" onclick="return confirm('Are You Sure You want to Edit?')"> Save </button>
                             </form>   
                             </div>
                 <br>
@@ -232,7 +227,7 @@ width: 75%;    }
                                 <p class="text-right" style="margin-right: 100px; font-weight: 500;">Commented  {{ \Carbon\Carbon::parse($comment->created_at)->diffForHumans() }}</p>
                                 @auth
                                 @if(auth()->user()->id == $comment->user_id)
-                                <p style="float: right; "><a href="/post/{{$posts->id}}/comment/editview/{{$comment->id}}" style="padding-right: 20px; margin-right: 20px;" onclick="return confirm('Are You Sure You want to Delete Comment?' )" >Edit</a> <a href="/post/{{$posts->id}}/comment/delete/{{$comment->id}}" style="padding-right: 20px; margin-right: 20px;" onclick="return confirm('Are You Sure You want to Delete Comment?' )">Delete</a></p>
+                                <p style="float: right; "><a href="/post/{id}/comment/edit/{{$comment->id}}" style="padding-right: 20px; margin-right: 20px;">Edit</a> <a href="/post/{id}/comment/delete/{{$comment->id}}" style="padding-right: 20px; margin-right: 20px;">Delete</a></p>
                                 @endif
                                 @endauth
                             </div>

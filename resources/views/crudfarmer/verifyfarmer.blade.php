@@ -8,18 +8,43 @@
         <div class="panel panel-default">
             <div class="panel-heading " id="panelhead">
                
-                <div class="end">
+                <hr>
+            <div class="panel-body"  style="background:; min-height: 150px;">
+               <section class="search-sec">
+                <div class="container">
+                    <form action="/admin/verifyfarmer/sort" method="post" novalidate="novalidate">
+                      @csrf
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="row">
+                                
+                                 
+                                    <div class="col-md-8 p-0" style="background-color: ;">
+                                      <input type="text" class="form-control search-slt text-center" placeholder="Tea Number" id="select1" name="name"  value="{{ request()->input('name')}}" style="width: 100%;">
+                                    </div>
+                            <script type="text/javascript">
+                            
+                          $('#select1').on('input', function() {
 
-                   {{--  <p>
-                        <a href="{{ route('generate',['download'=>'pdf']) }}" download >
-                            <i> 
-                                <img src="{{ URL::to('image/Downloads.ico') }}" title="Download">
-                            </i>
-
-                        </a>
-                    </p> --}}
-                    <p class="report"><button class="btn-success"><a href="/farmers">Generate Report</a></button></p>
+                             if($(this).val().length)
+                                $('#select2').prop('disabled', true);
+                             else
+                                $('#select2').prop('disabled', false);
+                          });
+                          </script>
+                                   
+                                    
+                                    <div class="col-md-4  p-0" style="background-color: ;">
+                                        <input name="submit" class="form-control search-slt" type="submit" id="wrn-btn" class="btn btn-danger search-salt" style="width: 100%; margin-left:-4%; background-color: #d9534f; color: white; text-transform: uppercase; border-width: 0px;">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
                 </div>
+            </section>     
+            </div>
+            <hr>
             </div>
             
            

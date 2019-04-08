@@ -238,7 +238,7 @@
                                 </form>
                             </div>
                         </li> --}}
-                        <li>
+                     {{--    <li>
                      <form action="/search" method="POST" >
                         @csrf
                   <div class="searchbar">
@@ -250,7 +250,7 @@
                     
                 </form>
                 </li>
-                      
+ --}}                      
                        
          </ul>
      </div>
@@ -271,7 +271,7 @@
 
                 <li> <a href="{{ route('login') }}" style="color: white !important;">Login</a></li>
                 <li> <a href="{{ route('register') }}" style="color: white !important;">Register</a></li>
-                 <li>
+                {{--  <li>
                      <form action="/search" method="POST" >
                         @csrf
                   <div class="searchbar">
@@ -282,7 +282,7 @@
                     </div>
                     
                 </form>
-                </li>
+                </li> --}}
            
             </ul>
         </div>

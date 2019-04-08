@@ -32,16 +32,16 @@
                                                 <option>Sosit</option>
                                         </select>
                                     </div>
-  <script type="text/javascript">
-  
-$('#select1').on('input', function() {
+                            <script type="text/javascript">
+                            
+                          $('#select1').on('input', function() {
 
-   if($(this).val().length)
-      $('#select2').prop('disabled', true);
-   else
-      $('#select2').prop('disabled', false);
-});
-</script>
+                             if($(this).val().length)
+                                $('#select2').prop('disabled', true);
+                             else
+                                $('#select2').prop('disabled', false);
+                          });
+                          </script>
                                     <div class="col-lg-3 col-md-2 col-sm-12 p-0">
                                        <select class="form-control search-slt" id="exampleFormControlSelect1" name="year">
                                                <option>2019</option>

@@ -138,6 +138,7 @@ class PostsController extends Controller
        
         return redirect('/blog')->with('success', 'Post Deleted successfully');
     }
+
     public function commentstore(Request $request, $id)
     {
         $user = auth()->user();
@@ -157,5 +158,43 @@ class PostsController extends Controller
         // $comments = Comments::where('post_id',$id)->orderBy('created_at','DESC')->get();
         $comments = DB::table('users')->join('comments', 'users.id', '=', 'comments.user_id')->where('comments.post_id', $id)->select('users.f_name', 'users.l_name', 'comments.*', 'comments.created_at as come')->orderBy('comments.created_at', 'desc')->get();
         return view('postid', compact('posts', 'comments','auth', 'nots', 'user'))->with('success','Comment Posted Successfully');
+    }
+     public function commentdelete($id,$comment)
+    {
+
+        DB::table('comments')->where('id', $comment)->delete();   
+           
+       
+        return redirect('/post/'.$id)->with('danger', 'Post Deleted successfully');
+    }
+    public function commenteditview($id,$comment, Request $request)
+    {
+            $user = auth()->user();
+
+        $posts = Posts::find($id);
+      
+        
+       $auth = Posts::where('id', $id)->first();
+       $comment = Comments::where('id', $comment)->first();
+
+        // $comments = Comments::where('post_id',$id)->orderBy('created_at','DESC')->get();
+        $comments = DB::table('users')->join('comments', 'users.id', '=', 'comments.user_id')->where('comments.post_id', $id)->select('users.f_name', 'users.l_name', 'comments.*', 'comments.created_at as come')->orderBy('comments.created_at', 'desc')->get();
+        return view('editcomment', compact('posts', 'comments','auth', 'nots','','comment', 'user'))->with('success','Comment Posted Successfully');
+    }
+     public function commentedit($id,$comment, Request $request)
+    {
+            $comments = Comments::find($comment);
+
+            // $comment->user_id = $user->id;
+
+        $comments->body = request('body');
+          //
+        // $comment->post_id = $posts->id;
+        $comments->save();
+        // dd($comments);
+
+           
+       
+        return redirect('/post/'.$id)->with('success', 'Post Edited successfully');
     }
 }

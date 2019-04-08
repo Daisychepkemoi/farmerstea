@@ -259,6 +259,42 @@ class AdminsController extends Controller
         // dd($farmers);
         return view('crudfarmer.verifyfarmer', compact('user', 'notcount', 'farmers', 'farmerver', 'rejected', 'tea_no', 'revokedfarmer','nots'));
     }
+     public function verifyfarmersort(Request $request)
+    {
+        $user = auth()->user();
+        $notcount = Notification::get()->count();
+                          $nots = Notification::latest()->paginate(3);
+
+         $farmers = DB::table('users')->join('teas','users.id','=', 'teas.user_id')->select('users.*','teas.tea_no')->where('users.verifiedadmin','notverified')->where('role','user')->where(function($query){
+            $query->where('users.f_name','like','%'.request('name').'%')->orWhere('users.l_name','like','%'.request('name').'%')->orWhere('users.email','like','%'.request('name').'%')->orWhere('users.national_id','like','%'.request('name').'%');
+        })->orderBy('updated_at','desc')->paginate(15);
+
+ // DB::table('stocks')
+ //            ->select('name', 'company_name', 'exchange_name')
+ //            ->where(function($query) use ($name) {
+ //                $query->where('name', 'like', '%' . $name . '%')
+ //                ->orWhere('company_name', 'like', '%' . $name . '%');
+ //            })
+ //            ->Where('status', '=', 1)
+ //            ->limit(20)
+ //            ->get();
+
+
+        $rejected = User::where('verifiedadmin', 'denied')->where('role', 'user')->where('created_by', 'user')->where(function($query){
+            $query->where('users.f_name','like','%'.request('name').'%')->orWhere('users.l_name','like','%'.request('name').'%')->orWhere('users.email','like','%'.request('name').'%')->orWhere('users.national_id','like','%'.request('name').'%');
+        })->orderBy('updated_at', 'DESC')->paginate(15);
+       
+        // dd($rejected);
+        $farmerver = DB::table('users')->join('teas','users.id','=', 'teas.user_id')->select('users.*','teas.tea_no')->where('users.verifiedadmin','verified')->where('role','user')->where(function($query){
+            $query->where('users.f_name','like','%'.request('name').'%')->orWhere('users.l_name','like','%'.request('name').'%')->orWhere('users.email','like','%'.request('name').'%')->orWhere('users.national_id','like','%'.request('name').'%');
+        })->orderBy('updated_at','desc')->paginate(15);
+        // dd($farmerver);
+            $revokedfarmer = DB::table('users')->join('teas','users.id','=', 'teas.user_id')->select('users.*','teas.tea_no')->where('users.verifiedadmin','revoked')->where(function($query){
+            $query->where('users.f_name','like','%'.request('name').'%')->orWhere('users.l_name','like','%'.request('name').'%')->orWhere('users.email','like','%'.request('name').'%')->orWhere('users.national_id','like','%'.request('name').'%');
+        })->orderBy('updated_at','desc')->paginate(15);
+        // dd($farmers);
+        return view('crudfarmer.verifyfarmer', compact('user', 'notcount', 'farmers', 'farmerver', 'rejected', 'tea_no', 'revokedfarmer','nots'));
+    }
     public function verifyfarmer($id, Request $request)
     {
         $user = auth()->user();

@@ -67,6 +67,7 @@ Route::get('/admin/viewnotification/{id}', 'AdminsController@viewnotificationid'
 Route::get('/admin/viewprofile', 'AdminsController@profile');
 Route::get('/admin/upgradefarmer', 'AdminsController@upgradefarmer');
 Route::get('/admin/verifyfarmer', 'AdminsController@verifyfarmer');
+Route::post('/admin/verifyfarmer/sort', 'AdminsController@verifyfarmersort');
 Route::get('/admin/verifyfarmer/{id}', 'AdminsController@verifyfarmer');
 Route::get('/admin/notverifyfarmer/{id}', 'AdminsController@denyfarmer');
 Route::get('/admin/revokefarmer/{id}', 'AdminsController@revokefarmer');
@@ -102,7 +103,10 @@ Route::post('/back', 'PostsController@backa')->name('back');
 Route::post('/email', 'PostsController@email');
 
 Route::post('/post/{id}/comment', 'PostsController@commentstore');
-//contact us
+Route::post('/post/{id}/comment/edit/{comment}', 'PostsController@commentedit');
+Route::get('/post/{id}/comment/editview/{comment}', 'PostsController@commenteditview');
+Route::get('/post/{id}/comment/delete/{comment}', 'PostsController@commentdelete');
+//contact us   /post/{{$posts->id}}/comment/edit/{{$comment->id}}"
 Route::post('/contactus', 'AdminsController@contactus');
 
 
